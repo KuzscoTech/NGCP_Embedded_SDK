@@ -1,4 +1,4 @@
-# NGCP 2021-2022 Embedded Documentation
+# NGCP 2021-2022 Embedded 
 
 <h1> Files in this Repository </h1>
 
