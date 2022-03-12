@@ -2,12 +2,10 @@
 
 <h1> Files in this Repository </h1>
 
-__/DigilentIP__
+__/ip__
 
-Contains PmodGPS IP as well as dependencies such as AXI bridges and interface definitions.
+Validated peripheral IP.
 
-__/HCSR04Bz_1.0__
 
-Ultrasonic sensor HCSR04 IP. Packaged with custom driver. 
 
 
