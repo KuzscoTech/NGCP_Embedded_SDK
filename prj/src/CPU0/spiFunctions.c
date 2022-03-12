@@ -9,7 +9,7 @@
  * @return    XST_SUCCESS if successful, else XST_FAILURE.
  * @note      None.
  */
-static int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
+int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
 		            u16 SpiDeviceId, u16 SpiIntrId)
 {
 	XSpi_Config *ConfigPtr;
@@ -68,7 +68,7 @@ static int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstanc
 	//Register the interrupt controller handler with the exception table
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 			                     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-								 (void *)&IntcInstance);
+								IntcInstancePtr);
 	Xil_ExceptionEnable();
 
 	return XST_SUCCESS;
@@ -86,10 +86,10 @@ static int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstanc
  * @note      None.
  *
  */
-static void SpiHandler(void *CallBackRef, u32 StatusEvent)
+void SpiHandler(void *CallBackRef, u32 StatusEvent, _Bool* TransferInProgress)
 {
 	if(StatusEvent == XST_SPI_TRANSFER_DONE) {
-		TransferInProgress = FALSE;
+		*TransferInProgress = FALSE;
 	}
 }
 
@@ -102,10 +102,10 @@ static void SpiHandler(void *CallBackRef, u32 StatusEvent)
  * @return: none
  * @notes:  none
  */
-void clearSpiBuffers(uint8_t* rdBuffer, uint8_t* wrBuffer)
+void clearSpiBuffers(uint8_t* rdBuffer, uint8_t* wrBuffer, int depth)
 {
-	for(int i=0; i<BUFFER_SIZE; i++) {
-		WriteBuffer[i] = 0;
-		ReadBuffer[i] = 0;
+	for(int i=0; i<depth; i++) {
+		rdBuffer[i] = 0;
+		wrBuffer[i] = 0;
 	}
 }

@@ -9,10 +9,10 @@
 
 void spiTest (XSpi* SpiInstancePtr);
 
-static int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
-                    u16 SpiDeviceId, u16 SpiIntrId);
+int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
+		     u16 SpiDeviceId, u16 SpiIntrId);
 
-static void SpiHandler(void *CallBackRef, u32 StatusEvent);
+void SpiHandler(void *CallBackRef, u32 StatusEvent, int* TransferInProgress);
 
-void clearSpiBuffers(uint8_t* rdBuffer, uint8_t* wrBuffer);
+void clearSpiBuffers(uint8_t* rdBuffer, uint8_t* wrBuffer, int depth);
 
