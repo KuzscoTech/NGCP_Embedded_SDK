@@ -41,7 +41,7 @@ int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
     }
 
     ///////////////
-    // TODO: connect interrupt handler
+    // Connect interrupt handler
     Status = XScuGic_Connect(IntcInstancePtr, SpiIntrId,
                             (Xil_ExceptionHandler) XSpi_InterruptHandler,
                             SpiInstancePtr);
@@ -52,8 +52,9 @@ int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
     XScuGic_Enable(IntcInstancePtr, SpiIntrId);
     //////////////
 
-	// Set SPI interrupt handler
-	XSpi_SetStatusHandler(SpiInstancePtr, SpiInstancePtr, (XSpi_StatusHandler) SpiHandler);
+	// TODO: Set SPI interrupt handler
+	XSpi_SetStatusHandler(SpiInstancePtr, SpiInstancePtr, 
+                       (XSpi_StatusHandler)SpiHandler);
 
 	// Start the SPI device
 	XSpi_Start(SpiInstancePtr);
@@ -86,11 +87,9 @@ int SetupSpi(XScuGic *IntcInstancePtr, u32 IntcDeviceId, XSpi *SpiInstancePtr, \
  * @note      None.
  *
  */
-void SpiHandler(void *CallBackRef, u32 StatusEvent, _Bool* TransferInProgress)
+void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 {
-	if(StatusEvent == XST_SPI_TRANSFER_DONE) {
-		*TransferInProgress = FALSE;
-	}
+	
 }
 
 /*
