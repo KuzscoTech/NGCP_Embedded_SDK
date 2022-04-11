@@ -48,7 +48,6 @@ module pwmGen
     begin
         if (en == 1'b0 || pwm_en == 1'b0) begin
             ma_r <= 2'b00;
-            cnt <= 0;
             pulse_out <= 0;
         end
         else

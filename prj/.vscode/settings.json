@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "hcsr04bz.h": "c",
-        "spifunctions.h": "c",
-        "cpu0_intc.h": "c",
-        "xstatus.h": "c",
-        "xil_io.h": "c"
-    }
-}
