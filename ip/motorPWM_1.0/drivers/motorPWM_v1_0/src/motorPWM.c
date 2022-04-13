@@ -92,6 +92,17 @@ void ugvPwm_setMinPeriod(ugv_pwm *InstancePtr, u16 min)
     InstancePtr->minPeriod = min;
 }
 
+/**
+ * @brief Set the PWM period in clock counts
+ * 
+ * @param InstancePtr is a pointer to the ugv_motor instance.
+ * @param val is the period of the PWM in clock counts
+ */
+void ugvPwm_setPeriod(ugv_pwm *InstancePtr, u16 val)
+{
+    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 12, val);
+    InstancePtr->period = val;
+}
 
 /**
  * @brief Set the scaling value constant
@@ -104,5 +115,42 @@ void ugvPwm_setScaling(ugv_pwm *InstancePtr, u8 scale)
     MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 8, (u32) scale);
     InstancePtr->spdScaling = scale;
 }
+
+/**
+ * @brief Set L298 mode
+ * 
+ * @param InstancePtr is a pointer to the ugv_motor instance.
+ */
+void ugvPwm_setL298Mode(ugv_pwm *InstancePtr) 
+{
+    u32 reg_read;
+    u32 newVal;
+    u32 clearLowOrderBitsMask = ~( ( u32 ) 0x1 );
+    reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, 12);
+    newVal = reg_read & clearLowOrderBitsMask;
+    newVal = newVal | 0x1;
+    //
+    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 12, newVal);
+    InstancePtr->L298Mode = TRUE;
+}
+
+/**
+ * @brief Set IBT2 mode
+ * 
+ * @param InstancePtr is a pointer to the ugv_motor instance.
+ */
+void ugvPwm_setIBT2Mode(ugv_pwm *InstancePtr)
+{
+    u32 reg_read;
+    u32 newVal;
+    u32 clearLowOrderBitsMask = ~( ( u32 ) 0x1 );
+    reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, 12);
+    newVal = reg_read & clearLowOrderBitsMask;
+    //
+    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 12, newVal);
+    InstancePtr->L298Mode = FALSE;
+}
+
+
 
 /************************** Function Definitions ***************************/

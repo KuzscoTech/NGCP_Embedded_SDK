@@ -1,52 +1,98 @@
 `timescale 1ns / 1ps
 //
 module QEI
+    #(parameter RESOLUTION = 9'd12,
+      parameter COUNT_BOTH = 1'b0)
     (
     input logic         clk, // system clock
     input logic         rst,
 
     // Encoder Channels
     input logic         chA, 
+    input logic         chB,
     
-    // 
+    input  logic        position_rst,
+    output logic [8:0]  position,
     output logic [31:0] RPM
     ); 
     
-    logic        past_pulse;
-    logic        present_pulse;
+    logic        past_pulse_A, present_pulse_A;
+    logic        past_pulse_B, present_pulse_B;
     logic [31:0] timer;
     logic [31:0] rev_cnt;
-    logic        posedge_A;
+    logic        posedge_A, negedge_A;
+    logic        posedge_B, negedge_B;
     
-    logic q1_chA, q2_chA, sync_chA;
+    logic q1_chA, sync_chA;
+    logic q1_chB, sync_chB;
 
-    localparam T_1S      = 'd1_000_000_000;
-    localparam T_CLK     = 'd10;
-    localparam TIMER_MAX = T_1S / T_CLK;
+    logic [8:0] nxt_position;
+
+    localparam T_1S      = 'd1_000_000_000; // ns
+    localparam T_CLK     = 'd10;            // ns
+    localparam TIMER_MAX = T_1S / T_CLK;    // clock counts
     localparam TIMER_INC = 'd1;
 
+    localparam RES_FACTOR    = 60 / RESOLUTION;
+    localparam DEG_PER_PULSE = 360 / RESOLUTION;
     
     
+    // Synchronizers
     always_ff@(posedge clk) begin
-    q1_chA   <= chA;
-    q2_chA   <= q1_chA;
-    sync_chA <= q2_chA;
+        {sync_chA, q1_chA} <= {q1_chA, chA};
+        {sync_chB, q1_chB} <= {q1_chB, chB};
     end
 
-    // Detect positive edge of ChA
+    // Detect deges edge of encoder channels
     always_ff@(posedge clk) begin
         if(rst) begin
-            past_pulse    <= 0;
-            present_pulse <= 0;
+            {past_pulse_A, present_pulse_A} <= 2'b0;
+            {past_pulse_B, present_pulse_B} <= 2'b0;
         end
         else begin
-            present_pulse <= sync_chA;
-            past_pulse    <= present_pulse;
+            {past_pulse_A, present_pulse_A} <= {present_pulse_A, sync_chA};
+            {past_pulse_B, present_pulse_B} <= {present_pulse_B, sync_chB};
+            //present_pulse <= sync_chA;
+            //past_pulse    <= present_pulse;
         end 
     end
-    assign posedge_A = (present_pulse == 1) && (past_pulse == 0);
+    assign posedge_A = (present_pulse_A == 1) && (past_pulse_A == 0);
+    assign negedge_A = (present_pulse_A == 0) && (past_pulse_A == 1);
+    assign posedge_B = (present_pulse_B == 1) && (past_pulse_B == 0);
+    assign negedge_B = (present_pulse_B == 0) && (past_pulse_B == 1);
 
-    
+    /* Position counter:
+    */
+    assign nxt_position = position + DEG_PER_PULSE;
+    always_ff@(posedge clk) begin
+        if(rst || position_rst) begin
+            position <= 0;
+        end
+        else begin
+            if(COUNT_BOTH) begin
+                if(posedge_A || negedge_A || posedge_B || negedge_B) begin
+                    if(nxt_position > 359) begin
+                        position <= 0 + (360 - nxt_position);
+                    end
+                    else begin
+                        position <= nxt_position;
+                    end
+                end
+            end
+            else begin
+                if(posedge_A) begin
+                    if(nxt_position > 359) begin
+                        position <= 0 + (360 - nxt_position);
+                    end
+                    else begin
+                        position <= nxt_position;
+                    end
+                end
+            end
+        end
+    end
+
+
     /* Rev counter:
     *    - Increments on posedge chA
     *    - Resets to 0 after each second
@@ -60,7 +106,10 @@ module QEI
                 rev_cnt <= 0;
             end
             else begin
-                rev_cnt <= (posedge_A) ? rev_cnt+1 : rev_cnt;
+                if(COUNT_BOTH) 
+                    rev_cnt <= (posedge_A || negedge_A || posedge_B || negedge_B) ? rev_cnt+1 : rev_cnt;
+                else
+                    rev_cnt <= (posedge_A) ? rev_cnt+1 : rev_cnt;
             end
         end 
     end
@@ -78,7 +127,8 @@ module QEI
         end
         else begin
             if (timer == TIMER_MAX) begin 
-                RPM   <= (rev_cnt * 6) >> 4;
+                //RPM   <= (rev_cnt * 6) >> 4;
+                RPM   <= rev_cnt * RES_FACTOR;
                 timer <= 0; 
             end
             else begin

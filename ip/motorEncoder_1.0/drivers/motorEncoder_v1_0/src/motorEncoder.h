@@ -9,6 +9,10 @@
     
     +4:
         [31:0] -> rpm
+
+    +12:
+        [8:0] -> position
+        [9]   -> position reset
 */
 
 /****************** Include Files ********************/
@@ -27,6 +31,10 @@ typedef struct {
     UINTPTR RegBaseAddress;
     _Bool   CurrentDirection;
     u32     CurrentRpm;
+    u32     CurrentPosition;
+    //
+    _Bool   MicroMetalMode;
+    u32     MicroMetalRatio;
 } ugv_qei;
 /**
  *
@@ -93,5 +101,9 @@ XStatus MOTORENCODER_Reg_SelfTest(void * baseaddr_p);
 int ugvQei_Initialize(ugv_qei *InstancePtr, UINTPTR EffectiveAddr);    
 _Bool ugvQei_getDirection(ugv_qei *InstancePtr);
 u32 ugvQei_getRpm(ugv_qei *InstancePtr);
+void ugvQei_clearPosition(ugv_qei *InstancePtr);
+u32 ugvQei_getPosition(ugv_qei *InstancePtr);
+void ugvQei_setMicroMetalMode(ugv_qei *InstancePtr, _Bool val);
+void ugvQei_setMicroMetalRatio(ugv_qei *InstancePtr, u32 ratio);
 
 #endif // MOTORENCODER_H

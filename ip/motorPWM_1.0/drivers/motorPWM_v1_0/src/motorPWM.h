@@ -4,16 +4,19 @@
 
 /**** REGISTER MAP *****
  * 
- * REG0 :
+ * REG0: +0
  * [9]   -> enable
  * [8]   -> direction
  * [7:0] -> speed select 
  * 
- * REG1:
+ * REG1: +4
  * [15:0] -> motor stop period (clock cycles)
  * 
- * REG2:
+ * REG2: +8
  * [7:0] -> speed scaling value
+ * 
+ * REG3: +12
+ * [15:0] -> motor max period (clock cycles)
  
 */ 
 
@@ -28,18 +31,21 @@
 #define MOTORPWM_S00_AXI_SLV_REG0_OFFSET 0
 #define MOTORPWM_S00_AXI_SLV_REG1_OFFSET 4
 #define MOTORPWM_S00_AXI_SLV_REG2_OFFSET 8
+#define MOTORPWM_S00_AXI_SLV_REG3_OFFSET 12
 
 
 typedef struct {
     UINTPTR RegBaseAddress;
     _Bool   IsEnabled;
+    _Bool   L298Mode;
     _Bool   CurrentDirection;
     //
+    _Bool   allowMax;
     _Bool   setDirection;
     u8      speedSelect;
     u32     reg0;
     //
-    u16     totalPeriod;
+    u16     period;
     u16     minPeriod;
     u8      spdScaling;
 } ugv_pwm;
@@ -127,7 +133,6 @@ void ugvPwm_setDir(ugv_pwm *InstancePtr, _Bool dir);
  */
 void ugvPwm_Enable(ugv_pwm *InstancePtr, _Bool en);
 
-
 /**
  * @brief Set the min speed counter value in clock counts
  * 
@@ -136,6 +141,13 @@ void ugvPwm_Enable(ugv_pwm *InstancePtr, _Bool en);
  */
 void ugvPwm_setMinPeriod(ugv_pwm *InstancePtr, u16 min);
 
+/**
+ * @brief Set the PWM period in clock counts
+ * 
+ * @param InstancePtr is a pointer to the ugv_motor instance.
+ * @param val is the period of the PWM in clock counts
+ */
+void ugvPwm_setPeriod(ugv_pwm *InstancePtr, u16 min);
 
 /**
  * @brief Set the speed scaling constant.
@@ -145,7 +157,19 @@ void ugvPwm_setMinPeriod(ugv_pwm *InstancePtr, u16 min);
  */
 void ugvPwm_setScaling(ugv_pwm *InstancePtr, u8 scale);
 
+/**
+ * @brief Set L298 mode
+ * 
+ * @param InstancePtr is a pointer to the ugv_motor instance.
+ */
+void ugvPwm_setL298Mode(ugv_pwm *InstancePtr);
 
+/**
+ * @brief Set IBT2 mode
+ * 
+ * @param InstancePtr is a pointer to the ugv_motor instance.
+ */
+void ugvPwm_setIBT2Mode(ugv_pwm *InstancePtr);
 
 #endif // MOTORPWM_H
 

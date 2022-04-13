@@ -24,6 +24,8 @@
 
 #define PID_TAU 0.02f
 
+#define SAMPLE_TIME_S 0.01f
+
 #define PID_LIM_MIN  0.0f
 #define PID_LIM_MAX  255.0f
 

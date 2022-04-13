@@ -266,7 +266,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>704def0f</spirit:value>
+            <spirit:value>87af6c49</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -282,7 +282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>704def0f</spirit:value>
+            <spirit:value>87af6c49</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -296,7 +296,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>92415d9d</spirit:value>
+            <spirit:value>23f7750c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -861,8 +861,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>motorPWM_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>14</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-04-11T01:19:40Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>16</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-04-12T23:41:15Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7ca7a43b_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@747b543b_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
@@ -959,13 +959,37 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2902dcc0_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3666b84e_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6a51dcf2_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c0d5129_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4aa9355b_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c3b2824_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3168a02f_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@625f2715_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38d3eccb_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3cfd6a61_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1d95b5ea_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2cd47327_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74a038b_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@710755a5_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27d7bb51_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f447b93_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e82d55d_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4553eb67_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c43782e_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@615b2d59_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@322d3e90_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4824ea32_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4941f132_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13267311_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3964bfd6_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ce86b5e_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20d4de59_ARCHIVE_LOCATION">c:/Users/george/Documents/NGCP_Embedded_SDK/ip/motorPWM_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="7a63f3fc"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="ed1368d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="dfb60240"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="1489d317"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="319e6345"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="6992ea72"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="df446b51"/>

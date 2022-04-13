@@ -9,6 +9,7 @@ module pwmGen
     input  logic        dir,  // direction enable; '1' for forwards, '0' for back
     input  logic [7:0]  spd_sel, // 0-255 speed select
     // 
+    input  logic [15:0] period,
     input  logic [15:0] period_stopped, // pulse period for motor stop
     input  logic [7:0]  spd_scaling,    // scaling factor for speed select 
     output logic [16:0] cntReg,
@@ -27,7 +28,7 @@ module pwmGen
 
 
 // CONTROL PARAMETERS
- localparam period = 16'd10_000; // pwm pulse period
+ //localparam period = 16'd10_000; // pwm pulse period
  
 // 
  assign ma = ma_r;
@@ -42,6 +43,7 @@ module pwmGen
         cntReg <= 16'b0;
         cnt <= 16'b0;
         pulse_out <= 1'b0;
+        ma_r <= 2'b00; 
     end
     
     else
@@ -57,15 +59,19 @@ module pwmGen
             
             // LOAD COUNT LIMIT
             // dictates direction of motor
-            if (dir == 1'b1)        
+            if (dir == 1'b1)      
                 cntReg <= cnt_r;
             else if (dir == 1'b0)
                 cntReg <= period - cnt_r;
-            
+
+            // PERIOD COUNTER            
             cnt <= cnt + 1;
             
+            // SET PULSE HIGH
             if (cnt == cntReg - 1)
                 pulse_out <=  1'b1;
+                
+            // SET PULSE LOW
             else if (cnt >= period - 1)
             begin
                 pulse_out <= 1'b0;

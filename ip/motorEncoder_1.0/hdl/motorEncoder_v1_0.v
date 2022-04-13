@@ -4,7 +4,8 @@
 	module motorEncoder_v1_0 #
 	(
 		// Users to add parameters here
-
+        parameter RESOLUTION = 9'd12,
+        parameter COUNT_BOTH = 1'b0,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -46,6 +47,8 @@
 	);
 // Instantiation of Axi Bus Interface S00_AXI
 	motorEncoder_v1_0_S00_AXI # ( 
+        .RESOLUTION(RESOLUTION),
+        .COUNT_BOTH(COUNT_BOTH),
 		.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
 		.C_S_AXI_ADDR_WIDTH(C_S00_AXI_ADDR_WIDTH)
 	) motorEncoder_v1_0_S00_AXI_inst (

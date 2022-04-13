@@ -15,9 +15,9 @@
 	)
 	(
 		// Users to add ports here
-        output wire right_motor_en,
-        output wire left_motor_en,
-        output wire [1:0] pwm,
+        output reg right_motor_en,
+        output reg left_motor_en,
+        output reg [1:0] pwm,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -118,6 +118,9 @@
 
 	// I/O Connections assignments
     wire [16:0] cnt_r;
+    wire [1:0] ip_pwm;
+    wire ip_right_motor_en;
+    wire ip_left_motor_en;
 
 
 	assign S_AXI_AWREADY	= axi_awready;
@@ -401,6 +404,44 @@
 	    end
 	end    
 
+    always@* begin
+        if(!S_AXI_ARESETN) begin
+            right_motor_en = 0;
+            left_motor_en  = 0;
+        end
+        else begin
+
+            // MOTOR ENABLED
+            if(slv_reg0[9]) begin
+                // DRIVE MOTOR DRIVER
+                if(!slv_reg3[0]) begin
+                    left_motor_en  = ip_left_motor_en;
+                    right_motor_en = ip_right_motor_en;
+                end
+
+                // L298N MOTOR DRIVER
+                else begin
+                    if(slv_reg0[8]) begin // forward
+                        left_motor_en  = 1;
+                        right_motor_en = 0;
+                        pwm = {ip_pwm[0], ip_pwm[1]}; // use inverted pwm
+                    end
+                    else begin // backward
+                        left_motor_en  = 0;
+                        right_motor_en = 1;
+                        pwm = ip_pwm; // use non-inverted pwm
+                    end
+                end
+            end
+
+            // MOTORS DISABLED
+            else begin
+                left_motor_en  = 0;
+                right_motor_en = 0;
+            end
+        end
+    end
+
 	// Add user logic here
     pwmGen pwm_i (
     .clk            (S_AXI_ACLK),
@@ -410,14 +451,14 @@
     .dir            (slv_reg0[8]),
     .spd_sel        (slv_reg0[7:0]),
     //
+    .period         (slv_reg3[15:0]),
     .period_stopped (slv_reg1[15:0]),
     .spd_scaling    (slv_reg2[7:0]),
-    //
     .cntReg         (cnt_r),
     //
-    .right_motor_en (right_motor_en),
-    .left_motor_en  (left_motor_en),
-    .ma             (pwm)
+    .right_motor_en (ip_right_motor_en),
+    .left_motor_en  (ip_left_motor_en),
+    .ma             (ip_pwm)
     );
 
 	// User logic ends
