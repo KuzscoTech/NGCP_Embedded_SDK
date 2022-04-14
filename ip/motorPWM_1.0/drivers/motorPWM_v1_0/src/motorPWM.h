@@ -5,6 +5,7 @@
 /**** REGISTER MAP *****
  * 
  * REG0: +0
+ * [10]  -> L298N mode enable
  * [9]   -> enable
  * [8]   -> direction
  * [7:0] -> speed select 

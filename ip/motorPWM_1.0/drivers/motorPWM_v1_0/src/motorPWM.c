@@ -55,10 +55,14 @@ void ugvPwm_setSpeed(ugv_pwm *InstancePtr, u8 spd_val)
  */
 void ugvPwm_setDir(ugv_pwm *InstancePtr, _Bool dir)
 {
-    u32 reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET);
-    u32 dir_reg = reg_read | (dir << 8);
+    u32 reg_read;
+    u32 dir_reg;
+    u32 clear_mask = ~((u32) 0x100);
+    reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, 0);
+    if(dir) dir_reg = reg_read | (dir << 8);
+    else    dir_reg = reg_read & clear_mask;
     InstancePtr->setDirection = dir;
-    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET, dir_reg);
+    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 0, dir_reg);
 }
 
 /**
@@ -67,8 +71,11 @@ void ugvPwm_setDir(ugv_pwm *InstancePtr, _Bool dir)
  * @param en is the motor enable, TRUE or FALSE
  */
 void ugvPwm_Enable(ugv_pwm *InstancePtr, _Bool en){
-    u32 reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET);
-    u32 en_reg = reg_read | (en << 9);
+    u32 reg_read;
+    u32 en_reg;
+    u32 clear_mask = ~((u32) 0x200);
+    reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET);
+    en_reg = reg_read | (en << 9);
     InstancePtr->IsEnabled = en;
     MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET, en_reg);
 }
@@ -125,12 +132,10 @@ void ugvPwm_setL298Mode(ugv_pwm *InstancePtr)
 {
     u32 reg_read;
     u32 newVal;
-    u32 clearLowOrderBitsMask = ~( ( u32 ) 0x1 );
-    reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, 12);
-    newVal = reg_read & clearLowOrderBitsMask;
-    newVal = newVal | 0x1;
+    reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, 0);
+    newVal = newVal | 0x400;
     //
-    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 12, newVal);
+    MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, 0, newVal);
     InstancePtr->L298Mode = TRUE;
 }
 
@@ -143,7 +148,7 @@ void ugvPwm_setIBT2Mode(ugv_pwm *InstancePtr)
 {
     u32 reg_read;
     u32 newVal;
-    u32 clearLowOrderBitsMask = ~( ( u32 ) 0x1 );
+    u32 clearLowOrderBitsMask = ~( ( u32 ) 0x400 );
     reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, 12);
     newVal = reg_read & clearLowOrderBitsMask;
     //

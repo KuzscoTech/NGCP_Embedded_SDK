@@ -2,7 +2,8 @@
 //
 module QEI
     #(parameter RESOLUTION = 9'd12,
-      parameter COUNT_BOTH = 1'b0)
+      parameter COUNT_BOTH = 1'b0,
+      parameter MGM_GEAR_RATIO = 32'd1000)
     (
     input logic         clk, // system clock
     input logic         rst,
@@ -12,7 +13,7 @@ module QEI
     input logic         chB,
     
     input  logic        position_rst,
-    output logic [8:0]  position,
+    output logic [31:0] position,     // position pulse count
     output logic [31:0] RPM
     ); 
     
@@ -26,7 +27,7 @@ module QEI
     logic q1_chA, sync_chA;
     logic q1_chB, sync_chB;
 
-    logic [8:0] nxt_position;
+    logic [31:0] nxt_position;
 
     localparam T_1S      = 'd1_000_000_000; // ns
     localparam T_CLK     = 'd10;            // ns
@@ -35,7 +36,7 @@ module QEI
 
     localparam RES_FACTOR    = 60 / RESOLUTION;
     localparam DEG_PER_PULSE = 360 / RESOLUTION;
-    
+    localparam MGM_COUNT_CAP = RESOLUTION * MGM_GEAR_RATIO;
     
     // Synchronizers
     always_ff@(posedge clk) begin
@@ -63,7 +64,15 @@ module QEI
 
     /* Position counter:
     */
-    assign nxt_position = position + DEG_PER_PULSE;
+    always_comb begin
+        if(COUNT_BOTH) begin
+            nxt_position = position + 1; 
+        end 
+        else begin
+            nxt_position = position + DEG_PER_PULSE;
+        end
+    end    
+    //
     always_ff@(posedge clk) begin
         if(rst || position_rst) begin
             position <= 0;
@@ -71,8 +80,8 @@ module QEI
         else begin
             if(COUNT_BOTH) begin
                 if(posedge_A || negedge_A || posedge_B || negedge_B) begin
-                    if(nxt_position > 359) begin
-                        position <= 0 + (360 - nxt_position);
+                    if(nxt_position == MGM_COUNT_CAP-1) begin
+                        position <= 0;
                     end
                     else begin
                         position <= nxt_position;
@@ -82,7 +91,7 @@ module QEI
             else begin
                 if(posedge_A) begin
                     if(nxt_position > 359) begin
-                        position <= 0 + (360 - nxt_position);
+                        position <= 0 + (nxt_position - 360);
                     end
                     else begin
                         position <= nxt_position;
@@ -126,7 +135,7 @@ module QEI
             timer <= 0;
         end
         else begin
-            if (timer == TIMER_MAX) begin 
+            if (timer == TIMER_MAX-1) begin 
                 //RPM   <= (rev_cnt * 6) >> 4;
                 RPM   <= rev_cnt * RES_FACTOR;
                 timer <= 0; 

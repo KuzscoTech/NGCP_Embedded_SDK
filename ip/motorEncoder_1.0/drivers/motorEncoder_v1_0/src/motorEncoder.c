@@ -28,6 +28,7 @@ _Bool ugvQei_getDirection(ugv_qei *InstancePtr)
 {
     u32 temp;
     temp = MOTORENCODER_mReadReg(InstancePtr->RegBaseAddress, 0);
+    temp = temp & 0x1;
     if(temp) {
         InstancePtr->CurrentDirection = TRUE;
         return TRUE;
@@ -51,22 +52,27 @@ void ugvQei_clearPosition(ugv_qei *InstancePtr)
 {
     u32 temp;
     u32 reset;
-    u32 clearMask = ~( (u32) 0x200);
-    temp = MOTORENCODER_mReadReg(InstancePtr->RegBaseAddress, 8);
-    reset = temp | (1 << 9);
+    u32 clearMask = ~( (u32) 0x2);
+    temp = MOTORENCODER_mReadReg(InstancePtr->RegBaseAddress, 0);
+    reset = temp | (1 << 1);
     temp = temp & clearMask;
-    MOTORENCODER_mWriteReg(InstancePtr->RegBaseAddress, 8, reset); // set the reset
-    MOTORENCODER_mWriteReg(InstancePtr->RegBaseAddress, 8, temp);  // clear the reset
+    MOTORENCODER_mWriteReg(InstancePtr->RegBaseAddress, 0, reset); // set the reset
+    MOTORENCODER_mWriteReg(InstancePtr->RegBaseAddress, 0, temp);  // clear the reset
     InstancePtr->CurrentPosition = 0;
 }
 
 u32 ugvQei_getPosition(ugv_qei *InstancePtr)
 {
-    u32 temp;
-    u32 posMask = (u32) 0x1FF;
-    temp = MOTORENCODER_mReadReg(InstancePtr->RegBaseAddress, 8);
-    temp = temp & posMask;
-    InstancePtr->CurrentPosition = temp;
+    u32 reg_read;
+    reg_read = MOTORENCODER_mReadReg(InstancePtr->RegBaseAddress, 8);
+    InstancePtr->CurrentPosition = reg_read;
+    return reg_read;
+}
+
+float ugvQei_convertMgmPosition(ugv_qei *InstancePtr)
+{
+    u32 divFactor = InstancePtr->MicroMetalRatio * InstancePtr->MicroMetalResoluton;
+    float temp = (float) (InstancePtr->CurrentPosition / divFactor * 360);
     return temp;
 }
 
@@ -78,4 +84,9 @@ void ugvQei_setMicroMetalMode(ugv_qei *InstancePtr, _Bool val)
 void ugvQei_setMicroMetalRatio(ugv_qei *InstancePtr, u32 ratio)
 {
     InstancePtr->MicroMetalRatio = ratio;
+}
+
+void ugvQei_setMicroMetalResolution(ugv_qei *InstancePtr, u32 res) 
+{
+    InstancePtr->MicroMetalResolution = res;
 }

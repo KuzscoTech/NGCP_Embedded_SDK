@@ -6,6 +6,7 @@
 		// Users to add parameters here
         parameter RESOLUTION = 9'd6,
         parameter COUNT_BOTH = 1'b0,
+        parameter MGM_GEAR_RATIO = 32'd1000,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -119,7 +120,7 @@
     // USER LOGIC
     wire        ip_dir;
     wire [31:0] ip_rpm;
-    wire [8:0]  ip_position;
+    wire [31:0] ip_position;
 
 	// I/O Connections assignments
 
@@ -364,9 +365,9 @@
 	begin
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	        2'h0   : reg_data_out <= {31'b0, ip_dir};
+	        2'h0   : reg_data_out <= {30'b0, slv_reg0[1], ip_dir};
 	        2'h1   : reg_data_out <= ip_rpm;
-	        2'h2   : reg_data_out <= {22'b0, slv_reg2[9], ip_position};
+	        2'h2   : reg_data_out <= ip_position;
 	        2'h3   : reg_data_out <= slv_reg3;
 	        default : reg_data_out <= 0;
 	      endcase
@@ -401,14 +402,15 @@
     );
 
     QEI 
-    #(.RESOLUTION(RESOLUTION),
-      .COUNT_BOTH(COUNT_BOTH))
+    #(.RESOLUTION    (RESOLUTION),
+      .COUNT_BOTH    (COUNT_BOTH),
+      .MGM_GEAR_RATIO(MGM_GEAR_RATIO))
     qei_i (
     .clk          (S_AXI_ACLK),
     .rst          (!S_AXI_ARESETN),
     .chA          (chA),
     .chB          (chB),
-    .position_rst (slv_reg2[9]),
+    .position_rst (slv_reg0[1]),
     .position     (ip_position),
     .RPM          (ip_rpm)
     );
