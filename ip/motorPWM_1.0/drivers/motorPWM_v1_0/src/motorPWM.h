@@ -1,23 +1,22 @@
-
 #ifndef MOTORPWM_H
 #define MOTORPWM_H
 
 /**** REGISTER MAP *****
  * 
  * REG0: +0
- * [10]  -> L298N mode enable
  * [9]   -> enable
  * [8]   -> direction
  * [7:0] -> speed select 
  * 
  * REG1: +4
- * [15:0] -> motor stop period (clock cycles)
+ * [15:0]  -> motor stop period (clock cycles)
+ * [31:16] -> motor total period (clock cycles)
  * 
  * REG2: +8
  * [7:0] -> speed scaling value
  * 
  * REG3: +12
- * [15:0] -> motor max period (clock cycles)
+ * [31:0] cnt_reg
  
 */ 
 
@@ -173,5 +172,3 @@ void ugvPwm_setL298Mode(ugv_pwm *InstancePtr);
 void ugvPwm_setIBT2Mode(ugv_pwm *InstancePtr);
 
 #endif // MOTORPWM_H
-
-

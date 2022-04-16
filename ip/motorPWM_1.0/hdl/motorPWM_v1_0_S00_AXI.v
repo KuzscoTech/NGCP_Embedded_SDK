@@ -1,4 +1,3 @@
-
 `timescale 1 ns / 1 ps
 
 	module motorPWM_v1_0_S00_AXI #
@@ -121,7 +120,6 @@
     wire [1:0] ip_pwm;
     wire ip_right_motor_en;
     wire ip_left_motor_en;
-    reg  ip_dir;
 
 
 	assign S_AXI_AWREADY	= axi_awready;
@@ -405,7 +403,6 @@
 	    end
 	end    
 
-
     always@* begin
         if(!S_AXI_ARESETN) begin
             right_motor_en = 0;
@@ -416,15 +413,14 @@
             // MOTOR ENABLED
             if(slv_reg0[9]) begin
                 // DRIVE MOTOR DRIVER
-                if(!slv_reg0[10]) begin
-                    ip_dir         = slv_reg0[8];
+                if(!slv_reg3[0]) begin
                     left_motor_en  = ip_left_motor_en;
                     right_motor_en = ip_right_motor_en;
+                    pwm = ip_pwm;
                 end
 
                 // L298N MOTOR DRIVER
                 else begin
-                    ip_dir = 1;
                     if(slv_reg0[8]) begin // forward
                         left_motor_en  = 1;
                         right_motor_en = 0;
@@ -433,7 +429,7 @@
                     else begin // backward
                         left_motor_en  = 0;
                         right_motor_en = 1;
-                        pwm = {ip_pwm[0], ip_pwm[1]}; // use non-inverted pwm
+                        pwm = ip_pwm; // use non-inverted pwm
                     end
                 end
             end
@@ -442,6 +438,7 @@
             else begin
                 left_motor_en  = 0;
                 right_motor_en = 0;
+                pwm = ip_pwm;
             end
         end
     end
@@ -452,10 +449,10 @@
     .rst            (!S_AXI_ARESETN),
     //       
     .en             (slv_reg0[9]),
-    .dir            (ip_dir),
+    .dir            (slv_reg0[8]),
     .spd_sel        (slv_reg0[7:0]),
     //
-    .period         (slv_reg3[15:0]),
+    .period         (slv_reg1[31:16]),
     .period_stopped (slv_reg1[15:0]),
     .spd_scaling    (slv_reg2[7:0]),
     .cntReg         (cnt_r),

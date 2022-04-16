@@ -71,7 +71,7 @@ u32 ugvQei_getPosition(ugv_qei *InstancePtr)
 
 float ugvQei_convertMgmPosition(ugv_qei *InstancePtr)
 {
-    u32 divFactor = InstancePtr->MicroMetalRatio * InstancePtr->MicroMetalResoluton;
+    u32 divFactor = InstancePtr->MicroMetalRatio * InstancePtr->MicroMetalResolution;
     float temp = (float) (InstancePtr->CurrentPosition / divFactor * 360);
     return temp;
 }
