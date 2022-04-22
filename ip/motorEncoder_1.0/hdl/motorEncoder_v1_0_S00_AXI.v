@@ -408,6 +408,7 @@
     qei_i (
     .clk          (S_AXI_ACLK),
     .rst          (!S_AXI_ARESETN),
+    .dir          (ip_dir),
     .chA          (chA),
     .chB          (chB),
     .position_rst (slv_reg0[1]),

@@ -7,8 +7,7 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S00_AXI_HIGHADDR" -parent ${Page_0}
 
   ipgui::add_param $IPINST -name "RESOLUTION"
-  set COUNT_BOTH [ipgui::add_param $IPINST -name "COUNT_BOTH" -widget comboBox]
-  set_property tooltip {Count Both Edges of Both Channels, enabled if set to 1} ${COUNT_BOTH}
+  ipgui::add_param $IPINST -name "COUNT_BOTH"
   ipgui::add_param $IPINST -name "MGM_GEAR_RATIO"
 
 }

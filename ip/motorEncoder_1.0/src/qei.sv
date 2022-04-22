@@ -8,6 +8,9 @@ module QEI
     input logic         clk, // system clock
     input logic         rst,
 
+    // direction
+    input logic         dir,
+
     // Encoder Channels
     input logic         chA, 
     input logic         chB,
@@ -26,6 +29,10 @@ module QEI
     
     logic q1_chA, sync_chA;
     logic q1_chB, sync_chB;
+
+    logic [31:0]  posPulseCount;
+    logic [3:0]   posPulseAdjCount;
+    logic         posPulseCountAdj;
 
     logic [31:0] nxt_position;
 
@@ -64,38 +71,49 @@ module QEI
 
     /* Position counter:
     */
+
     always_comb begin
-        if(COUNT_BOTH) begin
-            nxt_position = position + 1; 
-        end 
-        else begin
-            nxt_position = position + DEG_PER_PULSE;
+        if(dir) begin
+            if(position == 359) begin
+                nxt_position = 0;
+            end
+            else begin
+                nxt_position = position + 1;
+            end
         end
+        else begin
+            if(position == 0) begin
+                nxt_position = 359;
+            end
+            else begin
+                nxt_position = position - 1;
+            end
+        end 
     end    
-    //
+
     always_ff@(posedge clk) begin
         if(rst || position_rst) begin
-            position <= 0;
+            posPulseCount    <= 0;
+            posPulseAdjCount <= 0;
+            posPulseCountAdj <= 0;
+            position         <= 179;
         end
         else begin
-            if(COUNT_BOTH) begin
-                if(posedge_A || negedge_A || posedge_B || negedge_B) begin
-                    if(nxt_position == MGM_COUNT_CAP-1) begin
-                        position <= 0;
-                    end
-                    else begin
-                        position <= nxt_position;
-                    end
+            if(posPulseCount == 0) begin
+                position      <= nxt_position;
+                posPulseCount <= (posPulseCountAdj) ? 34 : 33;
+                if(posPulseAdjCount == 2) begin
+                    posPulseAdjCount <= 0;
+                    posPulseCountAdj <= 1;
+                end
+                else begin
+                    posPulseAdjCount <= posPulseAdjCount + 1;
+                    posPulseCountAdj <= 0;
                 end
             end
             else begin
-                if(posedge_A) begin
-                    if(nxt_position > 359) begin
-                        position <= 0 + (nxt_position - 360);
-                    end
-                    else begin
-                        position <= nxt_position;
-                    end
+                if(posedge_A || negedge_A || posedge_B || negedge_B) begin
+                    posPulseCount <= posPulseCount - 1;
                 end
             end
         end
@@ -111,11 +129,11 @@ module QEI
             rev_cnt <= 0;
         end
         else begin
-            if(timer == TIMER_MAX) begin
+            if(timer == TIMER_MAX-1) begin
                 rev_cnt <= 0;
             end
             else begin
-                if(COUNT_BOTH) 
+                if(COUNT_BOTH == 1) 
                     rev_cnt <= (posedge_A || negedge_A || posedge_B || negedge_B) ? rev_cnt+1 : rev_cnt;
                 else
                     rev_cnt <= (posedge_A) ? rev_cnt+1 : rev_cnt;
@@ -133,11 +151,16 @@ module QEI
         if(rst) begin
             RPM   <= 0;
             timer <= 0;
-        end
+        end 
         else begin
             if (timer == TIMER_MAX-1) begin 
-                //RPM   <= (rev_cnt * 6) >> 4;
-                RPM   <= rev_cnt * RES_FACTOR;
+                //RPM <= rev_cnt * RES_FACTOR;
+                
+                if(COUNT_BOTH)
+                    RPM <= rev_cnt * RES_FACTOR;
+                else 
+                    RPM <= (rev_cnt * 6) >> 4;
+                
                 timer <= 0; 
             end
             else begin

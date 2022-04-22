@@ -9,7 +9,7 @@ output logic dir
     initial dir = 0;
 
     logic [2:0] chA_delayed = 3'b000, chB_delayed = 3'b000;
-    
+
     
     always @(posedge clk) chA_delayed <= {chA_delayed[1:0], chA};
     always @(posedge clk) chB_delayed <= {chB_delayed[1:0], chB};

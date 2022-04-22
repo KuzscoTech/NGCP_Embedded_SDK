@@ -38,7 +38,6 @@ typedef struct {
     UINTPTR RegBaseAddress;
     _Bool   IsEnabled;
     _Bool   L298Mode;
-    _Bool   CurrentDirection;
     //
     _Bool   allowMax;
     _Bool   setDirection;

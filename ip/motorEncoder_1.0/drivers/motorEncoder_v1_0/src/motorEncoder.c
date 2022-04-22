@@ -41,9 +41,16 @@ _Bool ugvQei_getDirection(ugv_qei *InstancePtr)
 
 u32 ugvQei_getRpm(ugv_qei *InstancePtr)
 {
-    u32 temp;
+    u32   temp;
+    double temp_double;
     temp = MOTORENCODER_mReadReg(InstancePtr->RegBaseAddress, 4);
-    if(InstancePtr->MicroMetalMode) temp = temp / InstancePtr->MicroMetalRatio;
+    temp_double = (double) temp;
+    if(InstancePtr->MicroMetalMode) 
+        temp_double = temp_double / (double) InstancePtr->MicroMetalRatio;
+    else 
+        temp_double = temp_double / 2.5;
+
+    temp = (u32) temp_double;
     InstancePtr->CurrentRpm = temp;
     return temp;
 }
