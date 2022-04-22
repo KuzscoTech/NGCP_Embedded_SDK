@@ -13,7 +13,14 @@
 #define SERVOZ3_S00_AXI_SLV_REG3_OFFSET 12
 
 
+
 /**************************** Type Definitions *****************************/
+typedef struct {
+    UINTPTR RegBaseAddress;
+    u8 inputVal;
+}  ugv_servo;
+
+
 /**
  *
  * Write a value to a SERVOZ3 register. A 32 bit write is performed.
@@ -75,5 +82,8 @@
  *
  */
 XStatus SERVOZ3_Reg_SelfTest(void * baseaddr_p);
+
+int ugvServo_Initialize(ugv_servo *InstancePtr, UINTPTR EffectiveAddr);
+void ugvServo_SetDir(ugv_servo *InstancePtr, u8 inputVal);
 
 #endif // SERVOZ3_H
