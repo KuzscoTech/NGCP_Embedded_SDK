@@ -8,7 +8,7 @@
 
 #define DBG_DUTY      1
 #define DBG_SLAVEREGS 0
-#define TEST_INC      0
+#define TEST_INC      1
 
 
 #define PWM_BASEADDR     XPAR_MOTORPWM_0_S00_AXI_BASEADDR
@@ -54,7 +54,7 @@ int main()
 
     int flag = 1;
     u32 cnt_actual;
-    duty = 250;
+    duty = 0;
     dir = MOTOR_FORWARD;
 
 

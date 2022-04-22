@@ -1,9 +1,20 @@
 #ifndef ARM0_UTILITIES_H
 #define ARM0_UTILITIES_H
 
-#include "motorPWM.h"
 #include "motorEncoder.h"
+#include "motorPWM.h"
+#include "pid.h"
 #include "xparameters.h"
+//#include "arm0.h"
+
+/* Drive Motor Struct */
+typedef struct{
+    float pid_setPoint;
+    _Bool setDir;
+    _Bool currentDir;
+    float currentRpm;
+    float rpm;
+} driveMotor;
 
 /* MOTORS */
 #define MOTOR_FORWARD  TRUE
@@ -74,6 +85,7 @@
 int arm0_initializeDriveMotorPwm(ugv_pwm *InstancePtr);
 int arm0_initializeMicroMetalPwm(ugv_pwm *InstancePtr, u8 motorId);
 //
-int arm0_initializeDriveMotorQEI(ugv_qei *InstancePtr);
-int arm0_initializeMicroMetalQEI(ugv_qei *InstancePtr, u8 qeiId);
+int  arm0_initializeDriveMotorQEI(ugv_qei *InstancePtr);
+int  arm0_initializeMicroMetalQEI(ugv_qei *InstancePtr, u8 qeiId);
+void arm0_utilities_CalculatePid(float *driveMotor_setPoint, driveMotor *driveMotor, ugv_qei *driveMotorQeiInstance, ugv_pwm *driveMotorPwmInstance, PIDController *driveMotorPIDInstance);
 #endif

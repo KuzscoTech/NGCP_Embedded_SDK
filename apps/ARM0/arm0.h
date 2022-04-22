@@ -2,7 +2,6 @@
 #define ARM0_H
 
 #include "xparameters.h"
-//
 #include "uart_utilities.h"
 #include "system.h"
 #include "motorEncoder.h"
@@ -32,7 +31,6 @@
 
 
 /* UGV COMMANDS */
-
 
 
 

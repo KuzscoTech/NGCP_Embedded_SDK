@@ -4,6 +4,8 @@ Receive commands via UART
 
 #include "arm0.h"
 
+#define DBG_DRIVEMOTOR 1
+#define DBG_MGM0       0
 
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
@@ -32,11 +34,6 @@ int main()
     int Status;
     //
     float driveMotor_setPoint; // drive motor desired rpm
-
-    //
-    float mgm0_setPoint;       // mgm0 desired position
-    float mgm0_position;
-    u32   mgm0_rpm;
     //
     
 
@@ -140,16 +137,29 @@ int main()
     float pidout_temp;
     float pid_output;
 
+    driveMotor driveMotor;
     //
-    float driveMotor_pid_setPoint;
-    _Bool driveMotor_setDir;
-    _Bool driveMotor_currentDir;
-    float driveMotor_currentRpm;
-    float driveMotor_rpm;
-    _Bool STATE_STOP;
+    float mgm0_setDelta;
+    float mgm0_setPoint;       // mgm0 desired position
+    float mgm0_pid_setPoint;
+    float mgm0_pid_position;
+    _Bool mgm0_setDir;
+    _Bool mgm0_currentDir;
+    float mgm0_currentRpm;
+    float mgm0_rpm;
+    float mgm0_currentPosition;
 
 
+
+
+    // receive 4 bytes total
+    // [0-1] brushed motor ID + data
+    // [2-3] servo ID + data
     XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DATACOUNT[0]);
+
+    // receive 8 bytes total
+    // [0-1] mgm0 ID + data
+    // ...
     XUartLite_Recv(&UartLiteInst1, RecvBuffer[1], DATACOUNT[1]);
     while ((TotalRecvCount[0] != DATACOUNT[0]) && (TotalRecvCount[1] != DATACOUNT[1]))
     {
@@ -165,111 +175,87 @@ int main()
 
     while(1) 
     {
-        driveMotor_setPoint = 200.0;
-        if(driveMotor_setPoint < 0) {
-        	driveMotor_setDir = MOTOR_REVERSE;
-        }
-        else {
-        	driveMotor_setDir = MOTOR_FORWARD;
-        }
-
-        // get rpm
-        driveMotor_currentRpm = (float) ugvQei_getRpm(&driveMotorQeiInstance);
-        driveMotor_currentDir = ugvQei_getDirection(&driveMotorQeiInstance);
-
-        // update pid
-        calculatePid (&driveMotorPIDInstance, driveMotor_pid_setPoint, driveMotor_rpm);
-
-        // If motor going opposite way, set PID rpm measurement to 0
-        if(driveMotor_setDir == MOTOR_REVERSE) {
-        	driveMotor_pid_setPoint = -driveMotor_setPoint;
-        	ugvPwm_setDir(&driveMotorPwmInstance, MOTOR_REVERSE);
-        	if(driveMotor_currentDir == MOTOR_FORWARD && driveMotor_currentRpm > 2) {
-        		driveMotor_rpm = 0;
-        	}
-        	else {
-        		driveMotor_rpm = driveMotor_currentRpm;
-        	}
-        }
-        else {
-        	driveMotor_pid_setPoint = driveMotor_setPoint;
-        	ugvPwm_setDir(&driveMotorPwmInstance, MOTOR_FORWARD);
-        	if(driveMotor_currentDir == MOTOR_REVERSE && driveMotor_currentRpm > 2) {
-        		driveMotor_rpm = 0;
-        	}
-        	else {
-        		driveMotor_rpm = driveMotor_currentRpm;
-        	}
-        }
-
-        calculatePid (&driveMotorPIDInstance, driveMotor_pid_setPoint, driveMotor_rpm);
-        ugvPwm_setSpeed(&driveMotorPwmInstance, (u8) driveMotorPIDInstance.out);
+        //Used Varibles = 
+        driveMotor_setPoint = 300.0;
+        arm0_utilities_CalculatePid(&driveMotor_setPoint, &driveMotor, &driveMotorQeiInstance, &driveMotorPwmInstance, &driveMotorPIDInstance);
 
         if(ugvQei_getDirection(&driveMotorQeiInstance) == MOTOR_REVERSE) {
-        	driveMotor_currentRpm = -driveMotor_currentRpm;
+        	driveMotor.currentRpm = -driveMotor.currentRpm;
         }
 
-        printf("--------------------------------------\r\n");
-        printf("DRIVE MOTOR:\r\n");
-        printf("\tCurrent RPM    : %3.3f\r\n",   driveMotor_currentRpm);
-        if(driveMotor_currentDir) {
-            printf("\tCurrent Dir    : FORWARD\r\n\n");
-        }
-        else {
-            printf("\tCurrent Dir    : REVERSE\r\n\n");
-        }
+        if(DBG_DRIVEMOTOR == 1) {
+        	printf("--------------------------------------\r\n");
+        	printf("DRIVE MOTOR:\r\n");
+        	printf("\tCurrent RPM    : %3.3f\r\n",  driveMotor.currentRpm);
+        	if(driveMotor.currentDir) {
+        	    printf("\tCurrent Dir    : FORWARD\r\n\n");
+        	}
+        	else {
+        	    printf("\tCurrent Dir    : REVERSE\r\n\n");
+        	}
 
-        printf("\tSetpoint       : %5.3f RPM\r\n", driveMotor_setPoint);
-        printf("\tMeasurement    : %5.3f RPM\r\n", driveMotor_rpm);
-        printf("\tPID Output     : %6.3f\r\n",     driveMotorPIDInstance.out);
-        printf("\tPID Error      : %6.3f\r\n",     driveMotorPIDInstance.prevError);
-        printf("\tDuty Cycle     : %d\r\n",        driveMotorPwmInstance.speedSelect);
-        if(driveMotorPwmInstance.setDirection) {
-            printf("\tDrive Dir   : FORWARD\r\n\n");
-        }
-        else {
-            printf("\tDrive Dir   : REVERSE\r\n\n");
+        	printf("\tSetpoint       : %5.3f RPM\r\n", driveMotor_setPoint);
+        	printf("\tMeasurement    : %5.3f RPM\r\n", driveMotor.rpm);
+        	printf("\tPID Output     : %6.3f\r\n",     driveMotorPIDInstance.out);
+        	printf("\tPID Error      : %6.3f\r\n",     driveMotorPIDInstance.prevError);
+        	printf("\tDuty Cycle     : %d\r\n",        driveMotorPwmInstance.speedSelect);
+        	if(driveMotorPwmInstance.setDirection) {
+        	    printf("\tDrive Dir   : FORWARD\r\n\n");
+        	}
+        	else {
+        	    printf("\tDrive Dir   : REVERSE\r\n\n");
+        	}
         }
 
         // MICROMETAL GEAR MOTOR 0 PID //
-        // -> get current position
-        mgm0_rpm = ugvQei_getRpm (&mgm0QeiInstance);
-        if(!ugvQei_getDirection(&mgm0QeiInstance)) {
-            mgm0_rpm = -mgm0_rpm;
+        mgm0_setDelta = -30;
+
+        // get current rpm, direction, and position
+        mgm0_currentRpm = ugvQei_getRpm (&mgm0QeiInstance);
+        mgm0_currentDir = ugvQei_getDirection(&mgm0QeiInstance);
+        if(!mgm0_currentDir) {
+        	mgm0_currentRpm = -mgm0_currentRpm;
         }
-        mgm0_position = ugvQei_convertMgmPosition (&mgm0QeiInstance);
+        mgm0_currentPosition = ugvQei_convertMgmPosition (&mgm0QeiInstance);
+        mgm0_setPoint = 90.0;
+
+        // if need to go reverse
+        if(mgm0_setPoint < mgm0_currentPosition)
+        {
+        	ugvPwm_setDir(&mgm0PwmInstance, MOTOR_REVERSE);
+        	if(mgm0_currentPosition - mgm0_setPoint < 0) {
+        		mgm0_pid_setPoint = mgm0_setPoint - mgm0_currentPosition;
+        	}
+        }
+        // else go forward
+        else
+        {
+        	ugvPwm_setDir(&mgm0PwmInstance, MOTOR_FORWARD);
+        	mgm0_pid_setPoint = mgm0_setPoint;
+        }
 
         // update PID
-        mgm0_setPoint = 90.0;
-        calculatePid(&mgm0PIDInstance, mgm0_setPoint, mgm0_position);
-        if(mgm0PIDInstance.out < 0) {
-            ugvPwm_setDir(&mgm0PwmInstance, MOTOR_REVERSE);
-            pid_output = -mgm0PIDInstance.out;
-            ugvPwm_setSpeed(&mgm0PwmInstance, (u8) pid_output);
-        }
-        else {
-            ugvPwm_setDir(&mgm0PwmInstance, MOTOR_FORWARD);
-            pid_output = mgm0PIDInstance.out;
-            ugvPwm_setSpeed(&mgm0PwmInstance, (u8) pid_output);
-        }
+        calculatePid(&mgm0PIDInstance, mgm0_pid_setPoint, mgm0_pid_position);
+        ugvPwm_setSpeed(&mgm0PwmInstance, (u8) mgm0PIDInstance.out);
 
-        /*
-        printf("MICROMETAL GEAR MOTOR 0:\r\n");
-        printf("\tSetpoint    : %5.3f RPM\r\n", mgm0_setPoint);
-        printf("\tCurrent RPM : %3.3f\r\n",     mgm0_rpm);
-        printf("\tCurrent Pos : %3.3f\r\n",     mgm0_position);
-        printf("\tPID Output  : %6.3f\r\n",     mgm0PIDInstance.out);
-        printf("\tPID Error   : %6.3f\r\n",     mgm0PIDInstance.prevError);
-        printf("\tDuty Cycle  : %d\r\n",        mgm0PwmInstance.speedSelect);
-        if(mgm0PwmInstance.setDirection) {
-            printf("\tDrive Dir   : FORWARD\r\n\n");
+
+        if(DBG_MGM0 == 1) {
+        	printf("MICROMETAL GEAR MOTOR 0:\r\n");
+        	printf("\tSetpoint    : %5.3f RPM\r\n", mgm0_setPoint);
+        	printf("\tCurrent RPM : %3.3f\r\n",     mgm0_currentRpm);
+        	printf("\tCurrent Pos : %3.3f\r\n",     mgm0_currentPosition);
+        	printf("\tPID Measure : $4.3f\r\n",     mgm0_pid_position);
+        	printf("\tPID Output  : %6.3f\r\n",     mgm0PIDInstance.out);
+        	printf("\tPID Error   : %6.3f\r\n",     mgm0PIDInstance.prevError);
+        	printf("\tDuty Cycle  : %d\r\n",        mgm0PwmInstance.speedSelect);
+        	if(mgm0PwmInstance.setDirection) {
+        	    printf("\tDrive Dir   : FORWARD\r\n\n");
+        	}
+        	else {
+        	    printf("\tDrive Dir   : REVERSE\r\n\n");
+        	}
         }
-        else {
-            printf("\tDrive Dir   : REVERSE\r\n\n");
-        }
-		*/
     }
-
 }
 
 /**

@@ -1,5 +1,10 @@
 #include "arm0_utilities.h"
-
+/**
+ * @brief 
+ * 
+ * @param InstancePtr 
+ * @return int 
+ */
 int arm0_initializeDriveMotorPwm(ugv_pwm *InstancePtr)
 {
     int Status;
@@ -19,6 +24,13 @@ int arm0_initializeDriveMotorPwm(ugv_pwm *InstancePtr)
     return XST_SUCCESS;
 }
 
+/**
+ * @brief 
+ * 
+ * @param InstancePtr 
+ * @param motorId 
+ * @return int 
+ */
 int arm0_initializeMicroMetalPwm(ugv_pwm *InstancePtr, u8 motorId)
 {
     int Status;
@@ -54,6 +66,12 @@ int arm0_initializeMicroMetalPwm(ugv_pwm *InstancePtr, u8 motorId)
     else return XST_FAILURE;
 }
 
+/**
+ * @brief 
+ * 
+ * @param InstancePtr 
+ * @return int 
+ */
 int arm0_initializeDriveMotorQEI(ugv_qei *InstancePtr)
 {
     int Status;
@@ -62,6 +80,13 @@ int arm0_initializeDriveMotorQEI(ugv_qei *InstancePtr)
     return Status;
 }
 
+/**
+ * @brief 
+ * 
+ * @param InstancePtr 
+ * @param qeiId 
+ * @return int 
+ */
 int arm0_initializeMicroMetalQEI(ugv_qei *InstancePtr, u8 qeiId)
 {
     int Status;
@@ -92,4 +117,53 @@ int arm0_initializeMicroMetalQEI(ugv_qei *InstancePtr, u8 qeiId)
         return XST_SUCCESS;
     }
     else return XST_FAILURE;
+}
+
+/**
+ * @brief 
+ * 
+ * @param driveMotor_setPoint 
+ * @param driveMotor_rpm 
+ * @param driveMotor_pid_setPoint 
+ * @param driveMotorQeiInstance 
+ * @param driveMotorPwmInstance 
+ * @param driveMotorPIDInstance 
+ */
+void arm0_utilities_CalculatePid(float *driveMotor_setPoint, driveMotor *driveMotor, ugv_qei *driveMotorQeiInstance, ugv_pwm *driveMotorPwmInstance, PIDController *driveMotorPIDInstance){
+
+	if(driveMotor_setPoint < 0) {
+		driveMotor->setDir = MOTOR_REVERSE;
+	}
+	else {
+		driveMotor->setDir = MOTOR_FORWARD;
+	}
+
+	// get rpm
+	driveMotor->currentRpm = (float) ugvQei_getRpm(driveMotorQeiInstance);
+	driveMotor->currentDir = ugvQei_getDirection(driveMotorQeiInstance);
+
+	// If motor going opposite way, set PID rpm measurement to 0
+	if(driveMotor->setDir == MOTOR_REVERSE) {
+		driveMotor->pid_setPoint = -*driveMotor_setPoint;
+		ugvPwm_setDir(driveMotorPwmInstance, MOTOR_REVERSE);
+		if(driveMotor->currentDir == MOTOR_FORWARD && driveMotor->currentRpm > 2) {
+			driveMotor->rpm = 0;
+		}
+		else {
+			driveMotor->rpm = driveMotor->currentRpm;
+		}
+	}
+	else {
+		driveMotor->pid_setPoint = *driveMotor_setPoint;
+		ugvPwm_setDir(driveMotorPwmInstance, MOTOR_FORWARD);
+		if(driveMotor->currentDir == MOTOR_REVERSE && driveMotor->currentRpm > 2) {
+			driveMotor->rpm = 0;
+		}
+		else {
+			driveMotor->rpm = driveMotor->currentRpm;
+		}
+	}
+
+	calculatePid (driveMotorPIDInstance, driveMotor->pid_setPoint, driveMotor->rpm);
+	ugvPwm_setSpeed(driveMotorPwmInstance, (u8) driveMotorPIDInstance->out);
 }
