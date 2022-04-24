@@ -12,7 +12,7 @@
 *   @param EffectiveAddr is the base address of the ugv_servo instance
 */
 int ugvServo_intialize(ugv_servo *InstancePtr, UINTPTR EffectiveAddr){
-    int return_val XST_FAILURE;
+    int return_val = XST_FAILURE;
     do{
         if(EffectiveAddr == (UINTPTR)NULL){
             break;
@@ -21,7 +21,7 @@ int ugvServo_intialize(ugv_servo *InstancePtr, UINTPTR EffectiveAddr){
         //initialize values to register
         SERVOZ3_mWriteReg(InstancePtr->RegBaseAddress, SERVOZ3_S00_AXI_SLV_REG0_OFFSET, 0);
         return_val = XST_SUCCESS;
-    } while(false);
+    } while(FALSE);
     return return_val;
 }
 

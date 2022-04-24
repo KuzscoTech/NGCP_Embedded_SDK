@@ -1,3 +1,5 @@
+// https://www.mathworks.com/help/ident/ref/iddata.html
+
 
 #include <stdio.h>
 #include "xil_printf.h"
@@ -5,10 +7,12 @@
 #include "motorEncoder.h"
 #include "sleep.h"
 #include "arm0_utilities.h"
+#include "xtime_l.h"
 
 #define DBG_DUTY      1
 #define DBG_SLAVEREGS 0
 #define TEST_INC      1
+#define DBG_SYS_ID    0
 
 
 #define PWM_BASEADDR     XPAR_MOTORPWM_0_S00_AXI_BASEADDR
@@ -27,32 +31,19 @@ int main()
     u8  duty;
     _Bool dir;
 
+    XTime tStart, tEnd;
+    float deltaT;
+
     ugv_pwm pwmInst;
     ugv_qei qeiInst;
 
     print("Device initialized!\n\r");
 
-
-
-/*
- *  xil_printf("Initializing PWM...\r\n");
-    Status = ugvPwm_Initialize(&pwmInst, PWM_BASEADDR);
-    xil_printf("Configuring PWM...\r\n");
-    ugvPwm_setDir(&pwmInst, FALSE);
-    ugvPwm_setPeriod(&pwmInst, (u16) PWM_PERIOD);
-    ugvPwm_setMinPeriod(&pwmInst, (u16) PWM_MIN);
-    ugvPwm_setScaling(&pwmInst, (u8) PWM_SCALE);
-    ugvPwm_Enable(&pwmInst, TRUE);
-    ugvPwm_setIBT2Mode(&pwmInst);
-    //ugvPwm_setL298Mode(&pwmInst);
-
-    xil_printf("Initializing encoder...\r\n");
-    ugvQei_Initialize(&qeiInst, ENCODER_BASEADDR);
-*/
     arm0_initializeDriveMotorPwm (&pwmInst);
     arm0_initializeDriveMotorQEI (&qeiInst);
 
     int flag = 1;
+    int timeFlag = 0;
     u32 cnt_actual;
     duty = 0;
     dir = MOTOR_FORWARD;
@@ -80,11 +71,25 @@ int main()
 
     	cnt_actual = MOTORPWM_mReadReg(pwmInst.RegBaseAddress, 12);
 
-         if(DBG_DUTY) {
+        if(DBG_DUTY) {
             xil_printf("Counter Value  : %d\r\n", cnt_actual);
         }
     	xil_printf("Expected duty  : %d\r\n", duty);
     	xil_printf("Actual duty    : %d\r\n", (cnt_actual-DRIVEMOTOR_PWM_MIN)/DRIVEMOTOR_PWM_SCALE);
+
+    	if(DBG_SYS_ID)
+    	{
+    		if(!timeFlag) {
+    			XTime_GetTime(&tStart);
+    			timeFlag = 1;
+    		}
+    		else {
+    			XTime_GetTime(&tEnd);
+    			deltaT = 1.0 * (tEnd-tStart) / COUNTS_PER_SECOND;
+    			XTime_GetTime(&tStart);
+    			printf("%d %d %t\r\n", RPM, (u32) duty, deltaT);
+    		}
+    	}
 
 
     	if(DBG_SLAVEREGS) {
@@ -106,23 +111,16 @@ int main()
     		reg_read = MOTORENCODER_mReadReg(qeiInst.RegBaseAddress, 12);
     		xil_printf("QEI slv_reg3       : %x\r\n", reg_read);
     	}
-    	if(dir == MOTOR_REVERSE && RPM != 0)
-    	{
-    		xil_printf("ENCODER ERROR!\r\n");
-    		break;
-    	}
 
 
     	//sleep(1);
     	
     	if(TEST_INC) {
-    		duty = duty + 5;
-    		if(duty == 255) {
-    		    dir  = !dir;
-    		    duty = 0;
-    			ugvPwm_setDir(&pwmInst, dir);
-    			sleep(2);
-    		}
+    		if(flag)
+    			duty = (duty == 255) ? 255 : duty+5;
+    		else
+    			duty = (duty == 0) ? 0 : duty-5;
+    		if(duty == 255) flag = 0;
     	}
 
     }
