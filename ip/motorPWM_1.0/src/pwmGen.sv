@@ -50,6 +50,7 @@ module pwmGen
         if (en == 1'b0 || pwm_en == 1'b0) begin
             ma_r <= 2'b00;
             pulse_out <= 0;
+            cntReg <= period_stopped;
         end
         else
         begin
@@ -88,7 +89,7 @@ module pwmGen
      end
      else begin
          pwm_en = 1;
-         cnt_r  = period_stopped + (spd_scaling * spd_sel);
+         cnt_r  = (spd_sel == 0) ? {1'b0, period_stopped} : period_stopped + (spd_scaling * spd_sel);
      end
  end      
  

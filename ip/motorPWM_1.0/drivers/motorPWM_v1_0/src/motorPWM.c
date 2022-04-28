@@ -41,7 +41,7 @@ void ugvPwm_setSpeed(ugv_pwm *InstancePtr, u8 spd_val)
     spd_sel = spd_sel | (u32) spd_val;
     //
     InstancePtr->speedSelect = spd_val;
-    Xil_Out32((InstancePtr->RegBaseAddress) + (MOTORPWM_S00_AXI_SLV_REG0_OFFSET), (u32)(spd_sel));
+    Xil_Out32((InstancePtr->RegBaseAddress) + 0, (u32)(spd_sel));
     //MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET, spd_sel);
 }
 
