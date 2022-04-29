@@ -78,6 +78,8 @@ int servoMotor_adcInitialize(ugv_servoMotor *InstancePtr, XSysMon *AdcInstancePt
 int servoMotor_pidInitialize(ugv_servoMotor *InstancePtr, PIDController *PidInstancePtr)
 {
 	int Status;
+	InstancePtr->pid = PidInstancePtr;
+	PIDController_Init(InstancePtr->pid);
 	//
 	InstancePtr->pid->Kp        = SERVO_PID_KP;
 	InstancePtr->pid->Ki        = SERVO_PID_KI;
