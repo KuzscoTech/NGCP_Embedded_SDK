@@ -1,0 +1,204 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Fri Apr 29 14:41:52 2022
+| Host         : LAPTOP-6D15CRP5 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file ugv_wrapper_methodology_drc_routed.rpt -pb ugv_wrapper_methodology_drc_routed.pb -rpx ugv_wrapper_methodology_drc_routed.rpx
+| Design       : ugv_wrapper
+| Device       : xc7z020clg400-1
+| Speed File   : -1
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 33
++-----------+------------------+------------------------------------------------+------------+
+| Rule      | Severity         | Description                                    | Violations |
++-----------+------------------+------------------------------------------------+------------+
+| TIMING-6  | Critical Warning | No common primary clock between related clocks | 1          |
+| TIMING-7  | Critical Warning | No common node between related clocks          | 1          |
+| LUTAR-1   | Warning          | LUT drives async reset alert                   | 4          |
+| TIMING-18 | Warning          | Missing input or output delay                  | 23         |
+| TIMING-20 | Warning          | Non-clocked latch                              | 4          |
++-----------+------------------+------------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-6#1 Critical Warning
+No common primary clock between related clocks  
+The clocks clk_fpga_0 and clk_fpga_1 are related (timed together) but they have no common primary clock. The design could fail in hardware. To find a timing path between these clocks, run the following command: report_timing -from [get_clocks clk_fpga_0] -to [get_clocks clk_fpga_1]
+Related violations: <none>
+
+TIMING-7#1 Critical Warning
+No common node between related clocks  
+The clocks clk_fpga_0 and clk_fpga_1 are related (timed together) but they have no common node. The design could fail in hardware. To find a timing path between these clocks, run the following command: report_timing -from [get_clocks clk_fpga_0] -to [get_clocks clk_fpga_1]
+Related violations: <none>
+
+LUTAR-1#1 Warning
+LUT drives async reset alert  
+LUT cell ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/axi_rdata[0]_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[0]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[10]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[11]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[12]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[13]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[14]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[15]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[16]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[1]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[2]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[3]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[4]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[5]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[6]/CLR, ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[7]/CLR (the first 15 of 37 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#2 Warning
+LUT drives async reset alert  
+LUT cell ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/axi_rdata[0]_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[0]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[10]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[11]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[12]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[13]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[14]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[15]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[16]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[1]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[2]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[3]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[4]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[5]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[6]/CLR, ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[7]/CLR (the first 15 of 37 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#3 Warning
+LUT drives async reset alert  
+LUT cell ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/axi_rdata[0]_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[0]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[10]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[11]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[12]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[13]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[14]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[15]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[16]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[1]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[2]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[3]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[4]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[5]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[6]/CLR, ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_i/cntReg_reg[7]/CLR (the first 15 of 37 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#4 Warning
+LUT drives async reset alert  
+LUT cell ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/servo0_carry__0_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[0]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[10]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[11]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[12]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[13]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[14]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[15]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[16]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[17]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[18]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[19]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[1]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[2]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[3]/CLR, ugv_i/servoz3_0/inst/servoz3_v1_0_S00_AXI_inst/mainservo/counter_reg[4]/CLR (the first 15 of 20 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on Pmod_out_0_pin1_io relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An input delay is missing on Pmod_out_0_pin2_io relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An input delay is missing on Pmod_out_0_pin3_io relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#4 Warning
+Missing input or output delay  
+An input delay is missing on Pmod_out_0_pin4_io relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#5 Warning
+Missing input or output delay  
+An input delay is missing on UART_0_rxd relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#6 Warning
+Missing input or output delay  
+An input delay is missing on UART_1_rxd relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#7 Warning
+Missing input or output delay  
+An input delay is missing on UART_2_rxd relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#8 Warning
+Missing input or output delay  
+An input delay is missing on driveMotor_chA relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#9 Warning
+Missing input or output delay  
+An input delay is missing on driveMotor_chB relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#10 Warning
+Missing input or output delay  
+An input delay is missing on mgm0_chA relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#11 Warning
+Missing input or output delay  
+An input delay is missing on mgm0_chB relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#12 Warning
+Missing input or output delay  
+An input delay is missing on mgm1_chA relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#13 Warning
+Missing input or output delay  
+An input delay is missing on mgm1_chB relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#14 Warning
+Missing input or output delay  
+An output delay is missing on UART_0_txd relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#15 Warning
+Missing input or output delay  
+An output delay is missing on UART_1_txd relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#16 Warning
+Missing input or output delay  
+An output delay is missing on UART_2_txd relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#17 Warning
+Missing input or output delay  
+An output delay is missing on driveMotor_left_enable relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#18 Warning
+Missing input or output delay  
+An output delay is missing on driveMotor_right_enable relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#19 Warning
+Missing input or output delay  
+An output delay is missing on mgm0_left_enable relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#20 Warning
+Missing input or output delay  
+An output delay is missing on mgm0_right_enable relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#21 Warning
+Missing input or output delay  
+An output delay is missing on mgm1_left_enable relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#22 Warning
+Missing input or output delay  
+An output delay is missing on mgm1_right_enable relative to clock(s) clk_fpga_0
+Related violations: <none>
+
+TIMING-18#23 Warning
+Missing input or output delay  
+An output delay is missing on servo_0 relative to clock(s) clk_fpga_0, clk_fpga_1
+Related violations: <none>
+
+TIMING-20#1 Warning
+Non-clocked latch  
+The latch ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[0] cannot be properly analyzed as its control pin ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[0]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#2 Warning
+Non-clocked latch  
+The latch ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[1] cannot be properly analyzed as its control pin ugv_i/motorPWM_0/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[1]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#3 Warning
+Non-clocked latch  
+The latch ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[0] cannot be properly analyzed as its control pin ugv_i/motorPWM_1/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[0]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#4 Warning
+Non-clocked latch  
+The latch ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[0] cannot be properly analyzed as its control pin ugv_i/motorPWM_2/inst/motorPWM_v1_0_S00_AXI_inst/pwm_reg[0]/G is not reached by a timing clock
+Related violations: <none>
+
+

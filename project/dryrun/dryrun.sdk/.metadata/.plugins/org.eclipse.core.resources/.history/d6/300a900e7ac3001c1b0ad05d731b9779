@@ -1,0 +1,34 @@
+
+
+
+
+int microMetal_pwmInitialize(ugv_microMetalMotor *InstancePtr, ugv_pwm *PwmInstancePtr, u8 id)
+{
+	int Status;
+	//
+	InstancePtr->pid = PwmInstancePtr;
+
+	switch(id)
+	{
+		case 0:
+			Status = ugvPwm_Initialize(InstancePtr->pwm, MGM0_PWM_BASEADDR);
+			if(Status != XST_SUCCESS) return XST_FAILURE;
+			else break;
+
+		case 1:
+			Status = ugvPwm_Initialize(InstancePtr->pwm, MGM1_PWM_BASEADDR);
+			if(Status != XST_SUCCESS) return XST_FAILURE;
+			else break;
+
+		default:
+			return XST_FAILURE;
+	}
+
+	ugvPwm_setPeriod   (InstancePtr->pid, (u16) MGM_PWM_PERIOD);
+	ugvPwm_setMinPeriod(InstancePtr->pid, (u16) MGM_PWM_MIN);
+	ugvPwm_setScaling  (InstancePtr->pid, (u8)  MGM_PWM_SCALE);
+	ugvPwm_setL298Mode (InstancePtr->pid);
+	ugvPwm_Enable      (InstancePtr->pid, TRUE);
+
+	return XST_SUCCESS;
+}

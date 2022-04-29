@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include "xil_printf.h"
+#include "sleep.h"
+#include "driveMotor_utilities.h"
+
+#define STATE_RAMP_UP    1
+#define STATE_RAMP_DOWN  2
+
+int main()
+{
+	printf("Device initialized!\r\n");
+
+	// VARIABLE DECLARATION
+	int Status;
+	ugv_driveMotor driveMotorInst;
+	ugv_qei        driveMotorQeiInst;
+	ugv_pwm        driveMotorPwmInst;
+    PIDController  driveMotorPidInst;
+
+    // MOTOR CONTROL PARAMETERS
+    int   TEST_STATE            = STATE_RAMP_UP;
+    u8    driveMotor_manualDuty = 35;
+    _Bool driveMotor_manualDir  = DRIVEMOTOR_REVERSE;
+
+	// DRIVE MOTOR INSTANCE INIT
+	Status = driveMotor_Initialize(&driveMotorInst, &driveMotorPwmInst,
+				                   &driveMotorQeiInst, &driveMotorPidInst);
+	if(Status != XST_SUCCESS) {
+		printf("Drive motor initialization failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	// MAIN LOOP
+	printf("Starting Test!\r\n\n");
+	while(1)
+	{
+		driveMotor_printStatus (&driveMotorInst);
+		driveMotor_printDuty   (&driveMotorInst);
+
+		// state machine
+		switch (TEST_STATE)
+		{
+			case STATE_RAMP_UP:
+				driveMotor_manualSetDutyDir(&driveMotorInst, driveMotor_manualDuty, driveMotor_manualDir);
+				driveMotor_manualDuty += 5;
+				printf("STATE: RAMP UP FORWARD\r\n");
+				sleep(1);
+				if(driveMotor_manualDuty == 125) {
+					TEST_STATE = STATE_RAMP_DOWN;
+				}
+				break;
+
+			case STATE_RAMP_DOWN:
+				driveMotor_manualSetDutyDir(&driveMotorInst, driveMotor_manualDuty, driveMotor_manualDir);
+				driveMotor_manualDuty -= 5;
+				printf("STATE: RAMP DOWN FORWARD\r\n");
+				sleep(1);
+				if(driveMotor_manualDuty == 35) {
+					driveMotor_manualDir = !driveMotor_manualDir;
+					TEST_STATE = STATE_RAMP_UP;
+				}
+				break;
+
+		}
+	}
+}

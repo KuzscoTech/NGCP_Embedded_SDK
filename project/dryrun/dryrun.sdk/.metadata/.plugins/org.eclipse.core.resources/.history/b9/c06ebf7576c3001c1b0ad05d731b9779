@@ -1,0 +1,29 @@
+#ifndef MICROMETAL_UTILITIES_H
+#define MICROMETAL_UTILITIES_H
+
+#include "xparameters.h"
+#include "motorEncoder.h"
+#include "motorPwm.h"
+#include "pid.h"
+
+#define MICROMETAL_FORWARD TRUE
+#define MICROMETAL_REVERSE FALSE
+
+/* MICROMETAL MOTORS DEFINITIONS */
+#define MGM0_PWM_BASEADDR           XPAR_MOTORPWM_1_S00_AXI_BASEADDR
+#define MGM0_PWM_PERIOD             9995
+#define MGM0_PWM_MIN                0
+#define MGM0_PWM_SCALE              39
+#define MGM0_QEI_BASEADDR           XPAR_MOTORENCODER_1_S00_AXI_BASEADDR
+#define MGM0_GEAR_RATIO             1000
+#define MGM0_RESOLUTION             12
+
+#define MGM1_PWM_BASEADDR           XPAR_MOTORPWM_2_S00_AXI_BASEADDR
+#define MGM1_PWM_PERIOD             9995
+#define MGM1_PWM_MIN                0
+#define MGM1_PWM_SCALE              39
+#define MGM1_QEI_BASEADDR           XPAR_MOTORENCODER_2_S00_AXI_BASEADDR
+#define MGM1_GEAR_RATIO             1000
+#define MGM1_RESOLUTION             12
+
+#endif

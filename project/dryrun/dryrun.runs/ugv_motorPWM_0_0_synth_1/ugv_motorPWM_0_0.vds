@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Thu Apr 28 19:20:12 2022
+# Process ID: 21180
+# Current directory: C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorPWM_0_0_synth_1
+# Command line: vivado.exe -log ugv_motorPWM_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ugv_motorPWM_0_0.tcl
+# Log file: C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorPWM_0_0_synth_1/ugv_motorPWM_0_0.vds
+# Journal file: C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorPWM_0_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source ugv_motorPWM_0_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/george/Documents/NGCP_Embedded_SDK/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2019.1/data/ip'.
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP ugv_motorPWM_0_0, cache-ID = 7651cfdec68146c4.
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 28 19:20:18 2022...

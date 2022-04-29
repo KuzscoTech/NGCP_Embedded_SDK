@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="ugv_motorPWM_0_1_synth_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorPWM_0_1_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="ugv_motorPWM_0_2_synth_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorPWM_0_2_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="ugv_motorPWM_0_1_synth_1"/>
+	</Run>
+	<Run Id="ugv_motorEncoder_1_0_synth_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorEncoder_1_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="ugv_motorEncoder_0_0_synth_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorEncoder_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="ugv_motorEncoder_0_1_synth_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/ugv_motorEncoder_0_1_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="ugv_motorEncoder_1_0_synth_1"/>
+	</Run>
+	<Run Id="synth_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="ugv_motorPWM_0_1_synth_1"/>
+		<Parent Id="ugv_motorPWM_0_2_synth_1"/>
+		<Parent Id="ugv_motorEncoder_1_0_synth_1"/>
+		<Parent Id="ugv_motorEncoder_0_0_synth_1"/>
+		<Parent Id="ugv_motorEncoder_0_1_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="C:/Users/george/Documents/local_projects/dryrun/dryrun.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="ugv_motorPWM_0_1_synth_1"/>
+		<Parent Id="ugv_motorPWM_0_2_synth_1"/>
+		<Parent Id="ugv_motorEncoder_1_0_synth_1"/>
+		<Parent Id="ugv_motorEncoder_0_0_synth_1"/>
+		<Parent Id="ugv_motorEncoder_0_1_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+

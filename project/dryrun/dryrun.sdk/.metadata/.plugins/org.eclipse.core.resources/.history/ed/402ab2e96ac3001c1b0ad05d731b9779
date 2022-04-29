@@ -1,0 +1,27 @@
+#include "driveMotor_utilities.h"
+
+
+/* Function to initialize a ugv_driveMotor instance. */
+int driveMotor_Initialize(ugv_driveMotor *InstancePtr)
+{
+	return XST_SUCCESS;
+}
+
+/* Function to initialize the PWM of a ugv_driveMotor instance. */
+int driveMotor_pwmInitialize(ugv_driveMotor *InstancePtr, ugv_pwm *PwmInstancePtr)
+{
+	int Status;
+
+	Status = ugvPwm_Initialize(InstancePtr->pwm, DRIVEMOTOR_PWM_BASEADDR);
+	if(Status != XST_SUCCESS) {
+	    return XST_FAILURE;
+	}
+
+	ugvPwm_setPeriod   (InstancePtr->pwm, (u16) DRIVEMOTOR_PWM_PERIOD);
+	ugvPwm_setMinPeriod(InstancePtr->pwm, (u16) DRIVEMOTOR_PWM_MIN);
+	ugvPwm_setScaling  (InstancePtr->pwm, (u8)  DRIVEMOTOR_PWM_SCALE);
+	ugvPwm_setIBT2Mode (InstancePtr->pwm);
+	ugvPwm_Enable      (InstancePtr->pwm, TRUE);
+
+	return XST_SUCCESS;
+}

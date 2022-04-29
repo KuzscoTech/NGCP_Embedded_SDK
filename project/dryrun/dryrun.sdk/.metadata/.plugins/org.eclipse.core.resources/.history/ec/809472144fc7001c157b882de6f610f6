@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include "xil_printf.h"
+#include "sleep.h"
+#include "driveMotor_utilities.h"
+
+
+int main()
+{
+	printf("Device initialized!\r\n");
+
+	// VARIABLE DECLARATION
+	int Status;
+	ugv_driveMotor driveMotorInst;
+	ugv_qei        driveMotorQeiInst;
+	ugv_pwm        driveMotorPwmInst;
+
+	// DRIVE MOTOR INSTANCE INIT
+	Status = driveMotor_Initialize(&driveMotorInst, &driveMotorPwmInst,
+				                   &driveMotorQeiInst, &driveMotorPidInst);
+	if(Status != XST_SUCCESS) {
+		printf("Drive motor initialization failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	//
+	u8    driveMotor_manualDuty = 80;
+	_Bool driveMotor_manualDir  = DRIVEMOTOR_FORWARD;
+
+}

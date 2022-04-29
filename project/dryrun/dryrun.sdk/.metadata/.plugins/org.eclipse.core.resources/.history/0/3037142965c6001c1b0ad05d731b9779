@@ -1,0 +1,121 @@
+#ifndef MICROMETAL_UTILITIES_H
+#define MICROMETAL_UTILITIES_H
+
+#include "xparameters.h"
+#include "motorEncoder.h"
+#include "motorPwm.h"
+#include "pid.h"
+
+#define MICROMETAL_FORWARD TRUE
+#define MICROMETAL_REVERSE FALSE
+
+/* MICROMETAL MOTORS SHARED DEFINITIONS */
+#define MGM_PWM_PERIOD             9995
+#define MGM_PWM_MIN                 0
+#define MGM_PWM_SCALE               39
+#define MGM_GEAR_RATIO              1000
+#define MGM_RESOLUTION              12
+
+/* MICROMETAL MOTOR 0 DEFINITIONS */
+#define MGM0_PWM_BASEADDR           XPAR_MOTORPWM_1_S00_AXI_BASEADDR
+#define MGM0_QEI_BASEADDR           XPAR_MOTORENCODER_1_S00_AXI_BASEADDR
+
+/* MICROMETAL MOTOR 1 DEFINITIONS */
+#define MGM1_PWM_BASEADDR           XPAR_MOTORPWM_2_S00_AXI_BASEADDR
+#define MGM1_QEI_BASEADDR           XPAR_MOTORENCODER_2_S00_AXI_BASEADDR
+
+/* MGM0 PID PARAMETERS */
+#define MGM0_PID_KP           0.4f
+#define MGM0_PID_KI           1.2f
+#define MGM0_PID_KD           0.25f
+#define MGM0_PID_TAU          0.02f
+#define MGM0_PID_LIM_MIN     -255.0f
+#define MGM0_PID_LIM_MAX      255.0f
+#define MGM0_PID_SAMPLE_TIME  0.01f // seconds
+#define MGM0_PID_LIM_MIN_INT -200.0f
+#define MGM0_PID_LIM_MAX_INT  200.0f
+
+/* MGM1 PID PARAMETERS */
+#define MGM1_PID_KP           0.4f
+#define MGM1_PID_KI           1.2f
+#define MGM1_PID_KD           0.25f
+#define MGM1_PID_TAU          0.02f
+#define MGM1_PID_LIM_MIN     -255.0f
+#define MGM1_PID_LIM_MAX      255.0f
+#define MGM1_PID_SAMPLE_TIME  0.01f // seconds
+#define MGM1_PID_LIM_MIN_INT -200.0f
+#define MGM1_PID_LIM_MAX_INT  200.0f
+
+/* Micrometal Motor Struct */
+typedef struct{
+	int           currentPos;
+	_Bool         currentDir;
+	int           currentRpm;
+	//
+	ugv_qei       *qei;
+	ugv_pwm       *pwm;
+	PIDController *pid;
+} ugv_microMetalMotor;
+
+/**
+ * @brief Function to initialize a ugv_microMetalMotor's PWM, QEI, and PID instances.
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param PwmInstancePtr is a pointer to a PIDController instance.
+ * @param QeiInstancePtr is a pointer to a ugv_qei instance.
+ * @param id can be 0-3. Indicates which micrometal motor is being initialized.
+ * @return
+ */
+int microMetal_Initialize(ugv_microMetalMotor *InstancePtr, ugv_pwm *PwmInstancePtr, ugv_qei *QeiInstancePtr, PIDController *PidInstancePtr, u8 id);
+
+/**
+ * @brief Function to initialize a ugv_microMetalMotor's PWM instance to parameters specified in
+ *        microMetal_utilities.h
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param PwmInstancePtr is a pointer to a ugv_pwm instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int microMetal_pwmInitialize(ugv_microMetalMotor *InstancePtr, ugv_pwm *PwmInstancePtr, u8 id);
+
+/**
+ * @brief Function to initialize a ugv_microMetalMotor's QEI instance to parameters specified in
+ *        microMetal_utilities.h
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param QeiInstancePtr is a pointer to a ugv_qei instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int microMetal_qeiInitialize(ugv_microMetalMotor *InstancePtr, ugv_qei *QeiInstancePtr, u8 id);
+
+/**
+ * @brief Function to initialize a ugv_microMetalMotor's PWM instance to parameters specified in
+ *        microMetal_utilities.h
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param PidInstancePtr is a pointer to a PIDController instance.
+ */
+int microMetal_pidInitialize(ugv_microMetalMotor *InstancePtr, PIDController *PidInstancePtr, u8 id);
+
+/**
+ * @brief Function to update and set the PID output of a ugv_microMetalMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param driveMotor_setPoint is a pointer to a float (-179 to +179) representing the
+ *        desired change in position of the microMetal.
+ *
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr, float *microMetal_delta);
+
+/**
+ * @brief Function to manually set the duty cycle and direction of a ugv_microMetalMotor
+ *        instance. Also updates currentPos, currentRpm, and currentDir values.
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param duty is the desired duty cycle from 0-255.
+ * @param dir is the desired direction to set.
+ */
+void microMetal_manualSetDutyDir(ugv_microMetalMotor *InstancePtr, u8 duty, _Bool dir);
+
+#endif

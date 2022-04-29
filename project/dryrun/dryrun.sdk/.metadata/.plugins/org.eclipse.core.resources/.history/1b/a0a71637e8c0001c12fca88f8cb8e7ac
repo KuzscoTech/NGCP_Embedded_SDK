@@ -1,0 +1,97 @@
+#include <stdio.h>
+//#include "platform.h"
+#include "xil_printf.h"
+#include "motorPWM.h"
+#include "motorEncoder.h"
+#include "sleep.h"
+#include "arm0_utilities.h"
+
+
+
+int main()
+{
+    u32 duty;
+    ugv_pwm mgm0_pwmInst;
+    ugv_qei mgm0_qeiInst;
+    ugv_pwm mgm1_pwmInst;
+    ugv_qei mgm1_qeiInst;
+    u32 mgm0_rpm;
+    float mgm0_pos;
+    u32 cnt_actual;
+    _Bool mgm0_dir;
+    u32 duty_actual;
+    float duty_percentage;
+
+    print("Device initialized!\n\r");
+
+    Status = arm0_initializeMicroMetalPwm(&mgm0_pwmInst, 0);
+    Status = arm0_initializeMicroMetalPwm(&mgm1_pwmInst, 1);
+    Status = arm0_initializeMicroMetalQEI(&mgm0_qeiInst, 0);
+    Status = arm0_initializeMicroMetalQEI(&mgm0_qeiInst, 1);
+
+    float rpm_reg;
+    float rpm_reg_float;
+
+    duty = 150;
+    _Bool dir = TRUE;
+    ugvPwm_setDir   (&mgm0_pwmInst, dir);
+    while(1)
+    {
+        // Set motor speed and direction
+
+        ugvPwm_setSpeed (&mgm0_pwmInst, duty);
+
+        // Read motor info
+        mgm0_rpm = ugvQei_getRpm       (&mgm0_qeiInst);
+    	mgm0_dir = ugvQei_getDirection (&mgm0_qeiInst);
+        mgm0_pos = ugvQei_getPosition  (&mgm0_qeiInst);
+        if(!mgm0_dir) mgm0_rpm = -mgm0_rpm;
+
+        /*
+        rpm_reg = MOTORENCODER_mReadReg(mgm0_qeiInst.RegBaseAddress, 8);
+        rpm_reg_float = (float) (rpm_reg / (12 * 1000)) * 360;
+        */
+        rpm_reg_float = ugvQei_convertMgmPosition(&mgm0_qeiInst);
+
+        printf("---------------------\r\n");
+    	printf("Current RPM      : %d\r\n", mgm0_rpm);
+        //printf("Current Position : %3.5f\r\n\n", mgm0_pos);
+
+        //printf("RPM Register    : %d\r\n", rpm_reg);
+        printf("Current Position : %3.3f\r\n\n", rpm_reg_float);
+
+    	cnt_actual = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 12);
+    	//printf("Counter Value  : %d\r\n", cnt_actual);
+        duty_percentage = (float) duty/255*100;
+    	printf("Expected duty  : %d  ||  %3.3f%%\r\n", duty, duty_percentage);
+        duty_actual = ((cnt_actual-MGM_0_PWM_MIN)/MGM_0_PWM_SCALE);
+        duty_percentage = (float) duty_actual/255*100 ;
+    	printf("Actual duty    : %d  ||  %3.3f%%\r\n", duty_actual, duty_percentage);
+
+        u32 reg_read = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 0);
+        xil_printf("slv_reg0       : %x\r\n", reg_read);
+        reg_read = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 4);
+        xil_printf("slv_reg1       : %x\r\n", reg_read);
+        reg_read = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 8);
+        xil_printf("slv_reg2       : %x\r\n", reg_read);
+        reg_read = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 12);
+        xil_printf("slv_reg3       : %x\r\n", reg_read);
+
+        /*
+    	if(rpm_reg_float >= 355) {
+    		if(dir) {
+    			dir = FALSE;
+    			ugvPwm_setDir   (&mgm0_pwmInst, dir);
+    		}
+    		else {
+    			dir = TRUE;
+    			ugvPwm_setDir   (&mgm0_pwmInst, dir);
+    		}
+    	}
+    	*/
+
+    	sleep(1);
+    }
+
+    return 0;
+}
