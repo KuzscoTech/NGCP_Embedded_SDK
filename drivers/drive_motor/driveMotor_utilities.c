@@ -68,6 +68,7 @@ int driveMotor_qeiInitialize(ugv_driveMotor *InstancePtr, ugv_qei *QeiInstancePt
 void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidInstancePtr)
 {
 	InstancePtr->pid = PidInstancePtr;
+	PIDController_Init(InstancePtr->pid);
 	//
 	InstancePtr->pid->Kp        = DRIVEMOTOR_PID_KP;
 	InstancePtr->pid->Ki        = DRIVEMOTOR_PID_KI;
@@ -151,8 +152,38 @@ void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir
 	InstancePtr->currentRpm = (int) ugvQei_getRpm(InstancePtr->qei);
 }
 
+/**
+ *
+ * @param InstancePtr
+ */
+void driveMotor_printStatus(ugv_driveMotor *InstancePtr)
+{
+	// update rpm and dir
+	InstancePtr->currentRpm = ugvQei_getRpm (InstancePtr->qei);
+	InstancePtr->currentDir = ugvQei_getDirection   (InstancePtr->qei);
+	//
+	xil_printf("--------------------------------------------------\r\n");
+	xil_printf("Current RPM: %d\r\n", InstancePtr->currentRpm);
+	if(InstancePtr->currentDir == DRIVEMOTOR_REVERSE){
+		xil_printf("Current Dir: REVERSE\r\n\n");
+	}
+	else {
+		xil_printf("Current Dir: FORWARD\r\n\n");
+	}
+}
 
 
+void driveMotor_printDuty(ugv_driveMotor *InstancePtr)
+{
+	u32 cnt_actual;
+	cnt_actual = MOTORPWM_mReadReg(InstancePtr->pwm->RegBaseAddress, 0);
+	cnt_actual = cnt_actual & 0xFF;
+	xil_printf("IP speed sel   : %d\r\n", cnt_actual);
+	cnt_actual = MOTORPWM_mReadReg(InstancePtr->pwm->RegBaseAddress, 12);
+	xil_printf("Counter Value  : %d\r\n", cnt_actual);
+	xil_printf("Expected duty  : %d\r\n", InstancePtr->pwm->speedSelect);
+	xil_printf("Actual duty    : %d\r\n\n", (cnt_actual-DRIVEMOTOR_PWM_MIN)/DRIVEMOTOR_PWM_SCALE);
+}
 
 
 

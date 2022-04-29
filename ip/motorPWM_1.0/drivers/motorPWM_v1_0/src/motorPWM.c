@@ -53,7 +53,9 @@ void ugvPwm_setSpeed(ugv_pwm *InstancePtr, u8 spd_val)
  */
 void ugvPwm_setDir(ugv_pwm *InstancePtr, _Bool dir)
 {
+    u32 clearMask = ~((u32) 0x100);
     u32 reg_read = MOTORPWM_mReadReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET);
+    if(!dir) reg_read = reg_read & clearMask;
     u32 dir_reg = reg_read | (dir << 8);
     InstancePtr->setDirection = dir;
     MOTORPWM_mWriteReg(InstancePtr->RegBaseAddress, MOTORPWM_S00_AXI_SLV_REG0_OFFSET, dir_reg);

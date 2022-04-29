@@ -402,7 +402,7 @@
      mainservo mainservo(
     .clk(servoclock),
     .clr(~S_AXI_ARESETN),
-    .pos(slv_reg0),
+    .pos(slv_reg0[9:0]),
     .servo(servo)
     );
 	// User logic ends

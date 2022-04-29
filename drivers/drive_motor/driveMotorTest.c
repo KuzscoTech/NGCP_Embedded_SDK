@@ -1,6 +1,3 @@
-// https://www.mathworks.com/help/ident/ref/iddata.html
-
-
 #include <stdio.h>
 #include "xparameters.h"
 #include "xil_printf.h"
@@ -8,7 +5,7 @@
 #include "xtime_l.h"
 #include "driveMotor_utilities.h"
 
-#define TEST_PID          1
+#define TEST_PID          0
 #define TEST_INC          0
 
 #define DBG_READABLE      0
@@ -51,7 +48,7 @@ int main()
 
 
 	// MOTOR CONTROL PARAMETERS
-	float driveMotor_setPoint = -150.0;
+	float driveMotor_setPoint = -80.0;
 
 	u8    driveMotor_manualDuty = 80;
 	_Bool driveMotor_manualDir  = DRIVEMOTOR_FORWARD;
@@ -83,7 +80,7 @@ int main()
     	if(DBG_PID) {
     		printf("PID Setpoint   : %6.3f RPM\r\n", driveMotorInst.pid->setPoint);
     		printf("PID Input      : %6.3f RPM\r\n", driveMotorInst.pid->measurement);
-    		printf("Raw PID Output : %6.3f\r\n", driveMotorInst.pid->out);
+    		printf("Raw PID Output : %6.3f\r\n",     driveMotorInst.pid->out);
     		printf("\r\n");
     	}
 ;

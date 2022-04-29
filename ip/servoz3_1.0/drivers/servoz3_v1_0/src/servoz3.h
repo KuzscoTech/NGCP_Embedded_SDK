@@ -18,7 +18,7 @@
 /**************************** Type Definitions *****************************/
 typedef struct {
     UINTPTR RegBaseAddress;
-    u8 inputVal;
+    u32 inputVal;
 }  ugv_servo;
 
 
@@ -85,6 +85,6 @@ typedef struct {
 XStatus SERVOZ3_Reg_SelfTest(void * baseaddr_p);
 
 int ugvServo_Initialize(ugv_servo *InstancePtr, UINTPTR EffectiveAddr);
-void ugvServo_SetDir(ugv_servo *InstancePtr, u8 inputVal);
+void ugvServo_SetDir(ugv_servo *InstancePtr, u32 inputVal);
 
 #endif // SERVOZ3_H

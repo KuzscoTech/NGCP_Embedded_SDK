@@ -37,8 +37,10 @@ module QEI
     logic [31:0] nxt_position;
 
     localparam T_1S      = 'd1_000_000_000; // ns
+    localparam DIVFACTOR = 10;
+    localparam T_SAMPLE  = T_1S/DIVFACTOR; // ns
     localparam T_CLK     = 'd10;            // ns
-    localparam TIMER_MAX = T_1S / T_CLK;    // clock counts
+    localparam TIMER_MAX = T_SAMPLE / T_CLK;    // clock counts
     localparam TIMER_INC = 'd1;
 
     localparam RES_FACTOR    = 60 / RESOLUTION;
@@ -159,7 +161,7 @@ module QEI
                 if(COUNT_BOTH)
                     RPM <= rev_cnt * RES_FACTOR;
                 else 
-                    RPM <= (rev_cnt * 6) >> 4;
+                    RPM <= ((rev_cnt * 6) >> 4)*DIVFACTOR;
                 
                 timer <= 0; 
             end

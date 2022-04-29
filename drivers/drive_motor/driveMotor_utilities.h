@@ -96,4 +96,12 @@ void driveMotor_setPidOutput(ugv_driveMotor *InstancePtr, float driveMotor_setPo
 void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir);
 
 
+/**
+ *
+ * @param InstancePtr
+ */
+void driveMotor_printStatus(ugv_driveMotor *InstancePtr);
+
+void driveMotor_printDuty(ugv_driveMotor *InstancePtr);
+
 #endif
