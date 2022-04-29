@@ -1,9 +1,12 @@
 #ifndef PID_CONTROLLER_H
 #define PID_CONTROLLER_H
 
-#include "motorEncoder.h"
 
 typedef struct {
+
+	/* PID measurement */
+	float measurement;
+	float setPoint;
 
 	/* Controller gains */
 	float Kp;
