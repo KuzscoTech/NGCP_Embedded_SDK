@@ -1,5 +1,6 @@
 #include "servoMotor_utilities.h"
 
+
 /**
  * @brief Function to initialize a ugv_servoMotor's PWM and XADC instances.
  *
@@ -139,6 +140,7 @@ float servoMotor_getPosition(ugv_servoMotor *InstancePtr)
  */
 void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float *setPoint)
 {
+	float temp;
 	// get position
 	InstancePtr->currentPos = servoMotor_getPosition(InstancePtr);
 
@@ -146,9 +148,16 @@ void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float *setPoint)
 	InstancePtr->pid->measurement = InstancePtr->currentPos;
 	InstancePtr->pid->setPoint = *setPoint;
 
-	// calculate pid output and set pwm duty cycle
-	calculatePid(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
-	ugvServo_SetDir(InstancePtr->pwm, (u32) InstancePtr->pid->out);
+	if(abs(InstancePtr->pid->setPoint - InstancePtr->pid->measurement) < 8){
+		// calculate pid output and set pwm duty cycle
+		calculatePid(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
+		temp = 325 - InstancePtr->pid->out;
+		ugvServo_SetDir(InstancePtr->pwm, (u32) temp);
+	}
+	else{
+
+	}
+	//Xil_Out32(InstancePtr->pwm->RegBaseAddress, (u32) InstancePtr->pid->out);
 }
 
 /**
@@ -181,7 +190,6 @@ int AdcfractionToInt(float FloatNum)
 
 	return( ((int)((Temp -(float)((int)Temp)) * (1000000.0f))));
 }
-
 
 
 
