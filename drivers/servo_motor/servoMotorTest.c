@@ -4,11 +4,11 @@
 #include "xtime_l.h"
 #include "servoMotor_utilities.h"
 
-#define TEST_PID        0
+#define TEST_PID        1
 #define TEST_SWEEP      0
 
-#define DBG_READABLE    1
-#define DBG_PID         0
+#define DBG_READABLE    0	// makes it sleep 1 second
+#define DBG_PID         1	// prints pid setpoint
 #define DBG_ADC_VOLT    1
 #define DBG_SERVO_REGS  0
 #define DBG_SYS_ID      0
@@ -23,10 +23,11 @@ int main()
 	ugv_servo       servoPwmInst;
 	XSysMon         servoAdcInst;
 	PIDController   servoPidInst;
+	u32 reg_read;
 
 	// MOTOR CONTROL PARAMETERS
-	float servoMotor_setPoint   = 45.0;
-	u32   servoMotor_manualDuty = 400;
+	float servoMotor_setPoint   = 135.0;
+	u32   servoMotor_manualDuty = 250.0;
 	int   sweepFlag;
 
 	// SYSID TIME MEASUREMENT
@@ -86,6 +87,7 @@ int main()
 			printf("PID Setpoint   : %6.3f degrees\r\n", servoMotorInst.pid->setPoint);
 			printf("PID Input      : %6.3f degrees\r\n", servoMotorInst.pid->measurement);
 			printf("Raw PID Output : %6.3f\r\n", servoMotorInst.pid->out);
+			printf("Error: %3.3f\r\n", servoMotorInst.pid->prevError);
 			printf("\r\n");
 		}
 
@@ -104,8 +106,8 @@ int main()
 		}
 
 		if(DBG_SERVO_REGS) {
-			//reg_read = SERVOZ3_mReadReg(servoMotorInst.pwm->RegBaseAddress, 0);
-			//xil_printf("PWM slv_reg0       : %x\r\n", reg_read);
+			reg_read = SERVOZ3_mReadReg(servoMotorInst.pwm->RegBaseAddress, 0);
+			xil_printf("PWM slv_reg0       : %x\r\n", reg_read);
 		}
 
 		if(DBG_ADC_VOLT) {
@@ -113,9 +115,8 @@ int main()
 		}
 
 		if(DBG_READABLE) sleep(1);
+
 	}
-
-
 
 
 
