@@ -14,15 +14,15 @@
 #define SERVO_XADC_DEVICE_ID   XPAR_XADC_WIZ_0_DEVICE_ID
 
 /* SERVO PID PARAMETERS */
-#define SERVO_PID_KP           0.5f
-#define SERVO_PID_KI           1.0f
-#define SERVO_PID_KD           0.1f
+#define SERVO_PID_KP           0.1f
+#define SERVO_PID_KI           0.5f
+#define SERVO_PID_KD           0.0f
 #define SERVO_PID_TAU          0.02f
 #define SERVO_PID_LIM_MIN      75.0f
 #define SERVO_PID_LIM_MAX      250.0f
 #define SERVO_PID_SAMPLE_TIME  0.01f // seconds
-#define SERVO_PID_LIM_MIN_INT -500.0f
-#define SERVO_PID_LIM_MAX_INT  500.0f
+#define SERVO_PID_LIM_MIN_INT -300.0f
+#define SERVO_PID_LIM_MAX_INT  300.0f
 
 /* XADC MACROS */
 #define XSysMon_RawToExtVoltage(AdcData)  ((((float)(AdcData))*(1.0f))/65536.0f)
@@ -32,7 +32,7 @@ typedef struct{
 	u32           manualSetDuty;
 	float         manualSetPos;
 	//
-	float         currentPos;
+	int         currentPos;
 	int           adcVoltage;
 	//
 	ugv_servo     *pwm;
