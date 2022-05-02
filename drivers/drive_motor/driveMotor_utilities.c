@@ -1,10 +1,17 @@
 #include "driveMotor_utilities.h"
 
 
-/* Function to initialize a ugv_driveMotor instance. */
+/**
+ * @brief Function to initialize a ugv_driveMotor instance's PWM, QEI, and PID instances.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
 int driveMotor_Initialize(ugv_driveMotor *InstancePtr, ugv_pwm *PwmInstancePtr, ugv_qei *QeiInstancePtr, PIDController *PidInstancePtr)
 {
 	int Status;
+
+	InstancePtr->uartSetPoint = 0;
 
 	// initialize PWM
 	Status = driveMotor_pwmInitialize(InstancePtr, PwmInstancePtr);
@@ -20,7 +27,15 @@ int driveMotor_Initialize(ugv_driveMotor *InstancePtr, ugv_pwm *PwmInstancePtr, 
 	return XST_SUCCESS;
 }
 
-/* Function to initialize the PWM of a ugv_driveMotor instance. */
+/**
+ * @brief Function to initialize PWM of a ugv_driveMotor instance to
+ *        parameters specified in driveMotor_utilities.h.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ * @param PwmInstancePtr is a pointer to a ugv_pwm instance to be stored in the
+ *        ugv_driveMotor instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
 int driveMotor_pwmInitialize(ugv_driveMotor *InstancePtr, ugv_pwm *PwmInstancePtr)
 {
 	int Status;
@@ -44,7 +59,13 @@ int driveMotor_pwmInitialize(ugv_driveMotor *InstancePtr, ugv_pwm *PwmInstancePt
 	return XST_SUCCESS;
 }
 
-/* Function to initialize the QEI of a ugv_driveMotor instance */
+/**
+ * @brief Function to initialize QEI of a ugv_driveMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ * @param QeiInstancePtr is a pointer to a ugv_qei instance to be stored in the ugv_driveMotor instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
 int driveMotor_qeiInitialize(ugv_driveMotor *InstancePtr, ugv_qei *QeiInstancePtr)
 {
 	int Status;
@@ -64,7 +85,13 @@ int driveMotor_qeiInitialize(ugv_driveMotor *InstancePtr, ugv_qei *QeiInstancePt
 	return XST_SUCCESS;
 }
 
-/* Function to initialize the PID of a ugv_driveMotor instance. */
+/**
+ * @brief Function to initialize PID of a ugv_driveMotor instance to parameters specified in
+ *        driveMotor_utilities.h
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ * @param PidInstancePtr is a pointer to a PID instance to be stored in the ugv_driveMotor instance.
+ */
 void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidInstancePtr)
 {
 	InstancePtr->pid = PidInstancePtr;
@@ -81,14 +108,32 @@ void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidIns
 	InstancePtr->pid->T         = DRIVEMOTOR_PID_SAMPLE_TIME;
 }
 
-/* Function to update and set the PID output of a ugv_driveMotor instance. */
+/**
+ * @brief Function to manually update the current RPM and direction of a ugv_driveMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ */
+void driveMotor_updateStatus(ugv_driveMotor *InstancePtr)
+{
+	InstancePtr->currentDir = ugvQei_getDirection(InstancePtr->qei);
+	InstancePtr->currentRpm = (int) ugvQei_getRpm(InstancePtr->qei);
+}
+
+
+/**
+ * @brief Function to update and set the PID output of a ugv_driveMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ * @param driveMotor_setPoint is a pointer to a float representing the desired RPM
+ *        of the driveMotor. Negative values represent reverse drive.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
 void driveMotor_setPidOutput(ugv_driveMotor *InstancePtr, float driveMotor_setPoint)
 {
 	float tempPidOut;
 
-	// get rpm
-	InstancePtr->currentRpm = ugvQei_getRpm (InstancePtr->qei);
-	InstancePtr->currentDir = ugvQei_getDirection   (InstancePtr->qei);
+	// get rpm and direction
+	driveMotor_updateStatus(InstancePtr);
 
 	// set pid setpoint
 	if(driveMotor_setPoint < 0) {
@@ -148,13 +193,13 @@ void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir
 	ugvPwm_setSpeed(InstancePtr->pwm, duty);
 
 	// update current rpm and direction
-	InstancePtr->currentDir = ugvQei_getDirection(InstancePtr->qei);
-	InstancePtr->currentRpm = (int) ugvQei_getRpm(InstancePtr->qei);
+	driveMotor_updateStatus(InstancePtr);
 }
 
 /**
+ * @brief Function to print drive motor current rpm and direction.
  *
- * @param InstancePtr
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  */
 void driveMotor_printStatus(ugv_driveMotor *InstancePtr)
 {
@@ -172,10 +217,16 @@ void driveMotor_printStatus(ugv_driveMotor *InstancePtr)
 	}
 }
 
-
+/**
+ * @brief Function to print the actual and expected duty cycle of the pwm object of a
+ *        ugv_driveMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ */
 void driveMotor_printDuty(ugv_driveMotor *InstancePtr)
 {
 	u32 cnt_actual;
+	xil_printf("UART speed sel : %d\r\n", InstancePtr->uartSetPoint);
 	cnt_actual = MOTORPWM_mReadReg(InstancePtr->pwm->RegBaseAddress, 0);
 	cnt_actual = cnt_actual & 0xFF;
 	xil_printf("IP speed sel   : %d\r\n", cnt_actual);

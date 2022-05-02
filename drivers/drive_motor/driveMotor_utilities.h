@@ -1,10 +1,10 @@
 #ifndef DRIVEMOTOR_UTILITIES_H
 #define DRIVEMOTOR_UTILITIES_H
 
+#include "xparameters.h"
 #include "motorEncoder.h"
 #include "motorPWM.h"
 #include "pid.h"
-#include "xparameters.h"
 
 #define DRIVEMOTOR_FORWARD TRUE
 #define DRIVEMOTOR_REVERSE FALSE
@@ -30,6 +30,8 @@
 
 /* Drive Motor struct */
 typedef struct{
+	int           uartSetPoint; // setpoint from uart
+	//
 	_Bool         currentDir;   // actual motor direction
 	int           currentRpm;   // actual motor rpm
 	//
@@ -76,6 +78,13 @@ int driveMotor_qeiInitialize(ugv_driveMotor *InstancePtr, ugv_qei *QeiInstancePt
 void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidInstancePtr);
 
 /**
+ * @brief Function to manually update the current RPM and direction of a ugv_driveMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ */
+void driveMotor_updateStatus(ugv_driveMotor *InstancePtr);
+
+/**
  * @brief Function to update and set the PID output of a ugv_driveMotor instance.
  *
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
@@ -84,7 +93,6 @@ void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidIns
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
 void driveMotor_setPidOutput(ugv_driveMotor *InstancePtr, float driveMotor_setPoint);
-
 
 /**
  * @brief Function to manually set duty cycle and direction of a ugv_driveMotor instance.
@@ -97,11 +105,18 @@ void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir
 
 
 /**
+ * @brief Function to print drive motor current rpm and direction.
  *
- * @param InstancePtr
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  */
 void driveMotor_printStatus(ugv_driveMotor *InstancePtr);
 
+/**
+ * @brief Function to print the actual and expected duty cycle of the pwm object of a
+ *        ugv_driveMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ */
 void driveMotor_printDuty(ugv_driveMotor *InstancePtr);
 
 #endif
