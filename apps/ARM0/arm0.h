@@ -1,14 +1,10 @@
 #ifndef ARM0_H
 #define ARM0_H
 
+#include <stdio.h>
 #include "system.h"
-#include "driveMotor_utilities.h"
-#include "servoMotor_utilities.h"
-#include "microMetal_utilities.h"
 #include "uart_utilities.h"
-#include "arm0_utilities.h"
-
-#define UART_DRIVEMOTOR_EN 1
+#include "ocm.h"
 
 #define UART_DEVICE_ID_0        XPAR_AXI_UARTLITE_0_DEVICE_ID
 #define UART_DEVICE_ID_1        XPAR_AXI_UARTLITE_1_DEVICE_ID
@@ -18,7 +14,6 @@
 
 
 /****************** FUNCTION DEFINITIONS ********************/
-
 
 void UartLiteRecvHandler0(void *CallBackRef, unsigned int EventData);
 void UartLiteSendHandler0(void *CallBackRef, unsigned int EventData);

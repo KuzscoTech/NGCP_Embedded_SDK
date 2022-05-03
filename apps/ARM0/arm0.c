@@ -3,7 +3,7 @@ Receive commands via UART
 */
 
 #include "arm0.h"
-
+#include "xtime_l.h"
 
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
@@ -21,21 +21,24 @@ int   DATACOUNT[2];
 _Bool VALID    [2];
 int   ERRORS   [2];
 
+_Bool          uart0RecvDone;
+
 // UART0 STATE MACHINE
 int UART0_STATE;
 
 int main()
 {
-    int Status;
+	printf("\r\n\nARM0 Initialized!\r\n\n");
+	//
+    int            Status;
+    int            SM_Status;
+    XTime          uart0RecvStartTime;
+    XTime          uart0CurrentTime;
+    float          delta;
     _Bool          uart0RecvDone;
-    _Bool          uart0SendDone;
-    ugv_driveMotor driveMotorInst;
-    ugv_pwm        driveMotorPwmInst;
-    ugv_qei        driveMotorQeiInst;
-    PIDController  driveMotorPidInst;
-    
 
-    printf("\r\n\nARM0 Inititialized!\r\n\n");
+    uart0Data      uart0DataInst;
+
 
     // Setup interrupt system
     printf("Initializing XscuGic...\r\n");
@@ -47,15 +50,15 @@ int main()
 
     // Initialize UARTs
     printf("Initializing UART drivers...\r\n");
-    UartLiteInit(&UartLiteInst0, UART_DEVICE_ID_0);
-    UartLiteInit(&UartLiteInst1, UART_DEVICE_ID_1);
+    uart_Initialize(&UartLiteInst0, UART_DEVICE_ID_0);
+    uart_Initialize(&UartLiteInst1, UART_DEVICE_ID_1);
     if(Status != XST_SUCCESS) {
         printf("UART setup failed!\r\n");
         return XST_FAILURE;
     }
 
     // Setup UART0 interrupts
-	Status = UartLiteSetupIntrSystem(&IntcInstance, &UartLiteInst0, UART_IRPT_INTR_0);
+	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst0, UART_IRPT_INTR_0);
 	if (Status != XST_SUCCESS) {
         xil_printf("UART0 Interrupt Config Failed!\r\n");
 		return XST_FAILURE;
@@ -63,7 +66,7 @@ int main()
 	xil_printf("UART0 Interrupt Initialized!\r\n");
 
     // Setup UART1 interrupts
-	Status = UartLiteSetupIntrSystem(&IntcInstance, &UartLiteInst1, UART_IRPT_INTR_1);
+	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst1, UART_IRPT_INTR_1);
     if (Status != XST_SUCCESS) {
         xil_printf("UART1 Interrupt Config Failed!\r\n");
         return XST_FAILURE;
@@ -80,68 +83,87 @@ int main()
     XUartLite_EnableInterrupt(&UartLiteInst0);
     XUartLite_EnableInterrupt(&UartLiteInst1);
 
-    
-    // Initialize Drive Motor
-    printf("Initializing drive motor drivers...\r\n");
-    Status = driveMotor_Initialize(&driveMotorInst, &driveMotorPwmInst, &driveMotorQeiInst, &driveMotorPidInst);
-    if(Status != XST_SUCCESS) {
-        printf("Drive Motor setup failed!\r\n");
-        return XST_FAILURE;
-    }
-
-    // MAIN LOOP
-    uart0SendDone = TRUE;
+    // Initialize flags and counters
     uart0RecvDone = FALSE;
-
     TotalSentCount[0] = 0;
     TotalSentCount[1] = 0;
     TotalRecvCount[0] = 0;
     TotalRecvCount[1] = 0;
 
+    // Initialize OCM
+    ocm_initialize();
+
+    // MAIN LOOP
     while(1)
     {
+    	// only update send buffer if ARM0 has access to OCM
+    	SM_Status = ocm_getMemFlag();
+    	if(SM_Status == 0) {
+    		//printf("CPU0 mem status: %d\r\n", SM_Status);
+			for(int i=0; i<UART_BUFFER_SIZE; i++) {
+				SendBuffer[0][i] = 0;
+			}
+			// get data from OCM
+			uart_data0FromOcm(&uart0DataInst);
 
-    	driveMotor_setPidOutput(&driveMotorInst, (float) driveMotorInst.uartSetPoint);
+			// load it into the send buffer
+			uart0DataInst.index = 0;
+			uart_loadData0(SendBuffer[0], &uart0DataInst);
+    	}
 
-    	if(uart0SendDone) {
-    		//printf("Sending!\r\n");
+    	TotalSentCount[0] = 0;
+    	XUartLite_Send(&UartLiteInst0, SendBuffer[0], uart0DataInst.index);
+    	while(TotalSentCount[0] != uart0DataInst.index) {
+    	}
+
+    	// start a receive
+    	TotalRecvCount[0] = 0;
+    	if(!uart0RecvDone)
+    	{
+    		//printf("starting receive\r\n");
     		for(int i=0; i<UART_BUFFER_SIZE; i++) {
-    			SendBuffer[0][i] = 0;
+    			RecvBuffer[0][i] = 0;
     		}
-			UartLite_sendDriveMotorStats(&driveMotorInst, SendBuffer[0], 0);
-			TotalSentCount[0] = 0;
-			XUartLite_Send(&UartLiteInst0, SendBuffer[0], DRIVEMOTOR_FRAME_SIZE);
-			uart0SendDone = FALSE;
-			//uart_printBuffer(SendBuffer[0]);
+    		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DRIVEMOTOR_CMD_SIZE);
+
+    		// get the start time
+    		//printf("resetting start time\r\n");
+    		XTime_GetTime(&uart0RecvStartTime);
+
+    		// wait for the receive to complete
+    		//printf("waiting for the goods\r\n");
+    		uart0RecvDone = TRUE;
+    		delta = 0;
+    		while(TotalRecvCount[0] != DRIVEMOTOR_CMD_SIZE) {
+    			XTime_GetTime(&uart0CurrentTime);
+    			delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
+    			if(delta > 200.0) {
+    				//printf("Timeout...\r\n\n");
+    				uart0RecvDone = FALSE;
+    				break;
+    			}
+    		}
     	}
 
-    	if(TotalSentCount[0] >= DRIVEMOTOR_FRAME_SIZE) {
-    		uart0SendDone = TRUE;
-    	}
 
-    	/*
     	if(uart0RecvDone) {
-    		printf("Receiving!\r\n");
-    		uart_printBuffer(RecvBuffer[0]);
-    		Uart0_parseDriveMotor(RecvBuffer[0], &driveMotorInst);
-    		uart_printBuffer(RecvBuffer[0]);
-    		printf("\r\n\n\n");
-    		TotalRecvCount[0] = 0;
-    		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], 7);
+    		//printf("Received data!\r\n");
+    		//uart_printBuffer(RecvBuffer[0]);
     		uart0RecvDone = FALSE;
+
+    		// parse the data and update the struct
+    		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
+
+    		// only update OCM if it's our turn
+    		if(SM_Status == 0) {
+    			uart_data0ToOcm(&uart0DataInst);
+    		}
     	}
 
-    	//uart_printBuffer(RecvBuffer[0]);
-		if(TotalRecvCount[0] >= 7) {
-			uart0RecvDone = TRUE;
-		}
-		*/
-
-    	printf("Receiving!\r\n");
-    	XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DRIVEMOTOR_CMD_SIZE);
-    	while(TotalRecvCount[0] != DRIVEMOTOR_CMD_SIZE) {
+    	// once done with everything set the mem flag to pass access to ARM1
+    	if(SM_Status == 0) {
+    		ocm_setMemFlag();
     	}
-    	uart_printBuffer(RecvBuffer[0]);
     }
 
 }
