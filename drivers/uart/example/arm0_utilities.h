@@ -8,8 +8,12 @@
 #include "math.h"
 #include "uart_utilities.h"
 #include "driveMotor_utilities.h"
+#include "xtime_l.h"
 
 #define UART0_FRAME_LENGTH 10
+
+
+int timeOutTimer(XTime tStart, int countUs);
 
 /**
  * @brief Function to parse UART0 data for drive motor inputs
@@ -24,6 +28,6 @@
  * @param InstancePtr
  * @return
  */
-int Uart0_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], ugv_driveMotor *driveMotorInstancePtr);
+int arm0_parseUartDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], ugv_driveMotor *driveMotorInstancePtr);
 
 #endif

@@ -71,7 +71,7 @@ void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE]);
  * @param index is a pointer to an int indicating the index from which to start loading
  *        motor data.
  */
-void UartLite_sendDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sendBuffer [UART_BUFFER_SIZE], int index);
+void uart_loadDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sendBuffer [UART_BUFFER_SIZE], int index);
 #endif
 
 #endif

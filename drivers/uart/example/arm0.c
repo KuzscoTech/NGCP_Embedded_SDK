@@ -3,6 +3,7 @@ Receive commands via UART
 */
 
 #include "arm0.h"
+#include "xtime_l.h"
 
 
 /************************** GLOBAL VARIABLES ***********************/
@@ -21,12 +22,18 @@ int   DATACOUNT[2];
 _Bool VALID    [2];
 int   ERRORS   [2];
 
+_Bool          uart0RecvDone;
+
 // UART0 STATE MACHINE
 int UART0_STATE;
 
 int main()
 {
     int Status;
+    XTime          uart0RecvStartTime;
+    XTime          uart0CurrentTime;
+    float          delta;
+
     _Bool          uart0RecvDone;
     _Bool          uart0SendDone;
     ugv_driveMotor driveMotorInst;
@@ -101,47 +108,63 @@ int main()
     while(1)
     {
 
-    	driveMotor_setPidOutput(&driveMotorInst, (float) driveMotorInst.uartSetPoint);
-
-    	if(uart0SendDone) {
-    		//printf("Sending!\r\n");
-    		for(int i=0; i<UART_BUFFER_SIZE; i++) {
-    			SendBuffer[0][i] = 0;
-    		}
-			UartLite_sendDriveMotorStats(&driveMotorInst, SendBuffer[0], 0);
-			TotalSentCount[0] = 0;
-			XUartLite_Send(&UartLiteInst0, SendBuffer[0], DRIVEMOTOR_FRAME_SIZE);
-			uart0SendDone = FALSE;
-			//uart_printBuffer(SendBuffer[0]);
+    	for(int i=0; i<UART_BUFFER_SIZE; i++) {
+    		SendBuffer[0][i] = 0;
+    	}
+    	uart_loadDriveMotorStats(&driveMotorInst, SendBuffer[0], 0);
+    	TotalSentCount[0] = 0;
+    	uart0SendDone = FALSE;
+    	XUartLite_Send(&UartLiteInst0, SendBuffer[0], DRIVEMOTOR_FRAME_SIZE);
+    	while(TotalSentCount[0] != DRIVEMOTOR_FRAME_SIZE) {
     	}
 
-    	if(TotalSentCount[0] >= DRIVEMOTOR_FRAME_SIZE) {
-    		uart0SendDone = TRUE;
-    	}
 
-    	/*
-    	if(uart0RecvDone) {
-    		printf("Receiving!\r\n");
-    		uart_printBuffer(RecvBuffer[0]);
-    		Uart0_parseDriveMotor(RecvBuffer[0], &driveMotorInst);
-    		uart_printBuffer(RecvBuffer[0]);
-    		printf("\r\n\n\n");
-    		TotalRecvCount[0] = 0;
-    		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], 7);
-    		uart0RecvDone = FALSE;
-    	}
+    	// start a receive
+    	TotalRecvCount[0] = 0;
+    	if(!uart0RecvDone)
+    	{
+    		printf("starting receive\r\n");
+			XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DRIVEMOTOR_CMD_SIZE);
 
-    	//uart_printBuffer(RecvBuffer[0]);
-		if(TotalRecvCount[0] >= 7) {
+			// get the start time
+			//printf("resetting start time\r\n");
+			XTime_GetTime(&uart0RecvStartTime);
+
+			// wait for the receive to complete
+			printf("waiting for the goods\r\n");
 			uart0RecvDone = TRUE;
-		}
-		*/
-
-    	printf("Receiving!\r\n");
-    	XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DRIVEMOTOR_CMD_SIZE);
-    	while(TotalRecvCount[0] != DRIVEMOTOR_CMD_SIZE) {
+			delta = 0;
+			while(TotalRecvCount[0] != DRIVEMOTOR_CMD_SIZE) {
+				//uart_printBuffer(RecvBuffer[0]);
+				XTime_GetTime(&uart0CurrentTime);
+				delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
+				//printf("TotalRecvCount: %d\r\n", TotalRecvCount[0]);
+				if(delta > 200.0) {
+					printf("Timeout...\r\n\n");
+					uart0RecvDone = FALSE;
+					break;
+				}
+			}
     	}
-    	uart_printBuffer(RecvBuffer[0]);
+
+    	if(uart0RecvDone) {
+    		printf("Received data!\r\n");
+    		uart_printBuffer(RecvBuffer[0]);
+    		Status = arm0_parseUartDriveMotor(RecvBuffer[0], &driveMotorInst);
+    		if(Status == XST_FAILURE) {
+    			printf("Drive motor data parse failed!\r\n");
+    		}
+    		else {
+    			driveMotor_setPidOutput(&driveMotorInst, (float) driveMotorInst.uartSetPoint);
+    			printf("New drive motor setpoint: %d\r\n\n", driveMotorInst.uartSetPoint);
+    		}
+    		uart0RecvDone = FALSE;
+
+    		for(int i=0; i<UART_BUFFER_SIZE; i++) {
+    			RecvBuffer[0][i] = 0;
+    		}
+    	}
+
     }
 
 }

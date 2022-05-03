@@ -65,8 +65,9 @@ int UartLiteSetupIntrSystem(XScuGic *IntcInstancePtr,
 void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE])
 {
 	for(int i=0; i<UART_BUFFER_SIZE; i++) {
-		xil_printf("Buffer [%d] = %c\r\n", i, buffer[i]);
+		xil_printf("Buffer [%d] = %c   |   %x\r\n", i, buffer[i], buffer[i]);
 	}
+	xil_printf("\r\n");
 }
 
 #ifdef UART_DRIVEMOTOR_EN
@@ -86,7 +87,7 @@ void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE])
  * @param index is a pointer to an int indicating the index from which to start loading
  *        motor data.
  */
-void UartLite_sendDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sendBuffer [UART_BUFFER_SIZE], int index)
+void uart_loadDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sendBuffer [UART_BUFFER_SIZE], int index)
 {
 	const char   *text;
 	char          c;
@@ -96,9 +97,9 @@ void UartLite_sendDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sen
 
 	// get current dir
 	if(InstancePtr->currentDir == DRIVEMOTOR_FORWARD)
-		temp_dir = (unsigned char) "F";
+		temp_dir = (unsigned char) 1;
 	else
-		temp_dir = (unsigned char) "R";
+		temp_dir = (unsigned char) 0;
 
 	// get current rpm
 	temp_rpm = (u16) InstancePtr->currentRpm;
