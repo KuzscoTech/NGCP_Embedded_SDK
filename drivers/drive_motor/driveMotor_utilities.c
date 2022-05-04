@@ -206,12 +206,16 @@ void driveMotor_printStatus(ugv_driveMotor *InstancePtr)
 	InstancePtr->currentDir = ugvQei_getDirection (InstancePtr->qei);
 	//
 	xil_printf("--------------------------------------------------\r\n");
-	xil_printf("Current RPM: %d\r\n", InstancePtr->currentRpm);
+	if(InstancePtr->uartManualMode)
+		xil_printf("Drivemotor Mode: MANUAL\r\n");
+	else
+		xil_printf("Drivemotor Mode: PID\r\n");
+	xil_printf("Drive Motor Current RPM: %d\r\n", InstancePtr->currentRpm);
 	if(InstancePtr->currentDir == DRIVEMOTOR_REVERSE){
-		xil_printf("Current Dir: REVERSE\r\n\n");
+		xil_printf("Drive Motor Current Dir: REVERSE\r\n\n");
 	}
 	else {
-		xil_printf("Current Dir: FORWARD\r\n\n");
+		xil_printf("Drive Motor Current Dir: FORWARD\r\n\n");
 	}
 }
 

@@ -1,6 +1,7 @@
 #include "arm1.h"
 #include "string.h"
 
+#define DBG_VERBOSE 1
 
 int main()
 {
@@ -59,7 +60,6 @@ int main()
         else {
             driveMotor_setPidOutput(&driveMotorInst, driveMotorInst.uartSetPoint);
         }
-		driveMotor_printStatus(&driveMotorInst); // removing this breaks the app
 
         // set servo motor
         if(servoMotorInst.uartManualMode) {
@@ -68,6 +68,10 @@ int main()
         else {
             servoMotor_setPidOutput(&servoMotorInst, servoMotorInst.uartSetPoint);
         }
-        servoMotor_printStatus(&servoMotorInst);
+
+        if(DBG_VERBOSE) {
+        	driveMotor_printStatus(&driveMotorInst);
+        	servoMotor_printStatus(&servoMotorInst);
+        }
 	}
 }

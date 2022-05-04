@@ -116,7 +116,7 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 		}
 	}
 	if(!dmValid) {
-		//printf("DM not found\r\n\n");
+		printf("DM not found\r\n\n");
 		return XST_FAILURE;
 	}
 
@@ -160,7 +160,10 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 		dataPtr->rx_dm_setpoint = tempRpm;
 		return XST_SUCCESS;
 	}
-	else return XST_FAILURE;
+	else {
+		printf("Drive motor parse failed\r\n");
+		return XST_FAILURE;
+	}
 }
 
 
@@ -197,7 +200,7 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 		}
 	}
 	if(!servoValid) {
-		//printf("S not found\r\n\n");
+		printf("S not found\r\n\n");
 		return XST_FAILURE;
 	}
 
@@ -216,6 +219,7 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
             return XST_SUCCESS;
         }
     }
+    printf("Servo parse failed\r\n");
     return XST_FAILURE;
 }
 
@@ -292,7 +296,7 @@ void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataP
 	const char *text;
 	char        c;
 
-	text = "DM_DIR";
+	text = "D";
 	for(text; c=*text; text++) {
 		SendBuffer[dataPtr->index] = c;
 		dataPtr->index++;
@@ -301,7 +305,7 @@ void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataP
 	SendBuffer[dataPtr->index] = dataPtr->tx_dm_dir;
 	dataPtr->index++;
 
-	text = "DM_RPM";
+	text = "R";
 	for(text; c=*text; text++) {
 		SendBuffer[dataPtr->index] = c;
 		dataPtr->index++;
@@ -315,18 +319,14 @@ void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataP
 	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_dm_rpm) & 0x00FF;
 	dataPtr->index++;
 
-	text = "SERVO_POS";
+	text = "S";
 	for(text; c=*text; text++) {
 		SendBuffer[dataPtr->index] = c;
 		dataPtr->index++;
 	}
 
-	// high byte servo pos
-	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_servo_pos) >> 8;
-	dataPtr->index++;
-
-	// low byte servo pos
-	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_servo_pos) & 0x00FF;
+	// servo pos
+	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_servo_pos);
 	dataPtr->index++;
 }
 

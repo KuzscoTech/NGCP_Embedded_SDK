@@ -5,6 +5,8 @@ Receive commands via UART
 #include "arm0.h"
 #include "xtime_l.h"
 
+#define DBG_VERBOSE 0
+
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
 static XUartLite UartLiteInst0;
@@ -120,17 +122,17 @@ int main()
     		for(int i=0; i<UART_BUFFER_SIZE; i++) {
     			RecvBuffer[0][i] = 0;
     		}
-    		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DRIVEMOTOR_CMD_SIZE);
+    		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], UART0_RECEIVE_SIZE);
             uart0RecvDone = TRUE;
 
     		// look for a receive timeout
     		XTime_GetTime(&uart0RecvStartTime);
     		delta = 0;
-    		while(TotalRecvCount[0] != DRIVEMOTOR_CMD_SIZE) {
+    		while(TotalRecvCount[0] != UART0_RECEIVE_SIZE) {
     			XTime_GetTime(&uart0CurrentTime);
     			delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
     			if(delta > 200.0) {
-    				//printf("Timeout...\r\n\n");
+    				if(DBG_VERBOSE) printf("Timeout...\r\n\n");
     				uart0RecvDone = FALSE;
     				break;
     			}
@@ -139,8 +141,10 @@ int main()
 
         // Parse UART0 data
     	if(uart0RecvDone) {
-    		//printf("Received data!\r\n");
-    		//uart_printBuffer(RecvBuffer[0]);
+    		if(DBG_VERBOSE) {
+    			printf("Received data!\r\n");
+    			uart_printBuffer(RecvBuffer[0]);
+    		}
     		uart0RecvDone = FALSE;
     		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
             uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
