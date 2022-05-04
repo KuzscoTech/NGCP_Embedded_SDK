@@ -1,32 +1,38 @@
 #ifndef UART_UTILITIES_H
 #define UART_UTILITIES_H
 
-
-#include "xuartlite.h"
-#include "xscugic.h"
-#include "xil_printf.h"
-
-#define UART_DRIVEMOTOR_EN 1
-
-#ifdef UART_DRIVEMOTOR_EN
-#include "driveMotor_utilities.h"
-#endif
-
-#ifdef UART_SERVOMOTOR_EN
-#include "servoMotor_utilities.h"
-#endif
-
-#ifdef UART_MICROMETAL_EN
-#include "microMetal_utilities.h"
-#endif
+/****************************** CONFIG *****************************/
+#define UART_DRIVEMOTOR_EN    1
 
 // UART BUFFER SIZE
-#define UART_BUFFER_SIZE 25
+#define UART_BUFFER_SIZE      25
+
+#define UART0_RECEIVE_SIZE    10
 
 // DRIVEMOTOR FRAME SIZE
 #define DRIVEMOTOR_FRAME_SIZE 19
 #define DRIVEMOTOR_CMD_SIZE   7
 
+/************************** INCLUDE FILES **************************/
+#include <stdio.h>
+#include "xuartlite.h"
+#include "xscugic.h"
+#include "xil_printf.h"
+#include "ocm.h"
+
+/************************ UART0 Data struct ***********************/
+typedef struct{
+	int       index;
+
+	u8        rx_dm_dir;
+	u8        rx_dm_setpoint;
+
+	u8        tx_dm_dir;
+	u16       tx_dm_rpm;
+} uart0Data;
+
+
+/************************* Function Definitions *****************************/
 /**
  * @brief Function to initialize a UART instance.
  *
@@ -34,7 +40,7 @@
  * @param UartLiteDeviceId is the device ID of the UART to initialize.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int UartLiteInit(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId);
+int uart_Initialize(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId);
 
 /**
  * @brief Function to connect an initialized UartLite interrupt to the XScuGic.
@@ -46,32 +52,48 @@ int UartLiteInit(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId);
  * @param IntcInstancePtr is a pointer to the XScuGic instance.
  * @param UartLiteInstancePtr is a pointer to the UartLite instance.
  * @param UartLiteIntrId is the ID of the interrupt to connect to the XScuGic.
- * @return
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int UartLiteSetupIntrSystem(XScuGic *IntcInstancePtr, XUartLite *UartLiteInstancePtr, u16 UartLiteIntrId);
+int uart_setupIntrSystem(XScuGic *IntcInstancePtr, XUartLite *UartLiteInstancePtr, u16 UartLiteIntrId);
 
 
+/**
+ * @brief Function to print the contents of a u8 array in ASCII and hex.
+ * @param buffer is a u8 array to print.
+ */
 void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE]);
 
 
-#ifdef UART_DRIVEMOTOR_EN
 /**
- * @brief A function to load ugv_driveMotor current direction and rpm into a designated
- *        send buffer starting from the current index.
- *        -> DIR:
- *            - prefixed with "DM_DIR"
- *            - "F" or "R"
- *        -> RPM:
- *        	  - prefixed with "DM_RPM"
- *        	  - low byte
- *        	  - high byte
- *
- * @param InstancePtr is a pointer to a ugv_driveMotor instance.
- * @param sendBuffer is a unsigned char array used as a UART TX send buffer.
- * @param index is a pointer to an int indicating the index from which to start loading
- *        motor data.
+ * @brief Function to parse a UART receive buffer for drive motor direction
+ *        and setpoint data and write into a uart0Data instance.
+ * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer.
+ * @param dataPtr is a pointer to a uart0Data instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-void uart_loadDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sendBuffer [UART_BUFFER_SIZE], int index);
-#endif
+int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
+
+/**
+ * @brief Function to write UART0 drive motor and servo motor setpoint
+ *        data to OCM addresses specified in ocm.h
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_data0ToOcm(uart0Data *dataPtr);
+
+/**
+ * @brief Function to read UART0 drive motor and servo motor setpoint data
+ *        from OCM addresses specified in ocm.h to a uart0Data instance.
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_data0FromOcm(uart0Data *dataPtr);
+
+
+/**
+ * @brief Function to read UART0 data to a UART TX buffer.
+ * @param SendBuffer is a unsigned char array used as a TX buffer.
+ * @param index is the index from which to start loading data into.
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
 
 #endif

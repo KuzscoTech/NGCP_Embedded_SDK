@@ -7,7 +7,7 @@
  * @param UartLiteDeviceId is the device ID of the UART to initialize.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int UartLiteInit(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId)
+int uart_Initialize(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId)
 {
     int Status;
     Status = XUartLite_Initialize(UartLiteInstPtr, UartLiteDeviceId);
@@ -37,7 +37,7 @@ int UartLiteInit(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId)
 *
 *  @return XST_SUCCESS if successful, else the error from XScuGic_Connect.
 */
-int UartLiteSetupIntrSystem(XScuGic *IntcInstancePtr,
+int uart_setupIntrSystem(XScuGic *IntcInstancePtr,
 				            XUartLite *UartLiteInstPtr,
 				            u16 UartLiteIntrId)
 {
@@ -70,74 +70,133 @@ void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE])
 	xil_printf("\r\n");
 }
 
-#ifdef UART_DRIVEMOTOR_EN
 /**
- * @brief A function to load ugv_driveMotor current direction and rpm into a designated
- *        send buffer starting from the current index.
- *        -> DIR:
- *            - prefixed with "DM_DIR"
- *            - "F" or "R"
- *        -> RPM:
- *        	  - prefixed with "DM_RPM"
- *        	  - low byte
- *        	  - high byte
- *
- * @param InstancePtr is a pointer to a ugv_driveMotor instance.
- * @param sendBuffer is a unsigned char array used as a UART TX send buffer.
- * @param index is a pointer to an int indicating the index from which to start loading
- *        motor data.
+ * @brief Function to parse UART0 data for drive motor inputs
+ * @param InstancePtr
+ * @return
  */
-void uart_loadDriveMotorStats(ugv_driveMotor *InstancePtr, unsigned char sendBuffer [UART_BUFFER_SIZE], int index)
+int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr)
 {
-	const char   *text;
-	char          c;
-	unsigned char temp_dir;
-	u16           temp_rpm;
-	unsigned char low_rpm, high_rpm;
+	u8    dmDirIndex;
+	u8    dmRpmIndex;
+	_Bool dmValid = FALSE;
 
-	// get current dir
-	if(InstancePtr->currentDir == DRIVEMOTOR_FORWARD)
-		temp_dir = (unsigned char) 1;
-	else
-		temp_dir = (unsigned char) 0;
+	u8 tempDir;
+	u8 tempRpm;
 
-	// get current rpm
-	temp_rpm = (u16) InstancePtr->currentRpm;
-
-	// mask off low and high bytes of rpm
-	low_rpm  = (temp_rpm & 0xFF00) >> 8;
-	high_rpm = temp_rpm >> 8;
-
-	// load dir
-	text = "DM_DIR";
-	for(text; c = *text; text++) {
-		sendBuffer[index] = c;
-		index++;
+	// parse for "dm"
+	for(int i=0; i<UART0_RECEIVE_SIZE; i++) {
+		if(RecvBuffer[i] == 0x44) {
+			if(RecvBuffer[i+1] == 0x4D) {
+				dmDirIndex = i+2;
+				dmRpmIndex = i+4;
+				if(dmRpmIndex+1 < UART0_RECEIVE_SIZE)
+					dmValid = TRUE;
+			}
+		}
 	}
-	sendBuffer[index] = 0x0A;
-	index++;
-
-	sendBuffer[index] = temp_dir;
-	index++;
-
-	sendBuffer[index] = 0x0A;
-	index++;
-
-	// load rpm
-	text = "DM_RPM";
-	for(text; c = *text; text++) {
-		sendBuffer[index] = c;
-		index++;
+	if(!dmValid) {
+		printf("DM not found\r\n\n");
+		return XST_FAILURE;
 	}
-	sendBuffer[index] = 0x0A;
-	index++;
-	sendBuffer[index] = low_rpm;
-	index++;
-	sendBuffer[index] = high_rpm;
-	index++;
 
-	sendBuffer[index] = 0x0A;
-	index++;
+	// check that directional input is valid
+	// capture directional and rpm input
+	if(dmValid)
+	{
+		if((RecvBuffer[dmDirIndex] == 0x44) && (RecvBuffer[dmRpmIndex] == 0x52)) {
+			if(RecvBuffer[dmDirIndex+1] == 1 || RecvBuffer[dmDirIndex+1] == 0)
+				tempDir = RecvBuffer[dmDirIndex+1];
+			else
+				dmValid = FALSE;
+			tempRpm = RecvBuffer[dmRpmIndex+1];
+		}
+		else
+			dmValid = FALSE;
+	}
+	if(!dmValid) {
+		printf("D and R not found\r\n\n");
+		return XST_FAILURE;
+	}
+
+	// return directional and rpm input as a negative or positive float if valid
+	if(dmValid)
+	{
+		dataPtr->rx_dm_dir      = tempDir;
+		dataPtr->rx_dm_setpoint = tempRpm;
+		return XST_SUCCESS;
+	}
+	else return XST_FAILURE;
 }
-#endif
+
+/**
+ * @brief Function to write UART0 drive motor and servo motor setpoint
+ *        data to OCM addresses specified in ocm.h
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_data0ToOcm(uart0Data *dataPtr)
+{
+	volatile u32 *dm_dirPtr = (u32 *) (SM_DM_BASEADDR + SM_DM_SETDIR_OFFSET);
+	volatile u32 *dm_rpmPtr = (u32 *) (SM_DM_BASEADDR + SM_DM_SETPOINT_OFFSET);
+
+	*dm_rpmPtr = (u16) dataPtr->rx_dm_setpoint;
+	Xil_DCacheFlushRange((u32)dm_rpmPtr, 1);
+
+	*dm_dirPtr = (u8) dataPtr->rx_dm_dir;
+	Xil_DCacheFlushRange((u32)dm_dirPtr, 1);
+}
+
+/**
+ * @brief Function to read UART0 drive motor and servo motor setpoint data
+ *        from OCM addresses specified in ocm.h to a uart0Data instance.
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_data0FromOcm(uart0Data *dataPtr)
+{
+	u32 *dm_dirPtr = (u32 *) (SM_DM_BASEADDR + SM_DM_DIR_OFFSET);
+	u32 *dm_rpmPtr = (u32 *) (SM_DM_BASEADDR + SM_DM_RPM_OFFSET);
+
+	// read current dir from ocm
+	Xil_DCacheInvalidateRange((u32)dm_dirPtr, 1);
+	dataPtr->tx_dm_dir = *dm_dirPtr;
+
+	// read current rpm from ocm
+	Xil_DCacheInvalidateRange((u32)dm_rpmPtr, 2);
+	dataPtr->tx_dm_rpm = *dm_rpmPtr;
+}
+
+/**
+ * @brief Function to load UART0 data to a UART TX buffer.
+ * @param SendBuffer is a unsigned char array used as a TX buffer.
+ * @param index is the index from which to start loading data into.
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr)
+{
+	const char *text;
+	char        c;
+
+	text = "DM_DIR";
+	for(text; c=*text; text++) {
+		SendBuffer[dataPtr->index] = c;
+		dataPtr->index++;
+	}
+
+	SendBuffer[dataPtr->index] = dataPtr->tx_dm_dir;
+	dataPtr->index++;
+
+	text = "DM_RPM";
+	for(text; c=*text; text++) {
+		SendBuffer[dataPtr->index] = c;
+		dataPtr->index++;
+	}
+
+	// high byte rpm
+	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_dm_rpm) >> 8;
+	dataPtr->index++;
+
+	// low byte rpm
+	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_dm_rpm) & 0x00FF;
+	dataPtr->index++;
+}
 

@@ -115,8 +115,8 @@ void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidIns
  */
 void driveMotor_updateStatus(ugv_driveMotor *InstancePtr)
 {
-	InstancePtr->currentDir = ugvQei_getDirection(InstancePtr->qei);
-	InstancePtr->currentRpm = (int) ugvQei_getRpm(InstancePtr->qei);
+	InstancePtr->currentRpm = ugvQei_getRpm       (InstancePtr->qei);
+	InstancePtr->currentDir = ugvQei_getDirection (InstancePtr->qei);
 }
 
 
@@ -130,8 +130,6 @@ void driveMotor_updateStatus(ugv_driveMotor *InstancePtr)
  */
 void driveMotor_setPidOutput(ugv_driveMotor *InstancePtr, float driveMotor_setPoint)
 {
-	float tempPidOut;
-
 	// get rpm and direction
 	driveMotor_updateStatus(InstancePtr);
 
@@ -204,8 +202,8 @@ void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir
 void driveMotor_printStatus(ugv_driveMotor *InstancePtr)
 {
 	// update rpm and dir
-	InstancePtr->currentRpm = ugvQei_getRpm (InstancePtr->qei);
-	InstancePtr->currentDir = ugvQei_getDirection   (InstancePtr->qei);
+	InstancePtr->currentRpm = ugvQei_getRpm       (InstancePtr->qei);
+	InstancePtr->currentDir = ugvQei_getDirection (InstancePtr->qei);
 	//
 	xil_printf("--------------------------------------------------\r\n");
 	xil_printf("Current RPM: %d\r\n", InstancePtr->currentRpm);
@@ -236,6 +234,47 @@ void driveMotor_printDuty(ugv_driveMotor *InstancePtr)
 	xil_printf("Actual duty    : %d\r\n\n", (cnt_actual-DRIVEMOTOR_PWM_MIN)/DRIVEMOTOR_PWM_SCALE);
 }
 
+#ifdef OCM_DRIVEMOTOR_EN
+/**
+ * @brief Function to load drive motor current RPM and direction to OCM. Also
+ *        reads setpoint from OCM and sets it in the struct.
+ * @param InstancePtr is a pointer to a ugv_driveMotor instance.
+ */
+void ocm_updateDriveMotor(ugv_driveMotor *InstancePtr)
+{
+	volatile u32 *setPointPtr = (u32 *) (SM_DM_BASEADDR + SM_DM_SETPOINT_OFFSET);
+	volatile u32 *setDirPtr   = (u32 *) (SM_DM_BASEADDR + SM_DM_SETDIR_OFFSET);
+	volatile u32 *rpmPtr      = (u32 *) (SM_DM_BASEADDR + SM_DM_RPM_OFFSET);
+	volatile u32 *dirPtr      = (u32 *) (SM_DM_BASEADDR + SM_DM_DIR_OFFSET);
+
+	u8 tempDir;
+	u16 tempSetPoint;
+
+	// get the dir
+	Xil_DCacheInvalidateRange((u32) setDirPtr, 1);
+	tempDir = (u8) *setDirPtr;
+	//printf("Direction from OCM: %d\r\n", tempDir);
+
+	// get the setpoint
+	Xil_DCacheInvalidateRange((u32) setPointPtr, 1);
+	tempSetPoint = (u16) *setPointPtr;
+	InstancePtr->uartSetPoint = (int) tempSetPoint;
+
+	if(tempDir == 0)
+		InstancePtr->uartSetPoint = -InstancePtr->uartSetPoint;
+
+	// update the drive motor stats
+	driveMotor_updateStatus(InstancePtr);
+
+	// load rpm to ocm
+	*rpmPtr = (u16) InstancePtr->currentRpm;
+	Xil_DCacheFlushRange((u32) rpmPtr, 2); // 2 bytes
+
+	// load dir to ocm
+	*dirPtr = (u8)  InstancePtr->currentDir;
+	Xil_DCacheFlushRange((u32) dirPtr, 1); // 1 byte
+}
+#endif
 
 
 

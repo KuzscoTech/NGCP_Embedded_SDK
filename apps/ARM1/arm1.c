@@ -36,7 +36,7 @@ int main()
 
 		// do the pid stuff
 		driveMotor_setPidOutput(&driveMotorInst, driveMotorInst.uartSetPoint);
-		driveMotor_printStatus(&driveMotorInst);
+		driveMotor_printStatus(&driveMotorInst); // removing this breaks the app
 		//driveMotor_printDuty(&driveMotorInst);
 	}
 }

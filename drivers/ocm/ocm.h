@@ -21,9 +21,9 @@
 // OCM Drive Motor Addresses
 #define SM_DM_BASEADDR         0x3000010
 #define SM_DM_SETPOINT_OFFSET  0         // drive motor setpoint;    1 byte
-#define SM_DM_SETDIR_OFFSET    1         // drive motor set dir;     1 byte
-#define SM_DM_RPM_OFFSET       2         // drive motor current rpm; 2 bytes
-#define SM_DM_DIR_OFFSET       4         // drive motor direction;   1 byte
+#define SM_DM_SETDIR_OFFSET    2         // drive motor set dir;     1 byte
+#define SM_DM_RPM_OFFSET       4         // drive motor current rpm; 2 bytes
+#define SM_DM_DIR_OFFSET       6         // drive motor direction;   1 byte
 
 
 /**
