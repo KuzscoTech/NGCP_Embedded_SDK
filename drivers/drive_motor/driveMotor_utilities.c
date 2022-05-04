@@ -236,24 +236,34 @@ void driveMotor_printDuty(ugv_driveMotor *InstancePtr)
 
 #ifdef OCM_DRIVEMOTOR_EN
 /**
- * @brief Function to load drive motor current RPM and direction to OCM. Also
- *        reads setpoint from OCM and sets it in the struct.
+ * @brief Function to load ugv_driveMotor current RPM and direction to OCM. Also
+ *        reads setpoint and manual mode enable from OCM and writes it to
+ *        the ugv_driveMotor instance. Targets addresses specified in ocm.h
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  */
 void ocm_updateDriveMotor(ugv_driveMotor *InstancePtr)
 {
+    volatile u32 *modePtr     = (u32 *) (SM_DM_BASEADDR + SM_DM_SETMANUAL_OFFSET);
 	volatile u32 *setPointPtr = (u32 *) (SM_DM_BASEADDR + SM_DM_SETPOINT_OFFSET);
 	volatile u32 *setDirPtr   = (u32 *) (SM_DM_BASEADDR + SM_DM_SETDIR_OFFSET);
 	volatile u32 *rpmPtr      = (u32 *) (SM_DM_BASEADDR + SM_DM_RPM_OFFSET);
 	volatile u32 *dirPtr      = (u32 *) (SM_DM_BASEADDR + SM_DM_DIR_OFFSET);
 
+    _Bool tempMode;
 	u8 tempDir;
 	u16 tempSetPoint;
 
+    // get the mode
+    Xil_DCacheInvalidateRange((u32) modePtr, 1);
+    tempMode = (_Bool) *modePtr;
+    if(!tempMode & InstancePtr->uartManualMode) {
+        PIDController_Init(InstancePtr->pid);
+    }
+    InstancePtr->uartManualMode = tempMode;
+    
 	// get the dir
 	Xil_DCacheInvalidateRange((u32) setDirPtr, 1);
 	tempDir = (u8) *setDirPtr;
-	//printf("Direction from OCM: %d\r\n", tempDir);
 
 	// get the setpoint
 	Xil_DCacheInvalidateRange((u32) setPointPtr, 1);

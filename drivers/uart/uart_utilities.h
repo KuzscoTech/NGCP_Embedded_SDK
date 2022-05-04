@@ -24,11 +24,17 @@
 typedef struct{
 	int       index;
 
+	// DRIVE MOTOR
+    u8        rx_dm_manualMode;
 	u8        rx_dm_dir;
 	u8        rx_dm_setpoint;
-
 	u8        tx_dm_dir;
 	u16       tx_dm_rpm;
+
+	// SERVO MOTOR
+    u8        rx_servo_manualMode;
+	u16       rx_servo_setpoint;
+	u16       tx_servo_pos;
 } uart0Data;
 
 
@@ -67,11 +73,42 @@ void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE]);
 /**
  * @brief Function to parse a UART receive buffer for drive motor direction
  *        and setpoint data and write into a uart0Data instance.
+ *        
+ *        Valid commands: 
+ *          "DMD<1>R<2>"
+ *              -> 1: indicates direction; 0 for reverse, 1 for forwards
+ *              -> 2: if manual mode; indicates duty cycle 0-255 duty cycle
+ *                    if pid mode;    indicates setpoint 0-255 RPM
+ *          
+ *         "DM<1>":
+ *              -> 1: indicates mode select; 
+ *                  - "M" for manual mode
+ *                  - "P" for PID mode
+ * 
  * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer.
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
 int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
+
+/**
+ * @brief Function to parse a UART receive buffer for servo motor setpoint data
+ *        and write into a uart0Data instance.
+ *        
+ *        Valid commands: 
+ *          Set Setpoint | "SS<1>" 
+ *              -> 1: indicates desired angle 0-180
+ *          
+ *          Set Mode     | "SM<1>":
+ *              -> 1: indicates mode select; 
+ *                  - "M" for manual mode
+ *                  - "P" for PID mode
+ *  
+ * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer.
+ * @param dataPtr is a pointer to a uart0Data instance.
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr);
 
 /**
  * @brief Function to write UART0 drive motor and servo motor setpoint

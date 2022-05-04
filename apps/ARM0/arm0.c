@@ -96,43 +96,35 @@ int main()
     // MAIN LOOP
     while(1)
     {
-    	// only update send buffer if ARM0 has access to OCM
+    	// Update UART0 send buffer if CPU0 has access to OCM
     	SM_Status = ocm_getMemFlag();
     	if(SM_Status == 0) {
-    		//printf("CPU0 mem status: %d\r\n", SM_Status);
 			for(int i=0; i<UART_BUFFER_SIZE; i++) {
 				SendBuffer[0][i] = 0;
 			}
-			// get data from OCM
 			uart_data0FromOcm(&uart0DataInst);
-
-			// load it into the send buffer
 			uart0DataInst.index = 0;
 			uart_loadData0(SendBuffer[0], &uart0DataInst);
     	}
 
+        // Send the UART0 SendBuffer
     	TotalSentCount[0] = 0;
     	XUartLite_Send(&UartLiteInst0, SendBuffer[0], uart0DataInst.index);
     	while(TotalSentCount[0] != uart0DataInst.index) {
     	}
 
-    	// start a receive
+    	// Start UART0 Receive sequence
     	TotalRecvCount[0] = 0;
     	if(!uart0RecvDone)
     	{
-    		//printf("starting receive\r\n");
     		for(int i=0; i<UART_BUFFER_SIZE; i++) {
     			RecvBuffer[0][i] = 0;
     		}
     		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], DRIVEMOTOR_CMD_SIZE);
+            uart0RecvDone = TRUE;
 
-    		// get the start time
-    		//printf("resetting start time\r\n");
+    		// look for a receive timeout
     		XTime_GetTime(&uart0RecvStartTime);
-
-    		// wait for the receive to complete
-    		//printf("waiting for the goods\r\n");
-    		uart0RecvDone = TRUE;
     		delta = 0;
     		while(TotalRecvCount[0] != DRIVEMOTOR_CMD_SIZE) {
     			XTime_GetTime(&uart0CurrentTime);
@@ -145,22 +137,19 @@ int main()
     		}
     	}
 
-
+        // Parse UART0 data
     	if(uart0RecvDone) {
     		//printf("Received data!\r\n");
     		//uart_printBuffer(RecvBuffer[0]);
     		uart0RecvDone = FALSE;
-
-    		// parse the data and update the struct
     		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
-
-    		// only update OCM if it's our turn
+            uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
     		if(SM_Status == 0) {
     			uart_data0ToOcm(&uart0DataInst);
     		}
     	}
 
-    	// once done with everything set the mem flag to pass access to ARM1
+    	// Pass OCM access to CPU1
     	if(SM_Status == 0) {
     		ocm_setMemFlag();
     	}

@@ -14,6 +14,9 @@ int servoMotor_Initialize(ugv_servoMotor *InstancePtr, ugv_servo *PwmInstancePtr
 {
 	int Status;
 
+	InstancePtr->uartManualMode = FALSE;
+	InstancePtr->uartSetPoint = 0;
+
 	Status = servoMotor_pwmInitialize(InstancePtr, PwmInstancePtr);
 	if(Status != XST_SUCCESS) return XST_FAILURE;
 
@@ -42,6 +45,9 @@ int servoMotor_pwmInitialize(ugv_servoMotor *InstancePtr, ugv_servo *PwmInstance
 
 	Status = ugvServo_Initialize(InstancePtr->pwm, SERVO_BASEADDR);
 	if(Status != XST_SUCCESS) return XST_FAILURE;
+	else  {
+		return XST_SUCCESS;
+	}
 }
 
 /**
@@ -55,7 +61,8 @@ int servoMotor_adcInitialize(ugv_servoMotor *InstancePtr, XSysMon *AdcInstancePt
 {
 	int Status;
 	XSysMon_Config *adcConfigPtr;
-	//
+	InstancePtr->adc = AdcInstancePtr;
+
 	adcConfigPtr = XSysMon_LookupConfig(SERVO_XADC_DEVICE_ID);
 	if(adcConfigPtr == NULL) {
 		return XST_FAILURE;
@@ -138,7 +145,7 @@ float servoMotor_getPosition(ugv_servoMotor *InstancePtr)
  * @param InstancePtr is a pointer to a ugv_servoMotor instance.
  * @param setPoint is a pointer to a float representing the desired angle of the servo.
  */
-void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float *setPoint)
+void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float setPoint)
 {
 	float temp;
 	// get position
@@ -146,7 +153,7 @@ void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float *setPoint)
 
 	// update PID struct with position and setpoint
 	InstancePtr->pid->measurement = InstancePtr->currentPos;
-	InstancePtr->pid->setPoint = *setPoint;
+	InstancePtr->pid->setPoint = setPoint;
 
 	if(abs(InstancePtr->pid->setPoint - InstancePtr->pid->measurement) < 8){
 		// calculate pid output and set pwm duty cycle
@@ -161,22 +168,35 @@ void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float *setPoint)
 }
 
 /**
- * @brief Function to manually set the duty cycle of a ugv_servoMotor instance.
- *
+ * @brief Function to manually set the position of a ugv_servoMotor instance.
  * @param InstancePtr is a pointer to a ugv_servoMotor instance.
- * @param duty is the duty cycle from 75-250, where 75 is far left and 250 is far right.
+ * @param pos is the desired angle from 0-180.
  */
-void servoMotor_setManualDuty(ugv_servoMotor *InstancePtr, u32 duty)
+void servoMotor_setManualPos(ugv_servoMotor *InstancePtr, u32 pos)
 {
-	ugvServo_SetDir(InstancePtr->pwm, duty);
-	InstancePtr->manualSetDuty = duty;
-	//
-	InstancePtr->manualSetPos = (float) duty-75;
+    u32 temp;
+    temp = pos+75;
+    if(temp > 250) temp = 250;
+    ugvServo_SetDir(InstancePtr->pwm, temp);
+    InstancePtr->manualSetPos = (int) temp;
+}
+
+/**
+ * @brief Function to print status of a ugv_servoMotor instance.
+ * @param InstancePtr is a pointer to a ugv_servoMotor instance.
+ */
+void servoMotor_printStatus(ugv_servoMotor *InstancePtr)
+{
+    servoMotor_getPosition(InstancePtr);
+    if(InstancePtr->uartManualMode) 
+        printf("Servo Mode    : MANUAL\r\n");
+    else
+        printf("Servo Mode    : PID\r\n");
+    printf("Servo Position: %d\r\n", InstancePtr->currentPos);
 }
 
 /**
  * @brief Function to convert XADC fractional data to an int.
- *
  * @param FloatNum is a float containing fractional data.
  * @return Integer component of FloatNum.
  */
@@ -191,5 +211,33 @@ int AdcfractionToInt(float FloatNum)
 	return( ((int)((Temp -(float)((int)Temp)) * (1000000.0f))));
 }
 
+/**
+ * @brief Function to load servo motor current position to OCM. Also
+ *        reads setpoint and manual mode enable and sets it in the struct. 
+ *        Targets addresses specified in ocm.h
+ */
+void ocm_updateServoMotor(ugv_servoMotor *InstancePtr)
+{
+    volatile u32 *manualModePtr = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETMANUAL_OFFSET);
+	volatile u32 *setPointPtr   = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETPOINT_OFFSET);
+	volatile u32 *positionPtr   = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_CURRENT_OFFSET);
 
+    _Bool tempMode;
+
+    // get the mode
+    Xil_DCacheInvalidateRange((u32) manualModePtr, 1);
+    tempMode = (_Bool) *manualModePtr;
+    if(!tempMode & InstancePtr->uartManualMode) {
+        PIDController_Init(InstancePtr->pid);
+    }
+    InstancePtr->uartManualMode = tempMode;
+
+	// get the setpoint
+	Xil_DCacheInvalidateRange((u32) setPointPtr, 1);
+	InstancePtr->uartSetPoint = (u16) *setPointPtr;
+
+	// update the position
+	*positionPtr = (u16) InstancePtr->currentPos;
+	Xil_DCacheFlushRange((u32) positionPtr, 1);
+}
 

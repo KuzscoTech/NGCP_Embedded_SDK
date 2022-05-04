@@ -14,6 +14,11 @@ int main()
 	ugv_qei        driveMotorQeiInst;
 	PIDController  driveMotorPidInst;
 
+	ugv_servoMotor servoMotorInst;
+	ugv_servo      servoMotorPwmInst;
+	XSysMon        servoMotorAdcInst;
+	PIDController  servoMotorPidInst;
+
 	 // Initialize Drive Motor
 	printf("Initializing drive motor drivers...\r\n");
 	Status = driveMotor_Initialize(&driveMotorInst, &driveMotorPwmInst, &driveMotorQeiInst, &driveMotorPidInst);
@@ -22,21 +27,47 @@ int main()
 	    return XST_FAILURE;
 	}
 
+	// Initialize Servo Motor
+	printf("Initializing servo motor drivers...\r\n");
+	Status = servoMotor_Initialize(&servoMotorInst, &servoMotorPwmInst, &servoMotorAdcInst, &servoMotorPidInst);
+	if(Status != XST_SUCCESS) {
+	    printf("Servo Motor setup failed!\r\n");
+	    return XST_FAILURE;
+	}
+	printf("ARM1 all motors initialized!\r\n\n");
 
 	// Main Loop
 	while(1)
 	{
-		// Update motor setpoint and dump stats if SM Flag is 1
+
+		// Update motors from OCM
 		SM_Status = ocm_getMemFlag();
 		if(SM_Status == 1)
 		{
 			ocm_updateDriveMotor(&driveMotorInst);
+			ocm_updateServoMotor(&servoMotorInst);
 			ocm_clearMemFlag();
 		}
 
-		// do the pid stuff
-		driveMotor_setPidOutput(&driveMotorInst, driveMotorInst.uartSetPoint);
+		// set drive motor 
+        if(driveMotorInst.uartManualMode) {
+            if(driveMotorInst.uartSetPoint < 0) 
+                driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
+            else
+                driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_FORWARD);
+        }
+        else {
+            driveMotor_setPidOutput(&driveMotorInst, driveMotorInst.uartSetPoint);
+        }
 		driveMotor_printStatus(&driveMotorInst); // removing this breaks the app
-		//driveMotor_printDuty(&driveMotorInst);
+
+        // set servo motor
+        if(servoMotorInst.uartManualMode) {
+            servoMotor_setManualPos(&servoMotorInst, servoMotorInst.uartSetPoint);
+        }
+        else {
+            servoMotor_setPidOutput(&servoMotorInst, servoMotorInst.uartSetPoint);
+        }
+        servoMotor_printStatus(&servoMotorInst);
 	}
 }

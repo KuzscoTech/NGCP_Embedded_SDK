@@ -28,7 +28,7 @@
 #define DRIVEMOTOR_QEI_BASEADDR     XPAR_MOTORENCODER_0_S00_AXI_BASEADDR
 
 /******************* DRIVE MOTOR PID PARAMETERS *******************/
-#define DRIVEMOTOR_PID_KP           0.7f
+#define DRIVEMOTOR_PID_KP           0.5f
 #define DRIVEMOTOR_PID_KI           1.0f
 #define DRIVEMOTOR_PID_KD           0.1f
 #define DRIVEMOTOR_PID_TAU          0.02f
@@ -40,14 +40,15 @@
 
 /*********************** Drive Motor struct ***********************/
 typedef struct{
-	int           uartSetPoint; // setpoint from uart
-	//
-	_Bool         currentDir;   // actual motor direction
-	int           currentRpm;   // actual motor rpm
-	//
-	ugv_qei       *qei;         // encoder instance
-	ugv_pwm       *pwm;         // pwm instance
-	PIDController *pid;         // pid instance
+    _Bool         uartManualMode; // '1' for manual drive, '0' for PID
+	int           uartSetPoint;   // setpoint from uart
+	//  
+	_Bool         currentDir;     // actual motor direction
+	int           currentRpm;     // actual motor rpm
+	//  
+	ugv_qei       *qei;           // encoder instance
+	ugv_pwm       *pwm;           // pwm instance
+	PIDController *pid;           // pid instance
 } ugv_driveMotor;
 
 
@@ -103,7 +104,6 @@ void driveMotor_setPidOutput(ugv_driveMotor *InstancePtr, float driveMotor_setPo
 /**
  * @brief Function to manually set duty cycle and direction of a ugv_driveMotor instance.
  *        This function also updates the current direction and rpm of the instance.
- *
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  * @param duty is a u8 representing duty cycle from 0-255.
  */
@@ -112,7 +112,6 @@ void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir
 
 /**
  * @brief Function to print drive motor current rpm and direction.
- *
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  */
 void driveMotor_printStatus(ugv_driveMotor *InstancePtr);
@@ -120,7 +119,6 @@ void driveMotor_printStatus(ugv_driveMotor *InstancePtr);
 /**
  * @brief Function to print the actual and expected duty cycle of the pwm object of a
  *        ugv_driveMotor instance.
- *
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  */
 void driveMotor_printDuty(ugv_driveMotor *InstancePtr);
@@ -130,7 +128,8 @@ void driveMotor_printDuty(ugv_driveMotor *InstancePtr);
 #ifdef OCM_DRIVEMOTOR_EN
 /**
  * @brief Function to load drive motor current RPM and direction to OCM. Also
- *        reads setpoint from OCM and sets it in the struct.
+ *        reads setpoint from OCM and sets it in the struct. Targets addresses
+ *        specified in ocm.h
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  */
 void ocm_updateDriveMotor(ugv_driveMotor *InstancePtr);
