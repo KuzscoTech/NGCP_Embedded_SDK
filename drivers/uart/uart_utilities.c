@@ -328,5 +328,27 @@ void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataP
 	// servo pos
 	SendBuffer[dataPtr->index] = (u8) (dataPtr->tx_servo_pos);
 	dataPtr->index++;
+
+	// drive motor mode
+	if(dataPtr->rx_dm_manualMode == 1) {
+		text = "M";
+		SendBuffer[dataPtr->index] = *text;
+	}
+	else {
+		text = "P";
+		SendBuffer[dataPtr->index] = *text;
+	}
+	dataPtr->index++;
+
+	// servo mode
+	if(dataPtr->rx_servo_manualMode == 1) {
+		text = "M";
+		SendBuffer[dataPtr->index] = *text;
+	}
+	else {
+		text = "P";
+		SendBuffer[dataPtr->index] = *text;
+	}
+	dataPtr->index++;
 }
 
