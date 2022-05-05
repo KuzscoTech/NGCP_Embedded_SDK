@@ -53,7 +53,7 @@ void ocm_initialize()
 
 	// initialize drive motor ocm rpm
 	*dm_rpmPtr = (u16) 0;
-	Xil_DCacheFlushRange((u32) dm_rpmPtr, 2); // 2 bytes
+	Xil_DCacheFlushRange((u32) dm_rpmPtr, 1); // 2 bytes
 
 	// initialize drive motor ocm dir
 	*dm_dirPtr = (u8)  0;

@@ -76,16 +76,13 @@ void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE])
  *        store into a uart0Data instance.
  *        
  *        Valid commands: 
- *          Set Setpoint | "DMD<1>R<2>"
+ *          Set Setpoint | "DM<0>D<1>R<2>"
+ *              -> 0: "M" for manual mode, "P" for PID mode
  *              -> 1: indicates direction; 0 for reverse, 1 for forwards
  *              -> 2: if manual mode; indicates duty cycle 0-255 duty cycle
  *                    if pid mode;    indicates setpoint 0-255 RPM
  *          
- *          Set Mode     | "DM<1>":
- *              -> 1: indicates mode select; 
- *                  - "M" for manual mode
- *                  - "P" for PID mode
- * 
+ *
  * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer.
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
@@ -106,8 +103,8 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 		if(RecvBuffer[i] == 0x44) {
 			if(RecvBuffer[i+1] == 0x4D) {
                 manualModeIndex = i+2;
-				dmDirIndex      = i+2;
-				dmRpmIndex      = i+4;
+				dmDirIndex      = i+3;
+				dmRpmIndex      = i+5;
 				if(dmRpmIndex+1 < UART0_RECEIVE_SIZE){
 					dmValid = TRUE;
 					break;
@@ -124,12 +121,13 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
     if(dmValid)
     {
         if(RecvBuffer[manualModeIndex] == 0x4D) { // "M"
-            dataPtr->rx_dm_manualMode = (u8) 1;
-            return XST_SUCCESS;
+            dataPtr->rx_dm_manualMode = 1;
         }
         else if(RecvBuffer[manualModeIndex] == 0x50) { // "P"
             dataPtr->rx_dm_manualMode = 0;
-            return XST_SUCCESS;
+        }
+        else {
+        	return XST_FAILURE;
         }
     }
 
@@ -137,7 +135,7 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 	// check that directional input is valid
 	// capture directional and rpm input
 	if(dmValid)
-	{
+	{ // 0x44 is D and 0x52 is R
 		if((RecvBuffer[dmDirIndex] == 0x44) && (RecvBuffer[dmRpmIndex] == 0x52)) {
 			if(RecvBuffer[dmDirIndex+1] == 1 || RecvBuffer[dmDirIndex+1] == 0)
 				tempDir = RecvBuffer[dmDirIndex+1];
@@ -172,13 +170,9 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
  *        and write into a uart0Data instance.
  *        
  *        Valid commands: 
- *          Set Setpoint | "SS<1>" 
- *              -> 1: indicates desired angle 0-180
- *          
- *          Set Mode     | "SM<1>":
- *              -> 1: indicates mode select; 
- *                  - "M" for manual mode
- *                  - "P" for PID mode
+ *          Set Setpoint | S<0><1>
+ *               -> 0: "P" for PID, "M" for manual
+ *               -> 1: angle; 0-180
  *  
  * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer.
  * @param dataPtr is a pointer to a uart0Data instance.
@@ -205,20 +199,19 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 	}
 
     // Check if command is set setpoint
-    if(RecvBuffer[servoIndex+1] == 0x53) { // "S"
-        dataPtr->rx_servo_setpoint = RecvBuffer[servoIndex+2];
-        return XST_SUCCESS;
+    if(RecvBuffer[servoIndex+1] == 0x4D) { // "M"
+        dataPtr->rx_servo_manualMode = 1;
     }
-    else if(RecvBuffer[servoIndex+1] == 0x4D) { // "M"
-        if(RecvBuffer[servoIndex+2] == 0x4D) {
-            dataPtr->rx_servo_manualMode = 1;
-            return XST_SUCCESS;
-        }
-        else if(RecvBuffer[servoIndex+2] == 0x50) { // "P"
-            dataPtr->rx_servo_manualMode = 0;
-            return XST_SUCCESS;
-        }
+    else if(RecvBuffer[servoIndex+1] == 0x4D) { // "P"
+    	dataPtr->rx_servo_manualMode = 0;
     }
+    else {
+    	return XST_FAILURE;
+    }
+
+    // setpoint
+    dataPtr->rx_servo_setpoint = RecvBuffer[servoIndex+2];
+
     printf("Servo parse failed\r\n");
     return XST_FAILURE;
 }
@@ -238,6 +231,7 @@ void uart_data0ToOcm(uart0Data *dataPtr)
 	volatile u32 *servo_setPtr  = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETPOINT_OFFSET);
 
     // write drive motor mode
+	//printf("writing mode: %d\r\n", dataPtr->rx_dm_manualMode);
     *dm_modePtr = (u8) dataPtr->rx_dm_manualMode;
     Xil_DCacheFlushRange((u32)dm_modePtr, 1);
 

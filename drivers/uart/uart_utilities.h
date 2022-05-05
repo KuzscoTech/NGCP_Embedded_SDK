@@ -8,10 +8,6 @@
 #define UART_BUFFER_SIZE      25
 #define UART0_RECEIVE_SIZE    10
 
-// DRIVEMOTOR FRAME SIZE
-#define DRIVEMOTOR_FRAME_SIZE 19
-#define DRIVEMOTOR_CMD_SIZE   7
-
 /************************** INCLUDE FILES **************************/
 #include <stdio.h>
 #include "xuartlite.h"

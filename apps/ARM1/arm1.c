@@ -7,6 +7,7 @@ int main()
 {
 	printf("\r\n\nARM1 Initialized!\r\n\n");
 
+	volatile u32 *modePtr     = (u32 *) (SM_DM_BASEADDR + SM_DM_SETMANUAL_OFFSET);
 	int            Status;
 	u8             SM_Status;
 	//
@@ -53,7 +54,7 @@ int main()
 		// set drive motor 
         if(driveMotorInst.uartManualMode) {
             if(driveMotorInst.uartSetPoint < 0) 
-                driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
+                driveMotor_manualSetDutyDir(&driveMotorInst, -driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
             else
                 driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_FORWARD);
         }
@@ -71,7 +72,8 @@ int main()
 
         if(DBG_VERBOSE) {
         	driveMotor_printStatus(&driveMotorInst);
-        	servoMotor_printStatus(&servoMotorInst);
+        	driveMotor_printDuty(&driveMotorInst);
+        	//servoMotor_printStatus(&servoMotorInst);
         }
 	}
 }

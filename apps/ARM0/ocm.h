@@ -9,18 +9,18 @@
 #define SM_FLAG_OFFSET              0x1
 
 // OCM Drive Motor Addresses
-#define SM_DM_BASEADDR              0x3000010
+#define SM_DM_BASEADDR              0x3000020
 #define SM_DM_SETMANUAL_OFFSET      0         // drive motor manual enable; 1 byte
-#define SM_DM_SETPOINT_OFFSET       1         // drive motor setpoint;      1 byte
-#define SM_DM_SETDIR_OFFSET         2         // drive motor set dir;       1 byte
-#define SM_DM_RPM_OFFSET            4         // drive motor current rpm;   2 bytes
-#define SM_DM_DIR_OFFSET            6         // drive motor direction;     1 byte
+#define SM_DM_SETPOINT_OFFSET       4         // drive motor setpoint;      1 byte
+#define SM_DM_SETDIR_OFFSET         8         // drive motor set dir;       1 byte
+#define SM_DM_RPM_OFFSET            12        // drive motor current rpm;   2 bytes
+#define SM_DM_DIR_OFFSET            16        // drive motor direction;     1 byte
 
 // OCM Servo Motor Addresses
-#define SM_SERVO_BASEADDR           0x3000020
+#define SM_SERVO_BASEADDR           0x3000040
 #define SM_SERVO_SETMANUAL_OFFSET   0        // servo motor manual enable;  1 byte
-#define SM_SERVO_SETPOINT_OFFSET    1        // servo motor setpoint;       1 byte
-#define SM_SERVO_CURRENT_OFFSET     2        // servo motor current pos;    1 byte
+#define SM_SERVO_SETPOINT_OFFSET    4        // servo motor setpoint;       1 byte
+#define SM_SERVO_CURRENT_OFFSET     8        // servo motor current pos;    1 byte
 
 
 /**
