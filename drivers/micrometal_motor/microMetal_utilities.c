@@ -52,6 +52,16 @@ int microMetal_pwmInitialize(ugv_microMetalMotor *InstancePtr, ugv_pwm *PwmInsta
 			if(Status != XST_SUCCESS) return XST_FAILURE;
 			else break;
 
+		case 2:
+			Status = ugvPwm_Initialize(InstancePtr->pwm, MGM2_PWM_BASEADDR);
+			if(Status != XST_SUCCESS) return XST_FAILURE;
+			else break;
+
+		case 3:
+			Status = ugvPwm_Initialize(InstancePtr->pwm, MGM3_PWM_BASEADDR);
+			if(Status != XST_SUCCESS) return XST_FAILURE;
+			else break;
+
 		default:
 			return XST_FAILURE;
 	}
@@ -91,8 +101,18 @@ int microMetal_qeiInitialize(ugv_microMetalMotor *InstancePtr, ugv_qei *QeiInsta
 			if(Status != XST_SUCCESS) return XST_FAILURE;
 			else break;
 
+		case 2:
+			Status = ugvQei_Initialize(InstancePtr->qei, MGM2_QEI_BASEADDR);
+			if(Status != XST_SUCCESS) return XST_FAILURE;
+			else break;
+
+		case 3:
+			Status = ugvQei_Initialize(InstancePtr->qei, MGM3_QEI_BASEADDR);
+			if(Status != XST_SUCCESS) return XST_FAILURE;
+			else break;
+
 		default:
-			break;
+			return XST_FAILURE;
 	}
 	ugvQei_setMicroMetalRatio      (InstancePtr->qei, MGM_GEAR_RATIO);
 	ugvQei_setMicroMetalResolution (InstancePtr->qei, MGM_RESOLUTION);
@@ -135,6 +155,30 @@ int microMetal_pidInitialize(ugv_microMetalMotor *InstancePtr, PIDController *Pi
 			InstancePtr->pid->limMinInt = MGM1_PID_LIM_MIN_INT;
 			InstancePtr->pid->limMaxInt = MGM1_PID_LIM_MAX_INT;
 			InstancePtr->pid->T         = MGM1_PID_SAMPLE_TIME;
+			break;
+
+		case 2:
+			InstancePtr->pid->Kp        = MGM2_PID_KP;
+			InstancePtr->pid->Ki        = MGM2_PID_KI;
+			InstancePtr->pid->Kd        = MGM2_PID_KD;
+			InstancePtr->pid->tau       = MGM2_PID_TAU;
+			InstancePtr->pid->limMin    = MGM2_PID_LIM_MIN;
+			InstancePtr->pid->limMax    = MGM2_PID_LIM_MAX;
+			InstancePtr->pid->limMinInt = MGM2_PID_LIM_MIN_INT;
+			InstancePtr->pid->limMaxInt = MGM2_PID_LIM_MAX_INT;
+			InstancePtr->pid->T         = MGM2_PID_SAMPLE_TIME;
+			break;
+
+		case 3:
+			InstancePtr->pid->Kp        = MGM3_PID_KP;
+			InstancePtr->pid->Ki        = MGM3_PID_KI;
+			InstancePtr->pid->Kd        = MGM3_PID_KD;
+			InstancePtr->pid->tau       = MGM3_PID_TAU;
+			InstancePtr->pid->limMin    = MGM3_PID_LIM_MIN;
+			InstancePtr->pid->limMax    = MGM3_PID_LIM_MAX;
+			InstancePtr->pid->limMinInt = MGM3_PID_LIM_MIN_INT;
+			InstancePtr->pid->limMaxInt = MGM3_PID_LIM_MAX_INT;
+			InstancePtr->pid->T         = MGM3_PID_SAMPLE_TIME;
 			break;
 
 		default:
@@ -265,6 +309,19 @@ void microMetal_printDuty(ugv_microMetalMotor *InstancePtr)
 	xil_printf("Actual duty    : %d\r\n\n", (cnt_actual-MGM_PWM_MIN)/MGM_PWM_SCALE);
 }
 
+/**
+ * @brief Function to print the PID stats of a ugv_microMetalMotor instance.
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void microMetal_printPid(ugv_microMetalMotor *InstancePtr)
+{
+	printf("PID Setpoint: %d\r\n", (int) InstancePtr->pid->setPoint);
+	printf("PID Measure : %d\r\n", (int) InstancePtr->pid->measurement);
+	printf("PID Error   : %d\r\n", (int) InstancePtr->pid->prevError);
+	printf("PID Integral: %d\r\n", (int) InstancePtr->pid->integrator);
+	printf("PID Output  : %d\r\n", (int) InstancePtr->pid->out);
+}
+
 #ifdef OCM_DRIVEMOTOR_EN
 /**
  * @brief Function to load micrometal current RPM, dir, and pos to OCM. Also
@@ -272,7 +329,8 @@ void microMetal_printDuty(ugv_microMetalMotor *InstancePtr)
  *        specified in ocm.h
  * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
  */
-void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor *InstancePtr1)
+void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor *InstancePtr1,
+		                  ugv_microMetalMotor *InstancePtr2, ugv_microMetalMotor *InstancePtr3)
 {
 	_Bool tempMode;
 	u8    tempDir;
@@ -287,6 +345,16 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 	volatile u32  *setDir1Ptr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
 	volatile u32  *setPt1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
 	volatile u32 *curPos1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_POS_OFFSET);
+
+	volatile u32   *mode2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
+	volatile u32 *setDir2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETDIR_OFFSET);
+	volatile u32  *setPt2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
+	volatile u32 *curPos2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_POS_OFFSET);
+
+	volatile u32   *mode3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
+	volatile u32 *setDir3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
+	volatile u32  *setPt3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
+	volatile u32 *curPos3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_POS_OFFSET);
 
 	// get the mode
 	Xil_DCacheInvalidateRange((u32) mode0Ptr, 1);
@@ -304,7 +372,7 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 
 // mm1
 	Xil_DCacheInvalidateRange((u32) mode1Ptr, 1);
-	tempMode = *mode0Ptr;
+	tempMode = *mode1Ptr;
 	//TODO set mode
 
 	Xil_DCacheInvalidateRange((u32) setDir1Ptr, 2);
@@ -316,6 +384,36 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 
 	*curPos1Ptr = InstancePtr1->currentPos;
 	Xil_DCacheFlushRange((u32) curPos1Ptr, 2); // 2 bytes
+
+// mm2
+	Xil_DCacheInvalidateRange((u32) mode2Ptr, 1);
+	tempMode = *mode2Ptr;
+	//TODO set mode
+
+	Xil_DCacheInvalidateRange((u32) setDir2Ptr, 2);
+	InstancePtr2->setDir = (_Bool) *setDir2Ptr;
+
+	Xil_DCacheInvalidateRange((u32) setPt2Ptr, 2);
+	tempSetPoint = (u16) *setPt2Ptr;
+	InstancePtr2->setPos = *setPt2Ptr;
+
+	*curPos2Ptr = InstancePtr2->currentPos;
+	Xil_DCacheFlushRange((u32) curPos2Ptr, 2); // 2 bytes
+
+// mm3
+	Xil_DCacheInvalidateRange((u32) mode3Ptr, 1);
+	tempMode = *mode3Ptr;
+	//TODO set mode
+
+	Xil_DCacheInvalidateRange((u32) setDir3Ptr, 2);
+	InstancePtr3->setDir = (_Bool) *setDir3Ptr;
+
+	Xil_DCacheInvalidateRange((u32) setPt3Ptr, 2);
+	tempSetPoint = (u16) *setPt3Ptr;
+	InstancePtr3->setPos = *setPt3Ptr;
+
+	*curPos1Ptr = InstancePtr3->currentPos;
+	Xil_DCacheFlushRange((u32) curPos3Ptr, 2); // 2 bytes
 }
 #endif
 

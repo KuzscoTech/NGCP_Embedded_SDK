@@ -368,10 +368,6 @@ void uart_data0FromOcm(uart0Data *dataPtr)
     volatile u32 *mm2_posPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_POS_OFFSET);
     volatile u32 *mm3_posPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_POS_OFFSET);
 
-
-    Xil_DCacheInvalidateRange((u32) mm1_posPtr, 2);
-    dataPtr->tx_microMetal_pos[1] = *mm1_posPtr;
-
 	// read current dir from ocm
 	Xil_DCacheInvalidateRange((u32)dm_dirPtr, 1);
 	dataPtr->tx_dm_dir = *dm_dirPtr;
@@ -387,6 +383,9 @@ void uart_data0FromOcm(uart0Data *dataPtr)
     // read micrometal positions from ocm
     Xil_DCacheInvalidateRange((u32) mm0_posPtr, 2);
     dataPtr->tx_microMetal_pos[0] = *mm0_posPtr;
+
+    Xil_DCacheInvalidateRange((u32) mm1_posPtr, 2);
+    dataPtr->tx_microMetal_pos[1] = *mm1_posPtr;
 
     Xil_DCacheInvalidateRange((u32) mm2_posPtr, 2);
     dataPtr->tx_microMetal_pos[2] = *mm2_posPtr;
