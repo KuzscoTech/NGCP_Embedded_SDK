@@ -1,10 +1,18 @@
 #ifndef MICROMETAL_UTILITIES_H
 #define MICROMETAL_UTILITIES_H
 
+/************************** INCLUDE FILES **************************/
+#include <stdio.h>
 #include "xparameters.h"
 #include "motorEncoder.h"
 #include "motorPwm.h"
 #include "pid.h"
+
+/****************************** CONFIG *****************************/
+#define OCM_DRIVEMOTOR_EN   1
+#ifdef OCM_DRIVEMOTOR_EN
+#include "ocm.h"
+#endif
 
 #define MICROMETAL_FORWARD TRUE
 #define MICROMETAL_REVERSE FALSE
@@ -100,6 +108,12 @@ int microMetal_qeiInitialize(ugv_microMetalMotor *InstancePtr, ugv_qei *QeiInsta
 int microMetal_pidInitialize(ugv_microMetalMotor *InstancePtr, PIDController *PidInstancePtr, u8 id);
 
 /**
+ * @brief Function to update a ugv_microMetalMotor instance's rpm, direction, and position
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void microMetal_updateStats(ugv_microMetalMotor *InstancePtr);
+
+/**
  * @brief Function to update and set the PID output of a ugv_microMetalMotor instance.
  *
  * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
@@ -121,5 +135,22 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr, int *setPos);
  * @param dir is the desired direction to set.
  */
 void microMetal_manualSetDutyDir(ugv_microMetalMotor *InstancePtr, u8 duty, _Bool dir);
+
+/**
+ * @brief Function to print mode and position of a ugv_microMetalMotor instance.
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void microMetal_printStatus(ugv_microMetalMotor *InstancePtr);
+
+/*************************** OCM Functions *******************************/
+#ifdef OCM_DRIVEMOTOR_EN
+/**
+ * @brief Function to load micrometal current RPM, dir, and pos to OCM. Also
+ *        reads setpoint from OCM and sets it in the struct. Targets addresses
+ *        specified in ocm.h
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor *InstancePtr1);
+#endif
 
 #endif

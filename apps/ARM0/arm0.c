@@ -5,12 +5,11 @@ Receive commands via UART
 #include "arm0.h"
 #include "xtime_l.h"
 
-#define DBG_VERBOSE 0
+#define DBG_VERBOSE 1
 
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
-static XUartLite UartLiteInst0;
-static XUartLite UartLiteInst1;
+static XUartLite UartLiteInst [3];
 
 // UART VARS
 u8 SendBuffer [2][UART_BUFFER_SIZE];
@@ -22,8 +21,6 @@ static volatile int TotalRecvCount [2];
 int   DATACOUNT[2];
 _Bool VALID    [2];
 int   ERRORS   [2];
-
-_Bool          uart0RecvDone;
 
 // UART0 STATE MACHINE
 int UART0_STATE;
@@ -37,9 +34,9 @@ int main()
     XTime          uart0RecvStartTime;
     XTime          uart0CurrentTime;
     float          delta;
-    _Bool          uart0RecvDone;
-
+    _Bool          uartRecvDone[2] = {FALSE,FALSE};
     uart0Data      uart0DataInst;
+    uart1Data      uart1DataInst;
 
 
     // Setup interrupt system
@@ -52,15 +49,15 @@ int main()
 
     // Initialize UARTs
     printf("Initializing UART drivers...\r\n");
-    uart_Initialize(&UartLiteInst0, UART_DEVICE_ID_0);
-    uart_Initialize(&UartLiteInst1, UART_DEVICE_ID_1);
+    uart_Initialize(&UartLiteInst[0], UART_DEVICE_ID_0);
+    uart_Initialize(&UartLiteInst[1], UART_DEVICE_ID_1);
     if(Status != XST_SUCCESS) {
         printf("UART setup failed!\r\n");
         return XST_FAILURE;
     }
 
     // Setup UART0 interrupts
-	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst0, UART_IRPT_INTR_0);
+	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst[0], UART_IRPT_INTR_0);
 	if (Status != XST_SUCCESS) {
         xil_printf("UART0 Interrupt Config Failed!\r\n");
 		return XST_FAILURE;
@@ -68,7 +65,7 @@ int main()
 	xil_printf("UART0 Interrupt Initialized!\r\n");
 
     // Setup UART1 interrupts
-	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst1, UART_IRPT_INTR_1);
+	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst[1], UART_IRPT_INTR_1);
     if (Status != XST_SUCCESS) {
         xil_printf("UART1 Interrupt Config Failed!\r\n");
         return XST_FAILURE;
@@ -76,17 +73,16 @@ int main()
     xil_printf("UART1 Interrupt Initialized!\r\n");
 
     // Set UART interrupt handlers
-    XUartLite_SetSendHandler(&UartLiteInst0, UartLiteSendHandler0, &UartLiteInst0);
-    XUartLite_SetRecvHandler(&UartLiteInst0, UartLiteRecvHandler0, &UartLiteInst0);
-    XUartLite_SetSendHandler(&UartLiteInst1, UartLiteSendHandler1, &UartLiteInst1);
-    XUartLite_SetRecvHandler(&UartLiteInst1, UartLiteRecvHandler1, &UartLiteInst1);
+    XUartLite_SetSendHandler(&UartLiteInst[0], UartLiteSendHandler0, &UartLiteInst[0]);
+    XUartLite_SetRecvHandler(&UartLiteInst[0], UartLiteRecvHandler0, &UartLiteInst[0]);
+    XUartLite_SetSendHandler(&UartLiteInst[1], UartLiteSendHandler1, &UartLiteInst[1]);
+    XUartLite_SetRecvHandler(&UartLiteInst[1], UartLiteRecvHandler1, &UartLiteInst[1]);
 
     // Enable UART interrupts
-    XUartLite_EnableInterrupt(&UartLiteInst0);
-    XUartLite_EnableInterrupt(&UartLiteInst1);
+    XUartLite_EnableInterrupt(&UartLiteInst[0]);
+    XUartLite_EnableInterrupt(&UartLiteInst[1]);
 
     // Initialize flags and counters
-    uart0RecvDone = FALSE;
     TotalSentCount[0] = 0;
     TotalSentCount[1] = 0;
     TotalRecvCount[0] = 0;
@@ -107,50 +103,73 @@ int main()
 			uart_data0FromOcm(&uart0DataInst);
 			uart0DataInst.index = 0;
 			uart_loadData0(SendBuffer[0], &uart0DataInst);
+
+			uart_data1FromOcm(&uart1DataInst);
+			uart1DataInst.index = 0;
+			uart_loadData1(SendBuffer[1], &uart1DataInst);
+
     	}
 
         // Send the UART0 SendBuffer
     	TotalSentCount[0] = 0;
-    	XUartLite_Send(&UartLiteInst0, SendBuffer[0], uart0DataInst.index);
+    	TotalSentCount[1] = 0;
+    	XUartLite_Send(&UartLiteInst[0], SendBuffer[0], uart0DataInst.index);
+    	XUartLite_Send(&UartLiteInst[1], SendBuffer[1], uart1DataInst.index);
+
     	while(TotalSentCount[0] != uart0DataInst.index) {
     	}
 
-    	// Start UART0 Receive sequence
+    	// Start UART0 Receive sequence & UART1 Receive
     	TotalRecvCount[0] = 0;
-    	if(!uart0RecvDone)
-    	{
-    		for(int i=0; i<UART_BUFFER_SIZE; i++) {
-    			RecvBuffer[0][i] = 0;
-    		}
-    		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], UART0_RECEIVE_SIZE);
-            uart0RecvDone = TRUE;
+    	TotalRecvCount[1] = 0;
+    	for(int uart_idx = 0; uart_idx < 2; uart_idx++){
+			if(!uartRecvDone[uart_idx])
+			{
+				for(int i=0; i<UART_BUFFER_SIZE; i++) {
+					RecvBuffer[0][i] = 0;
+				}
+				XUartLite_Recv(&UartLiteInst[uart_idx], RecvBuffer[uart_idx], STUPID_BITCH_FUCK_CUCK_BASTARD[uart_idx]);
+				uartRecvDone[uart_idx] = TRUE;
 
-    		// look for a receive timeout
-    		XTime_GetTime(&uart0RecvStartTime);
-    		delta = 0;
-    		while(TotalRecvCount[0] != UART0_RECEIVE_SIZE) {
-    			XTime_GetTime(&uart0CurrentTime);
-    			delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
-    			if(delta > 200.0) {
-    				if(DBG_VERBOSE) printf("Timeout...\r\n\n");
-    				uart0RecvDone = FALSE;
-    				break;
-    			}
-    		}
+				// look for a receive timeout
+				XTime_GetTime(&uart0RecvStartTime);
+				delta = 0;
+				while(TotalRecvCount[uart_idx] != STUPID_BITCH_FUCK_CUCK_BASTARD[uart_idx]) {
+					XTime_GetTime(&uart0CurrentTime);
+					delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
+					if(delta > 350.0) {
+						if(DBG_VERBOSE) printf("UART %d Timeout...\r\n\n", uart_idx);
+						uartRecvDone[uart_idx] = FALSE;
+						break;
+					}
+				}
+			}
+
+			// Parse UART data
+			if(uartRecvDone[uart_idx]) {
+				if(DBG_VERBOSE) {
+					printf("Received data!\r\n");
+					printf("UART %d:\r\n", uart_idx);
+				}
+				if(uart_idx == 0){
+					uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
+					uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
+					if(DBG_VERBOSE) uart_printBuffer(RecvBuffer[uart_idx]);
+				}
+                if(uart_idx == 1){
+                    uart_parseMicroMetal(RecvBuffer[1], &uart1DataInst);
+                    if(DBG_VERBOSE) uart_printBuffer(RecvBuffer[uart_idx]);
+                }
+				if(SM_Status == 0) {
+					uart_data0ToOcm(&uart0DataInst);
+					uart_data1ToOcm(&uart1DataInst);
+				}
+				uartRecvDone[uart_idx] = FALSE;
+			}
     	}
 
-        // Parse UART0 data
-    	if(uart0RecvDone) {
-    		if(DBG_VERBOSE) {
-    			printf("Received data!\r\n");
-    			uart_printBuffer(RecvBuffer[0]);
-    		}
-    		uart0RecvDone = FALSE;
-    		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
-            uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
-    		if(SM_Status == 0) {
-    			uart_data0ToOcm(&uart0DataInst);
-    		}
+    	for (int i=0; i<3; i++) {
+    		uartRecvDone[i] = FALSE;
     	}
 
     	// Pass OCM access to CPU1

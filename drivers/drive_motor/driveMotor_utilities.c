@@ -259,7 +259,6 @@ void ocm_updateDriveMotor(ugv_driveMotor *InstancePtr)
 
     // get the mode
     Xil_DCacheInvalidateRange((u32) modePtr, 1);
-    //printf("Mode from OCM: %d\r\n", (int) *modePtr);
     tempMode = *modePtr;
     if(!tempMode != InstancePtr->uartManualMode) {
         PIDController_Init(InstancePtr->pid);

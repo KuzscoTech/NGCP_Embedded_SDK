@@ -28,9 +28,9 @@
 #define DRIVEMOTOR_QEI_BASEADDR     XPAR_MOTORENCODER_0_S00_AXI_BASEADDR
 
 /******************* DRIVE MOTOR PID PARAMETERS *******************/
-#define DRIVEMOTOR_PID_KP           0.5f
-#define DRIVEMOTOR_PID_KI           1.0f
-#define DRIVEMOTOR_PID_KD           0.1f
+#define DRIVEMOTOR_PID_KP           5.0f
+#define DRIVEMOTOR_PID_KI           1.5f
+#define DRIVEMOTOR_PID_KD           0.01f
 #define DRIVEMOTOR_PID_TAU          0.02f
 #define DRIVEMOTOR_PID_LIM_MIN      0.0f
 #define DRIVEMOTOR_PID_LIM_MAX      255.0f

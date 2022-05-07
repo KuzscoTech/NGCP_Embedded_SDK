@@ -1,13 +1,17 @@
 #include "arm1.h"
 #include "string.h"
 
-#define DBG_VERBOSE 1
+#define DBG_VERBOSE_DRIVEMOTOR 0
+#define DBG_VERBOSE_SERVOMOTOR 0
+#define DBG_VERBOSE_MGM0       0
+#define DBG_VERBOSE_MGM1       0
+#define DBG_VERBOSE_MGM2       0
+#define DBG_VERBOSE_MGM3       0
 
 int main()
 {
 	printf("\r\n\nARM1 Initialized!\r\n\n");
 
-	volatile u32 *modePtr     = (u32 *) (SM_DM_BASEADDR + SM_DM_SETMANUAL_OFFSET);
 	int            Status;
 	u8             SM_Status;
 	//
@@ -20,6 +24,16 @@ int main()
 	ugv_servo      servoMotorPwmInst;
 	XSysMon        servoMotorAdcInst;
 	PIDController  servoMotorPidInst;
+
+	ugv_microMetalMotor microMetal0Inst;
+	ugv_pwm             microMetal0PwmInst;
+	ugv_qei             microMetal0QeiInst;
+	PIDController       microMetal0PidInst;
+
+	ugv_microMetalMotor microMetal1Inst;
+	ugv_pwm             microMetal1PwmInst;
+	ugv_qei             microMetal1QeiInst;
+	PIDController       microMetal1PidInst;
 
 	 // Initialize Drive Motor
 	printf("Initializing drive motor drivers...\r\n");
@@ -38,6 +52,20 @@ int main()
 	}
 	printf("ARM1 all motors initialized!\r\n\n");
 
+	// Initialize Micrometal 0
+	printf("Initializing micro metal drivers...\r\n");
+	Status = microMetal_Initialize(&microMetal0Inst, &microMetal0PwmInst, &microMetal0QeiInst, &microMetal0PidInst, 0);
+	if(Status != XST_SUCCESS) {
+	    printf("Micrometal 0 setup failed!\r\n");
+	    return XST_FAILURE;
+	}
+
+	Status = microMetal_Initialize(&microMetal1Inst, &microMetal1PwmInst, &microMetal1QeiInst, &microMetal1PidInst, 1);
+	if(Status != XST_SUCCESS) {
+	    printf("Micrometal 1 setup failed!\r\n");
+	    return XST_FAILURE;
+	}
+
 	// Main Loop
 	while(1)
 	{
@@ -48,6 +76,7 @@ int main()
 		{
 			ocm_updateDriveMotor(&driveMotorInst);
 			ocm_updateServoMotor(&servoMotorInst);
+			ocm_updateMicroMetal(&microMetal0Inst, &microMetal1Inst);
 			ocm_clearMemFlag();
 		}
 
@@ -70,10 +99,25 @@ int main()
             servoMotor_setPidOutput(&servoMotorInst, servoMotorInst.uartSetPoint);
         }
 
-        if(DBG_VERBOSE) {
+        // set micrometal
+        microMetal_setPidOutput(&microMetal0Inst, &microMetal0Inst.setPos);
+        microMetal_setPidOutput(&microMetal1Inst, &microMetal1Inst.setPos);
+
+        // print stats
+        if(DBG_VERBOSE_DRIVEMOTOR) {
         	driveMotor_printStatus(&driveMotorInst);
         	driveMotor_printDuty(&driveMotorInst);
-        	//servoMotor_printStatus(&servoMotorInst);
+        }
+        if(DBG_VERBOSE_SERVOMOTOR) {
+        	servoMotor_printStatus(&servoMotorInst);
+        }
+        if(DBG_VERBOSE_MGM0) {
+        	printf("\r\nMGM0:\r\n");
+        	microMetal_printStatus(&microMetal0Inst);
+        }
+        if(DBG_VERBOSE_MGM1) {
+        	printf("\r\nMGM1:\r\n");
+        	microMetal_printStatus(&microMetal1Inst);
         }
 	}
 }

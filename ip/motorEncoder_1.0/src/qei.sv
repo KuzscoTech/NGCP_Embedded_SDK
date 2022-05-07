@@ -38,14 +38,12 @@ module QEI
 
     localparam T_1S      = 'd1_000_000_000; // ns
     localparam DIVFACTOR = 10;
-    localparam T_SAMPLE  = T_1S/DIVFACTOR; // ns
+    localparam T_SAMPLE  = T_1S / DIVFACTOR; // ns
     localparam T_CLK     = 'd10;            // ns
     localparam TIMER_MAX = T_SAMPLE / T_CLK;    // clock counts
     localparam TIMER_INC = 'd1;
 
-    localparam RES_FACTOR    = 60 / RESOLUTION;
-    localparam DEG_PER_PULSE = 360 / RESOLUTION;
-    localparam MGM_COUNT_CAP = RESOLUTION * MGM_GEAR_RATIO;
+    localparam RES_FACTOR = (60 / RESOLUTION) * DIVFACTOR;
     
     // Synchronizers
     always_ff@(posedge clk) begin
@@ -62,8 +60,6 @@ module QEI
         else begin
             {past_pulse_A, present_pulse_A} <= {present_pulse_A, sync_chA};
             {past_pulse_B, present_pulse_B} <= {present_pulse_B, sync_chB};
-            //present_pulse <= sync_chA;
-            //past_pulse    <= present_pulse;
         end 
     end
     assign posedge_A = (present_pulse_A == 1) && (past_pulse_A == 0);

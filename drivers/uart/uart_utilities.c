@@ -1,5 +1,6 @@
 #include "uart_utilities.h"
 
+
 /**
  * @brief Function to initialize a UART instance.
  *
@@ -21,7 +22,6 @@ int uart_Initialize(XUartLite *UartLiteInstPtr, u16 UartLiteDeviceId)
         xil_printf("UART self test failed! Device ID: %d\r\n", UartLiteDeviceId);
 		return XST_FAILURE;
 	}
-
     return XST_SUCCESS;
 }
 
@@ -99,13 +99,13 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 	u8 tempRpm;
 
 	// parse for "DM"
-	for(int i=0; i<UART0_RECEIVE_SIZE; i++) {
+	for(int i=0; i<STUPID_BITCH_FUCK_CUCK_BASTARD[0]; i++) {
 		if(RecvBuffer[i] == 0x44) {
 			if(RecvBuffer[i+1] == 0x4D) {
                 manualModeIndex = i+2;
 				dmDirIndex      = i+3;
 				dmRpmIndex      = i+5;
-				if(dmRpmIndex+1 < UART0_RECEIVE_SIZE){
+				if(dmRpmIndex+1 < STUPID_BITCH_FUCK_CUCK_BASTARD[0]){	//6 < 10
 					dmValid = TRUE;
 					break;
 				}
@@ -184,10 +184,10 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 	_Bool servoValid = FALSE;
 
 	// parse for "S"
-	for(int i=0; i<UART0_RECEIVE_SIZE; i++) {
+	for(int i=0; i<STUPID_BITCH_FUCK_CUCK_BASTARD[0]; i++) {
 		if(RecvBuffer[i] == 0x53) {
 			servoIndex = i;
-			if(servoIndex+2 <= UART0_RECEIVE_SIZE) {
+			if(servoIndex+2 <= STUPID_BITCH_FUCK_CUCK_BASTARD[0]) {
 				servoValid = TRUE;
 				break;
 			}
@@ -211,9 +211,44 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 
     // setpoint
     dataPtr->rx_servo_setpoint = RecvBuffer[servoIndex+2];
+    return XST_SUCCESS;
+}
 
-    printf("Servo parse failed\r\n");
-    return XST_FAILURE;
+/**
+ * @brief Function to parse UART data for micrometal setpoints.
+ *        MG<low><high> <low><high> <low><high> <low><high>
+ * @param RecvBuffer
+ * @param dataPtr
+ * @return
+ */
+int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart1Data *dataPtr)
+{
+	int   mmIndex [4];
+	_Bool mmValid = FALSE;
+
+	// look for an "MG"
+	for(int i=0; i<STUPID_BITCH_FUCK_CUCK_BASTARD[0]; i++) {
+		if(RecvBuffer[i] == 0x4D) { // "M"
+			if(RecvBuffer[i+1] == 0x47) { // "G"
+				if(i+9 < STUPID_BITCH_FUCK_CUCK_BASTARD[1]) {
+					mmValid = TRUE;
+					mmIndex[0] = i+2;
+					mmIndex[1] = i+4;
+					mmIndex[2] = i+6;
+					mmIndex[3] = i+8;
+				}
+			}
+		}
+	}
+	if(!mmValid) {
+		return XST_FAILURE;
+	}
+
+	// write into uart1Data instance
+	dataPtr->rx_mm_setpoint[0] = RecvBuffer[mmIndex[0]] + (RecvBuffer[mmIndex[0]+1] << 8);
+	dataPtr->rx_mm_setpoint[1] = RecvBuffer[mmIndex[1]] + (RecvBuffer[mmIndex[1]+1] << 8);
+	dataPtr->rx_mm_setpoint[2] = RecvBuffer[mmIndex[2]] + (RecvBuffer[mmIndex[2]+1] << 8);
+	dataPtr->rx_mm_setpoint[3] = RecvBuffer[mmIndex[3]] + (RecvBuffer[mmIndex[3]+1] << 8);
 }
 
 /**
@@ -276,6 +311,8 @@ void uart_data0FromOcm(uart0Data *dataPtr)
 	// read current servo pos from ocm
 	Xil_DCacheInvalidateRange((u32)servo_posPtr, 1);
 	dataPtr->tx_servo_pos = *servo_posPtr;
+
+
 }
 
 
@@ -343,6 +380,143 @@ void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataP
 		text = "P";
 		SendBuffer[dataPtr->index] = *text;
 	}
+	dataPtr->index++;
+}
+
+/**
+ * @brief Function to write UART1 micrometal setpoint data from a uart1Data instance
+ *        to OCM addresses specified in ocm.h
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_data1ToOcm(uart1Data *dataPtr)
+{
+    volatile u32 *mm0_modePtr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
+	volatile u32 *mm0_setPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
+	volatile u32 *mm0_dirPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
+
+	volatile u32 *mm1_modePtr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
+	volatile u32 *mm1_setPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
+	volatile u32 *mm1_dirPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
+
+	volatile u32 *mm2_modePtr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
+	volatile u32 *mm2_setPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
+	volatile u32 *mm2_dirPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETDIR_OFFSET);
+
+	volatile u32 *mm3_modePtr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
+	volatile u32 *mm3_setPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
+	volatile u32 *mm3_dirPtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
+
+	// MM0
+	*mm0_modePtr = dataPtr->rx_mm_manualMode[0];
+	Xil_DCacheFlushRange((u32) mm0_modePtr, 1);
+	*mm0_setPtr = dataPtr->rx_mm_setpoint[0];
+	Xil_DCacheFlushRange((u32) mm0_setPtr, 2);
+	*mm0_dirPtr = dataPtr->rx_mm_setDir[0];
+	Xil_DCacheFlushRange((u32) mm0_dirPtr, 1);
+
+	// MM1
+	*mm0_modePtr = dataPtr->rx_mm_manualMode[1];
+	Xil_DCacheFlushRange((u32) mm1_modePtr, 1);
+	*mm1_setPtr = dataPtr->rx_mm_setpoint[1];
+	Xil_DCacheFlushRange((u32) mm1_setPtr, 2);
+	*mm1_dirPtr = dataPtr->rx_mm_setDir[1];
+	Xil_DCacheFlushRange((u32) mm1_dirPtr, 1);
+
+	// MM2
+	*mm2_modePtr = dataPtr->rx_mm_manualMode[2];
+	Xil_DCacheFlushRange((u32) mm2_modePtr, 1);
+	*mm2_setPtr = dataPtr->rx_mm_setpoint[2];
+	Xil_DCacheFlushRange((u32) mm2_setPtr, 2);
+	*mm2_dirPtr = dataPtr->rx_mm_setDir[2];
+	Xil_DCacheFlushRange((u32) mm2_dirPtr, 1);
+
+	// MM3
+	*mm3_modePtr = dataPtr->rx_mm_manualMode[3];
+	Xil_DCacheFlushRange((u32) mm3_modePtr, 1);
+	*mm3_setPtr = dataPtr->rx_mm_setpoint[3];
+	Xil_DCacheFlushRange((u32) mm3_setPtr, 2);
+	*mm3_dirPtr = dataPtr->rx_mm_setDir[3];
+	Xil_DCacheFlushRange((u32) mm3_dirPtr, 1);
+}
+
+
+/**
+ * @brief Function to read UART1 micrometal current status data
+ *        from OCM addresses specified in ocm.h to a uart1Data instance.
+ * @param dataPtr is a pointer to a uart1Data instance.
+ */
+void uart_data1FromOcm(uart1Data *dataPtr)
+{
+	u32 *mm0_posPtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_POS_OFFSET);
+	u32 *mm1_posPtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_POS_OFFSET);
+
+	// read current pos from ocm micrometal 0
+	Xil_DCacheInvalidateRange((u32)mm0_posPtr, 2);
+	dataPtr->tx_mm_pos[0] = (u16) *mm0_posPtr;
+
+	// read current pos from ocm micrometal 1
+	Xil_DCacheInvalidateRange((u32)mm1_posPtr, 2);
+	dataPtr->tx_mm_pos[1] = (u16) *mm1_posPtr;
+}
+
+
+/**
+ * @brief Function to load UART1 data to a UART TX buffer.
+ * @param SendBuffer is a unsigned char array used as a TX buffer.
+ * @param index is the index from which to start loading data into.
+ * @param dataPtr is a pointer to a uart1Data instance.
+ */
+void uart_loadData1(unsigned char SendBuffer[UART_BUFFER_SIZE], uart1Data *dataPtr)
+{
+	const char *text;
+	char        c;
+
+	text = "MM0";
+	for(text; c=*text; text++) {
+		SendBuffer[dataPtr->index] = c;
+		dataPtr->index++;
+	}
+
+	// MM0 pos low, then high byte
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[0] & 0xFF;
+	dataPtr->index++;
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[0] >> 8;
+	dataPtr->index++;
+
+	text = "MM1";
+	for(text; c=*text; text++) {
+		SendBuffer[dataPtr->index] = c;
+		dataPtr->index++;
+	}
+
+	// MM1 pos low, then high byte
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[1] & 0xFF;
+	dataPtr->index++;
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[1] >> 8;
+	dataPtr->index++;
+
+	text = "MM2";
+	for(text; c=*text; text++) {
+		SendBuffer[dataPtr->index] = c;
+		dataPtr->index++;
+	}
+
+	// MM1 pos low, then high byte
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[2] & 0xFF;
+	dataPtr->index++;
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[2] >> 8;
+	dataPtr->index++;
+
+	text = "MM3";
+	for(text; c=*text; text++) {
+		SendBuffer[dataPtr->index] = c;
+		dataPtr->index++;
+	}
+
+	// MM1 pos low, then high byte
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[3] & 0xFF00;
+	dataPtr->index++;
+	SendBuffer[dataPtr->index] = dataPtr->tx_mm_pos[3] >> 8;
 	dataPtr->index++;
 }
 

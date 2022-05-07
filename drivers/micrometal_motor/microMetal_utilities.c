@@ -144,6 +144,17 @@ int microMetal_pidInitialize(ugv_microMetalMotor *InstancePtr, PIDController *Pi
 }
 
 /**
+ * @brief Function to update a ugv_microMetalMotor instance's rpm, direction, and position
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void microMetal_updateStats(ugv_microMetalMotor *InstancePtr)
+{
+	InstancePtr->currentPos = (int) ugvQei_getPosition  (InstancePtr->qei);
+	InstancePtr->currentRpm = (int) ugvQei_getRpm       (InstancePtr->qei);
+	InstancePtr->currentDir = (int) ugvQei_getDirection (InstancePtr->qei);
+}
+
+/**
  * @brief Function to update and set the PID output of a ugv_microMetalMotor instance.
  *
  * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
@@ -160,9 +171,7 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr, int *setPos)
 	float tempPidOut;
 
 	// update current stats
-	InstancePtr->currentPos = (int) ugvQei_getPosition  (InstancePtr->qei);
-	InstancePtr->currentRpm = (int) ugvQei_getRpm       (InstancePtr->qei);
-	InstancePtr->currentDir = (int) ugvQei_getDirection (InstancePtr->qei);
+	microMetal_updateStats(InstancePtr);
 
 	// normalize new set position from 0-360.
 	if(*setPos > 359 || *setPos < 0) {
@@ -212,9 +221,81 @@ void microMetal_manualSetDutyDir(ugv_microMetalMotor *InstancePtr, u8 duty, _Boo
 	InstancePtr->currentPos = ugvQei_getPosition  (InstancePtr->qei);
 }
 
+/**
+ * @brief Function to print mode and position of a ugv_microMetalMotor instance.
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void microMetal_printStatus(ugv_microMetalMotor *InstancePtr)
+{
+	microMetal_updateStats(InstancePtr);
+	printf("Micrometal Current Position: %d\r\n", InstancePtr->currentPos);
+	if(InstancePtr->currentDir == MICROMETAL_FORWARD)
+		printf("Micrometal Current Dir     : FORWARD\r\n");
+	else
+		printf("Micrometal Current Dir     : REVERSE\r\n");
+	printf("Micrometal Current RPM     : %d\r\n", InstancePtr->currentRpm);
+}
 
+#ifdef OCM_DRIVEMOTOR_EN
+/**
+ * @brief Function to load micrometal current RPM, dir, and pos to OCM. Also
+ *        reads setpoint from OCM and sets it in the struct. Targets addresses
+ *        specified in ocm.h
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor *InstancePtr1)
+{
+	_Bool tempMode;
+	u8    tempDir;
+	u16   tempSetPoint;
 
+	volatile u32   *mode0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
+	volatile u32  *setPt0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
+	volatile u32 *setDir0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
+	volatile u32 *curPos0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_POS_OFFSET);
 
+	volatile u32   *mode1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
+	volatile u32  *setPt1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
+	volatile u32 *setDir1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
+	volatile u32 *curPos1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_POS_OFFSET);
+
+	// get the mode
+	Xil_DCacheInvalidateRange((u32) mode0Ptr, 1);
+	tempMode = *mode0Ptr;
+	//TODO set mode
+
+	// get the setpoint
+	Xil_DCacheInvalidateRange((u32) setPt0Ptr, 2);
+	InstancePtr0->setPos = *setPt0Ptr;
+
+	// get the dir
+	Xil_DCacheInvalidateRange((u32) setDir0Ptr, 1);
+	InstancePtr0->currentDir = (_Bool) *setDir0Ptr;
+
+	// load current pos
+	*curPos0Ptr = InstancePtr0->currentPos;
+	Xil_DCacheFlushRange((u32) curPos0Ptr, 2); // 2 bytes
+
+	// get the mode
+	Xil_DCacheInvalidateRange((u32) mode1Ptr, 1);
+	tempMode = *mode0Ptr;
+	//TODO set mode
+
+	// get the setpoint
+	Xil_DCacheInvalidateRange((u32) setPt1Ptr, 2);
+	tempSetPoint = *setPt1Ptr;
+	InstancePtr1->setPos = *setPt1Ptr;
+
+	// get the dir
+	Xil_DCacheInvalidateRange((u32) setDir1Ptr, 1);
+	tempDir = *setDir1Ptr;
+	InstancePtr1->currentDir = (_Bool) *setDir1Ptr;
+
+	// load current pos
+	*curPos1Ptr = InstancePtr1->currentPos;
+	Xil_DCacheFlushRange((u32) curPos1Ptr, 2); // 2 bytes
+}
+#endif
 
 
 
