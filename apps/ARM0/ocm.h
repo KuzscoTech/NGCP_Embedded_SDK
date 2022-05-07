@@ -22,6 +22,28 @@
 #define SM_SERVO_SETPOINT_OFFSET    4        // servo motor setpoint;       1 byte
 #define SM_SERVO_CURRENT_OFFSET     8        // servo motor current pos;    1 byte
 
+// OCM Micro Motor Address
+#define SM_MM_BASEADDR              0x3000060
+//
+#define SM_MM0_SETMANUAL_OFFSET     0         // micrometal 0 manual enable; 1 byte
+#define SM_MM0_SETDIR_OFFSET        4
+#define SM_MM0_SETPOINT_OFFSET      8         // micrometal 0 setpoint;      2 bytes
+#define SM_MM0_POS_OFFSET           12         // micrometal 0 current pos;   2 bytes
+
+#define SM_MM1_SETMANUAL_OFFSET     16        // micrometal 1 manual enable; 1 byte
+#define SM_MM1_SETDIR_OFFSET        20
+#define SM_MM1_SETPOINT_OFFSET      24        // micrometal 1 setpoint;      2 bytes
+#define SM_MM1_POS_OFFSET           28        // micrometal 1 current pos;   2 bytes
+
+#define SM_MM2_SETMANUAL_OFFSET     32        // micrometal 2 manual enable; 1 byte
+#define SM_MM2_SETDIR_OFFSET        36
+#define SM_MM2_SETPOINT_OFFSET      40        // micrometal 2 setpoint;      2 bytes
+#define SM_MM2_POS_OFFSET           44        // micrometal 2 current pos;   2 bytes
+
+#define SM_MM3_SETMANUAL_OFFSET     48        // micrometal 3 manual enable; 1 byte
+#define SM_MM3_SETDIR_OFFSET        52
+#define SM_MM3_SETPOINT_OFFSET      56        // micrometal 3 setpoint;      2 bytes
+#define SM_MM3_POS_OFFSET           60        // micrometal 3 current pos;   2 bytes
 
 /**
  * @brief Function to get the value of the shared memory flag from the address

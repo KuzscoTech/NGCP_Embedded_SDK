@@ -187,6 +187,7 @@ void servoMotor_setManualPos(ugv_servoMotor *InstancePtr, u32 pos)
  */
 void servoMotor_printStatus(ugv_servoMotor *InstancePtr)
 {
+    printf("\r\n");
     servoMotor_getPosition(InstancePtr);
     if(InstancePtr->uartManualMode) 
         printf("Servo Mode    : MANUAL\r\n");
@@ -194,6 +195,7 @@ void servoMotor_printStatus(ugv_servoMotor *InstancePtr)
         printf("Servo Mode    : PID\r\n");
     printf("Servo Position: %d\r\n", InstancePtr->currentPos);
     printf("Servo Setpoint: %d\r\n", InstancePtr->uartSetPoint);
+    printf("Servo Input   : %d\r\n", InstancePtr->pwm->inputVal);
 }
 
 /**

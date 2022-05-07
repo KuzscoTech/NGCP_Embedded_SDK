@@ -93,28 +93,14 @@ int main()
     TotalRecvCount[1] = 0;
 
     // Initialize OCM
+    printf("Initializing OCM...\r\n");
     ocm_initialize();
+
+
 
     // MAIN LOOP
     while(1)
     {
-    	// Update UART0 send buffer if CPU0 has access to OCM
-    	SM_Status = ocm_getMemFlag();
-    	if(SM_Status == 0) {
-			for(int i=0; i<UART_BUFFER_SIZE; i++) {
-				SendBuffer[0][i] = 0;
-			}
-			uart_data0FromOcm(&uart0DataInst);
-			uart0DataInst.index = 0;
-			uart_loadData0(SendBuffer[0], &uart0DataInst);
-    	}
-
-        // Send the UART0 SendBuffer
-    	TotalSentCount[0] = 0;
-    	XUartLite_Send(&UartLiteInst0, SendBuffer[0], uart0DataInst.index);
-    	while(TotalSentCount[0] != uart0DataInst.index) {
-    	}
-
     	// Start UART0 Receive sequence
     	TotalRecvCount[0] = 0;
     	if(!uart0RecvDone)
@@ -149,9 +135,26 @@ int main()
     		uart0RecvDone = FALSE;
     		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
             uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
+            uart_parseMicroMetal(RecvBuffer[0], &uart0DataInst);
     		if(SM_Status == 0) {
     			uart_data0ToOcm(&uart0DataInst);
     		}
+    	}
+    	// Update UART0 send buffer if CPU0 has access to OCM
+    	SM_Status = ocm_getMemFlag();
+    	if(SM_Status == 0) {
+    		for(int i=0; i<UART_BUFFER_SIZE; i++) {
+    			SendBuffer[0][i] = 0;
+    		}
+    		uart_data0FromOcm(&uart0DataInst);
+    		uart0DataInst.index = 0;
+    		uart_loadData0(SendBuffer[0], &uart0DataInst);
+    	}
+
+    	// Send the UART0 SendBuffer
+    	TotalSentCount[0] = 0;
+    	XUartLite_Send(&UartLiteInst0, SendBuffer[0], uart0DataInst.index);
+    	while(TotalSentCount[0] != uart0DataInst.index) {
     	}
 
     	// Pass OCM access to CPU1

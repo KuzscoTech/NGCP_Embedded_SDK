@@ -6,7 +6,7 @@
 
 // UART BUFFER SIZE
 #define UART_BUFFER_SIZE      25
-#define UART0_RECEIVE_SIZE    10
+#define UART0_RECEIVE_SIZE    24
 
 /************************** INCLUDE FILES **************************/
 #include <stdio.h>
@@ -30,6 +30,11 @@ typedef struct{
     u8        rx_servo_manualMode;
 	u16       rx_servo_setpoint;
 	u16       tx_servo_pos;
+
+    // MICROMETAL
+	u8        rx_microMetal_setDir   [4];
+    u16       rx_microMetal_setpoint [4];
+    u16       tx_microMetal_pos      [4];
 } uart0Data;
 
 
@@ -105,6 +110,20 @@ int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
  */
 int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr);
 
+/**
+ * @brief Function to parse UART0 data for micrometal setpoints.
+ * 
+ * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer. 
+ * @param dataPtr is a pointer to a uart0Data instance.
+ * @return int XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
+
+/**
+ * @brief Function to print the contents of a uart0Data instance.
+ * 
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
 void uart_printData0(uart0Data *dataPtr);
 
 /**
