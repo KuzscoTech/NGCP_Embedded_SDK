@@ -144,6 +144,7 @@ int main()
     		if(DBG_VERBOSE) {
     			printf("Received data!\r\n");
     			uart_printBuffer(RecvBuffer[0]);
+    			uart_printData0(&uart0DataInst);
     		}
     		uart0RecvDone = FALSE;
     		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);

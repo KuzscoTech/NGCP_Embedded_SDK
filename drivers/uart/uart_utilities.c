@@ -211,9 +211,21 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 
     // setpoint
     dataPtr->rx_servo_setpoint = RecvBuffer[servoIndex+2];
+    return XST_SUCCESS;
+}
 
-    printf("Servo parse failed\r\n");
-    return XST_FAILURE;
+void uart_printData0(uart0Data *dataPtr)
+{
+	printf("\r\n");
+	printf("received dm mode        : %d\r\n", dataPtr->rx_dm_manualMode);
+	printf("received dm dir         : %d\r\n", dataPtr->rx_dm_dir);
+	printf("received dm setpoint    : %d\r\n", dataPtr->rx_dm_setpoint);
+	printf("tx dm dir               : %d\r\n", dataPtr->tx_dm_dir);
+	printf("tx dm rpm               : %d\r\n\n", dataPtr->tx_dm_rpm);
+
+	printf("received servo mode     : %d\r\n", dataPtr->rx_servo_manualMode);
+	printf("received servo setpoint : %d\r\n", dataPtr->rx_servo_setpoint);
+	printf("tx servo position       : %d\r\n", dataPtr->tx_servo_pos);
 }
 
 /**
@@ -244,6 +256,7 @@ void uart_data0ToOcm(uart0Data *dataPtr)
 	Xil_DCacheFlushRange((u32)dm_dirPtr, 1);
 
     // write servo mode
+
     *servo_modePtr = (u8) dataPtr->rx_servo_manualMode;
     Xil_DCacheFlushRange((u32)servo_modePtr, 1);
 
@@ -274,8 +287,8 @@ void uart_data0FromOcm(uart0Data *dataPtr)
 	dataPtr->tx_dm_rpm = *dm_rpmPtr;
 
 	// read current servo pos from ocm
-	Xil_DCacheInvalidateRange((u32)servo_posPtr, 1);
-	dataPtr->tx_servo_pos = *servo_posPtr;
+	Xil_DCacheInvalidateRange((u32)servo_posPtr, 2);
+	dataPtr->tx_servo_pos = (u16) *servo_posPtr;
 }
 
 

@@ -1,13 +1,13 @@
 #include "arm1.h"
 #include "string.h"
 
-#define DBG_VERBOSE 1
+#define DBG_VERBOSE_DRIVEMOTOR 0
+#define DBG_VERBOSE_SERVOMOTOR 1
 
 int main()
 {
 	printf("\r\n\nARM1 Initialized!\r\n\n");
 
-	volatile u32 *modePtr     = (u32 *) (SM_DM_BASEADDR + SM_DM_SETMANUAL_OFFSET);
 	int            Status;
 	u8             SM_Status;
 	//
@@ -70,10 +70,13 @@ int main()
             servoMotor_setPidOutput(&servoMotorInst, servoMotorInst.uartSetPoint);
         }
 
-        if(DBG_VERBOSE) {
+        if(DBG_VERBOSE_DRIVEMOTOR) {
         	driveMotor_printStatus(&driveMotorInst);
         	driveMotor_printDuty(&driveMotorInst);
-        	//servoMotor_printStatus(&servoMotorInst);
+        }
+        if(DBG_VERBOSE_SERVOMOTOR) {
+        	printf("\r\n");
+        	servoMotor_printStatus(&servoMotorInst);
         }
 	}
 }

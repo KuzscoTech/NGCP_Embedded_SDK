@@ -105,6 +105,8 @@ int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
  */
 int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr);
 
+void uart_printData0(uart0Data *dataPtr);
+
 /**
  * @brief Function to write UART0 drive motor and servo motor setpoint
  *        data to OCM addresses specified in ocm.h

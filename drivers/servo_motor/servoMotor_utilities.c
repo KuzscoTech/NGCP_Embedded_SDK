@@ -193,6 +193,7 @@ void servoMotor_printStatus(ugv_servoMotor *InstancePtr)
     else
         printf("Servo Mode    : PID\r\n");
     printf("Servo Position: %d\r\n", InstancePtr->currentPos);
+    printf("Servo Setpoint: %d\r\n", InstancePtr->uartSetPoint);
 }
 
 /**
@@ -233,11 +234,11 @@ void ocm_updateServoMotor(ugv_servoMotor *InstancePtr)
     InstancePtr->uartManualMode = tempMode;
 
 	// get the setpoint
-	Xil_DCacheInvalidateRange((u32) setPointPtr, 1);
+	Xil_DCacheInvalidateRange((u32) setPointPtr, 2);
 	InstancePtr->uartSetPoint = (u16) *setPointPtr;
 
 	// update the position
 	*positionPtr = (u16) InstancePtr->currentPos;
-	Xil_DCacheFlushRange((u32) positionPtr, 1);
+	Xil_DCacheFlushRange((u32) positionPtr, 2);
 }
 
