@@ -52,8 +52,7 @@ typedef struct{
 } ugv_driveMotor;
 
 
-/************************* Function Definitions *****************************/
-/**
+/*********************** INIT FUNCTIONS **************************//**
  * @brief Function to initialize a ugv_driveMotor instance's PWM, QEI, and PID instances.
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
@@ -86,6 +85,8 @@ int driveMotor_qeiInitialize(ugv_driveMotor *InstancePtr, ugv_qei *QeiInstancePt
  */
 void driveMotor_pidInitialize(ugv_driveMotor *InstancePtr, PIDController *PidInstancePtr);
 
+
+/*********************** UTILITY FUNCTIONS **************************/
 /**
  * @brief Function to manually update the current RPM and direction of a ugv_driveMotor instance.
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.
@@ -109,7 +110,7 @@ void driveMotor_setPidOutput(ugv_driveMotor *InstancePtr, float driveMotor_setPo
  */
 void driveMotor_manualSetDutyDir(ugv_driveMotor *InstancePtr, u8 duty, _Bool dir);
 
-
+/************************** PRINT FUNCTIONS ******************************/
 /**
  * @brief Function to print drive motor current rpm and direction.
  * @param InstancePtr is a pointer to a ugv_driveMotor instance.

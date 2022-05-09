@@ -28,6 +28,7 @@ typedef struct {
 	float T;
 
 	/* Controller "memory" */
+	float error;
 	float integrator;
 	float prevError;			/* Required for integrator */
 	float differentiator;
@@ -40,5 +41,6 @@ typedef struct {
 
 void  PIDController_Init(PIDController *pid);
 float calculatePid(PIDController *pid, float setpoint, float measurement);
+float calculatePidManualError(PIDController *pid,float setpoint, float measurement);
 
 #endif

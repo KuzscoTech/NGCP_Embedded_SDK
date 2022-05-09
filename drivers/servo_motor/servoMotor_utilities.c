@@ -45,9 +45,9 @@ int servoMotor_pwmInitialize(ugv_servoMotor *InstancePtr, ugv_servo *PwmInstance
 
 	Status = ugvServo_Initialize(InstancePtr->pwm, SERVO_BASEADDR);
 	if(Status != XST_SUCCESS) return XST_FAILURE;
-	else  {
-		return XST_SUCCESS;
-	}
+
+	ugvServo_SetDir(InstancePtr->pwm, 165);
+	return XST_SUCCESS;
 }
 
 /**
@@ -187,12 +187,15 @@ void servoMotor_setManualPos(ugv_servoMotor *InstancePtr, u32 pos)
  */
 void servoMotor_printStatus(ugv_servoMotor *InstancePtr)
 {
+    printf("\r\n");
     servoMotor_getPosition(InstancePtr);
     if(InstancePtr->uartManualMode) 
         printf("Servo Mode    : MANUAL\r\n");
     else
         printf("Servo Mode    : PID\r\n");
     printf("Servo Position: %d\r\n", InstancePtr->currentPos);
+    printf("Servo Setpoint: %d\r\n", InstancePtr->uartSetPoint);
+    printf("Servo Input   : %d\r\n", InstancePtr->pwm->inputVal);
 }
 
 /**
@@ -233,11 +236,11 @@ void ocm_updateServoMotor(ugv_servoMotor *InstancePtr)
     InstancePtr->uartManualMode = tempMode;
 
 	// get the setpoint
-	Xil_DCacheInvalidateRange((u32) setPointPtr, 1);
+	Xil_DCacheInvalidateRange((u32) setPointPtr, 2);
 	InstancePtr->uartSetPoint = (u16) *setPointPtr;
 
 	// update the position
 	*positionPtr = (u16) InstancePtr->currentPos;
-	Xil_DCacheFlushRange((u32) positionPtr, 1);
+	Xil_DCacheFlushRange((u32) positionPtr, 2);
 }
 

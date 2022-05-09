@@ -2,12 +2,11 @@
 #define UART_UTILITIES_H
 
 /****************************** CONFIG *****************************/
-#define UART_DRIVEMOTOR_EN       1
+#define UART_DRIVEMOTOR_EN    1
 
 // UART BUFFER SIZE
-#define UART_BUFFER_SIZE         25
-static int STUPID_BITCH_FUCK_CUCK_BASTARD[3] = {10, 10, 10};
-
+#define UART_BUFFER_SIZE      25
+#define UART0_RECEIVE_SIZE    24
 
 /************************** INCLUDE FILES **************************/
 #include <stdio.h>
@@ -18,29 +17,25 @@ static int STUPID_BITCH_FUCK_CUCK_BASTARD[3] = {10, 10, 10};
 
 /************************ UART0 Data struct ***********************/
 typedef struct{
-	int       index; // sendbuffer current index; number of bytes to send
+	int       index;
 
 	// DRIVE MOTOR
-    u8        rx_dm_manualMode; // manual mode set value
-	u8        rx_dm_dir;        // set dir
-	u8        rx_dm_setpoint;   // setpoint, rpm or duty
-	u8        tx_dm_dir;        // motor current dir
-	u16       tx_dm_rpm;        // motor current rpm
+    u8        rx_dm_manualMode;
+	u8        rx_dm_dir;
+	u8        rx_dm_setpoint;
+	u8        tx_dm_dir;
+	u16       tx_dm_rpm;
 
 	// SERVO MOTOR
-    u8        rx_servo_manualMode; // manual mode set value
-	u16       rx_servo_setpoint;   // motor setpoint, duty
-	u16       tx_servo_pos;        // motor current pos
+    u8        rx_servo_manualMode;
+	u16       rx_servo_setpoint;
+	u16       tx_servo_pos;
+
+    // MICROMETAL
+	u8        rx_microMetal_setDir   [4];
+    u16       rx_microMetal_setpoint [4];
+    u16       tx_microMetal_pos      [4];
 } uart0Data;
-
-typedef struct{
-	int       index; // sendbuffer current index; number of bytes to send
-
-    u8        rx_mm_manualMode [4]; // manual mode set value
-	u8        rx_mm_setpoint   [4]; // set pos
-	u8        rx_mm_setDir     [4]; // manual set dir
-	u16       tx_mm_pos        [4]; // motor current pos
-} uart1Data;
 
 
 /************************* Function Definitions *****************************/
@@ -116,13 +111,20 @@ int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
 int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr);
 
 /**
- * @brief Function to parse UART data for micrometal setpoints.
- *        MG<low><high> <low><high> <low><high> <low><high>
- * @param RecvBuffer
- * @param dataPtr
- * @return
+ * @brief Function to parse UART0 data for micrometal setpoints.
+ * 
+ * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer. 
+ * @param dataPtr is a pointer to a uart0Data instance.
+ * @return int XST_SUCCESS if successful, else XST_FAILURE.
  */
-int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart1Data *dataPtr);
+int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
+
+/**
+ * @brief Function to print the contents of a uart0Data instance.
+ * 
+ * @param dataPtr is a pointer to a uart0Data instance.
+ */
+void uart_printData0(uart0Data *dataPtr);
 
 /**
  * @brief Function to write UART0 drive motor and servo motor setpoint
@@ -146,27 +148,5 @@ void uart_data0FromOcm(uart0Data *dataPtr);
  * @param dataPtr is a pointer to a uart0Data instance.
  */
 void uart_loadData0(unsigned char SendBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
-
-/**
- * @brief Function to write UART1 micrometal gear drive motor setpoint
- *        data to OCM addresses specified in ocm.h
- * @param dataPtr is a pointer to a uart1Data instance.
- */
-void uart_data1ToOcm(uart1Data *dataPtr);
-
-/**
- * @brief Function to read UART1 drive motor setpoint data
- *        from OCM addresses specified in ocm.h to a uart0Data instance.
- * @param dataPtr is a pointer to a uart0Data instance.
- */
-void uart_data1FromOcm(uart1Data *dataPtr);
-
-/**
- * @brief Function to read UART1 data to a UART TX buffer.
- * @param SendBuffer is a unsigned char array used as a TX buffer.
- * @param index is the index from which to start loading data into.
- * @param dataPtr is a pointer to a uart0Data instance.
- */
-void uart_loadData1(unsigned char SendBuffer[UART_BUFFER_SIZE], uart1Data *dataPtr);
 
 #endif
