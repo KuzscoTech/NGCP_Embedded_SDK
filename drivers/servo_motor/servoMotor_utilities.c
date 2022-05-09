@@ -45,9 +45,9 @@ int servoMotor_pwmInitialize(ugv_servoMotor *InstancePtr, ugv_servo *PwmInstance
 
 	Status = ugvServo_Initialize(InstancePtr->pwm, SERVO_BASEADDR);
 	if(Status != XST_SUCCESS) return XST_FAILURE;
-	else  {
-		return XST_SUCCESS;
-	}
+
+	ugvServo_SetDir(InstancePtr->pwm, 165);
+	return XST_SUCCESS;
 }
 
 /**

@@ -3,9 +3,9 @@
 
 #define CFG_MICROMETAL_MANUAL  0
 
-#define DBG_VERBOSE_DRIVEMOTOR 0
-#define DBG_VERBOSE_SERVOMOTOR 0
-#define DBG_VERBOSE_MM0        1
+#define DBG_VERBOSE_DRIVEMOTOR 1
+#define DBG_VERBOSE_SERVOMOTOR 1
+#define DBG_VERBOSE_MM0        0
 #define DBG_VERBOSE_MM1        0
 #define DBG_VERBOSE_MM2        0
 #define DBG_VERBOSE_MM3        0
