@@ -68,7 +68,7 @@ int main()
     printf("Initializing micro metal 0 driver...\r\n");
 	Status = microMetal_Initialize(&microMotor0Inst, &microMotor0PwmInst, &microMotor0QeiInst, &microMotor0PidInst, 0);
     if(Status != XST_SUCCESS){
-		printf("Micro Motor 1 setup failed!\r\n");
+		printf("Micro Motor 0 setup failed!\r\n");
 		return XST_FAILURE;
 	}
 

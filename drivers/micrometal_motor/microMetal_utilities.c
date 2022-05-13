@@ -217,12 +217,12 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr)
 	int error0, error1;
 	int setPos, currentPos;
 
+	// update current stats
+	microMetal_updateStats(InstancePtr);
+
 	setPos = InstancePtr->setPos;
 	currentPos = InstancePtr->currentPos;
 	InstancePtr->pid->measurement = (float) InstancePtr->currentPos;
-
-	// update current stats
-	microMetal_updateStats(InstancePtr);
 
 	error0 = ((360-currentPos) + setPos) % 360;
 	error1 = 360-(360-currentPos+setPos+360) % 360;
