@@ -17,6 +17,7 @@ module QEI
     
     input  logic        position_rst,
     output logic [31:0] position,     // position pulse count
+    output logic        position_error,
     output logic [31:0] RPM
     ); 
     
@@ -35,14 +36,14 @@ module QEI
     logic         posPulseCountAdj;
 
     logic [31:0] nxt_position;
+    logic        nxt_position_error;
 
-    localparam T_1S      = 'd1_000_000_000; // ns
-    localparam DIVFACTOR = 10;
-    localparam T_SAMPLE  = T_1S / DIVFACTOR; // ns
-    localparam T_CLK     = 'd10;            // ns
-    localparam TIMER_MAX = T_SAMPLE / T_CLK;    // clock counts
-    localparam TIMER_INC = 'd1;
-
+    localparam T_1S       = 'd1_000_000_000; // ns
+    localparam DIVFACTOR  = 10;
+    localparam T_SAMPLE   = T_1S / DIVFACTOR; // ns
+    localparam T_CLK      = 'd10;            // ns
+    localparam TIMER_MAX  = T_SAMPLE / T_CLK;    // clock counts
+    localparam TIMER_INC  = 'd1;
     localparam RES_FACTOR = (60 / RESOLUTION) * DIVFACTOR;
     
     // Synchronizers
@@ -72,8 +73,8 @@ module QEI
 
     always_comb begin
         if(dir) begin
-            if(position == 359) begin
-                nxt_position = 0;
+            if(position > 719) begin
+                nxt_position_error = 1;
             end
             else begin
                 nxt_position = position + 1;
@@ -81,10 +82,12 @@ module QEI
         end
         else begin
             if(position == 0) begin
-                nxt_position = 359;
+                nxt_position       = 0;
+                nxt_position_error = 1;
             end
             else begin
                 nxt_position = position - 1;
+                nxt_position_error = position_error;
             end
         end 
     end    
@@ -94,12 +97,14 @@ module QEI
             posPulseCount    <= 0;
             posPulseAdjCount <= 0;
             posPulseCountAdj <= 0;
-            position         <= 179;
+            position         <= 360;
+            position_error   <= 0;
         end
         else begin
             if(posPulseCount == 0) begin
-                position      <= nxt_position;
-                posPulseCount <= (posPulseCountAdj) ? 34 : 33;
+                position_error <= nxt_position_error;
+                position       <= nxt_position;
+                posPulseCount  <= (posPulseCountAdj) ? 34 : 33;
                 if(posPulseAdjCount == 2) begin
                     posPulseAdjCount <= 0;
                     posPulseCountAdj <= 1;
