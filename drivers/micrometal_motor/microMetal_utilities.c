@@ -214,32 +214,21 @@ void microMetal_updateStats(ugv_microMetalMotor *InstancePtr)
 int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr)
 {
 	float tempPidOut;
-	int error0, error1;
-	int setPos, currentPos;
+
 
 	// update current stats
 	microMetal_updateStats(InstancePtr);
-
-	setPos = InstancePtr->setPos;
-	currentPos = InstancePtr->currentPos;
+	InstancePtr->pid->setPoint    = (float) InstancePtr->setPos + 360;
 	InstancePtr->pid->measurement = (float) InstancePtr->currentPos;
 
-	error0 = ((360-currentPos) + setPos) % 360;
-	error1 = 360-(360-currentPos+setPos+360) % 360;
-
-	if(error0 < error1) {
-		InstancePtr->pid->error = (float) error0;
-		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_FORWARD);
-	}
-	else {
-		InstancePtr->pid->error = (float) error1;
-		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_REVERSE);
-	}
-
-	// calculate PID output
-	calculatePidManualError(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
+	calculatePid(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
 
 	// set direction and duty cycle based on PID output
+	if(InstancePtr->pid->out < 0)
+		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_REVERSE);
+	else
+		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_FORWARD);
+
 	tempPidOut = abs((int) InstancePtr->pid->out);
 	ugvPwm_setSpeed(InstancePtr->pwm, tempPidOut);
 
@@ -275,7 +264,7 @@ void microMetal_manualSetDutyDir(ugv_microMetalMotor *InstancePtr, u8 duty, _Boo
 void microMetal_printStatus(ugv_microMetalMotor *InstancePtr)
 {
 	microMetal_updateStats(InstancePtr);
-	printf("Micrometal Current Position: %d\r\n", InstancePtr->currentPos);
+	printf("Micrometal Current Position: %d\r\n", InstancePtr->currentPos-360);
 	if(InstancePtr->currentDir == MICROMETAL_FORWARD)
 		printf("Micrometal Current Dir     : FORWARD\r\n");
 	else

@@ -4,54 +4,58 @@ from matplotlib import style
 import numpy as np
 import random
 import serial
-import time
 
-# initialize serial port
+#initialize serial port
 ser = serial.Serial()
-ser.port = 'COM4'
+ser.port = 'COM4' #Arduino serial port
 ser.baudrate = 115200
-ser.timeout = 0.001
+ser.timeout = 100 #specify timeout when using readline()
 ser.open()
-ser.flushInput()
-if ser.is_open:
-    print("\nSerial port COM4 opened!\n")
-    print(ser, "\n")
+if ser.is_open==True:
+	print("\nAll right, serial port now open. Configuration:\n")
+	print(ser, "\n") #print serial parameters
 
-# create figure for plotting
+# Create figure for plotting
 fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-xs = [] # x axis data
-ys = [] # y axis data
+ax = fig.add_subplot(1, 1, 1)
+xs = [] #store trials here (n)
+ys = [] #store relative frequency here
+rs = [] #for theoretical probability
 
-def animate (i, xs, ys):
-    # read data from serial port
-    line = ser.readline() # read ascii 
+# This function is called periodically from FuncAnimation
+def animate(i, xs, ys):
+
+    #Aquire and parse data from serial port
+    line=ser.readline()      #ascii
     line_as_list = line.split(b',')
-    
-    if line_as_list[0].isdigit():
-        i = int(line_as_list[0])
-        measurement = line_as_list[1]
-        xs.append(i)
-        ys.append(measurement)
-        
-        print("iteration: " + str(i))
-        print("value: " + str(measurement))
-    
-        # limit x and y to 10000 items
-        xs = xs[-10000:]
-        ys = ys[-10000:]
+    i = int(line_as_list[0])
+    relProb = line_as_list[1]
+    relProb_as_list = relProb.split(b'\n')
+    relProb_float = float(relProb_as_list[0])
+	
+	# Add x and y to lists
+    xs.append(i)
+    ys.append(relProb_float)
+    rs.append(0.5)
 
-        # draw x and y lists
-        ax.clear()
-        ax.plot(xs, ys, label="Measurement")
+    # Limit x and y lists to 20 items
+    #xs = xs[-20:]
+    #ys = ys[-20:]
 
-        # format plot
-        plt.xticks(rotation=45, ha='right')
-        plt.subplots_adjust(bottom=0.30)
-        plt.title('Motor Response')
-        plt.ylabel('Measurement')
-        plt.legend()    
+    # Draw x and y lists
+    ax.clear()
+    ax.plot(xs, ys, label="Experimental Probability")
+    ax.plot(xs, rs, label="Theoretical Probability")
 
-print("starting")
-ani = animation.FuncAnimation(fig, animate, fargs=(xs,ys), interval=1)
+    # Format plot
+    plt.xticks(rotation=45, ha='right')
+    plt.subplots_adjust(bottom=0.30)
+    plt.title('This is how I roll...')
+    plt.ylabel('Relative frequency')
+    plt.legend()
+    plt.axis([1, None, 0, 1.1]) #Use for arbitrary number of trials
+    #plt.axis([1, 100, 0, 1.1]) #Use for 100 trial demo
+
+# Set up plot to call animate() function periodically
+ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys), interval=1000)
 plt.show()

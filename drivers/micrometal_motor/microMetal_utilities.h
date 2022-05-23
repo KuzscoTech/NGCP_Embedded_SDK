@@ -16,11 +16,11 @@
 #include "ocm.h"
 #endif
 
-#define MICROMETAL_FORWARD TRUE
-#define MICROMETAL_REVERSE FALSE
+#define MICROMETAL_FORWARD FALSE
+#define MICROMETAL_REVERSE TRUE
 
 /***************** MICROMETAL SHARED DEFINITIONS ******************/
-#define MGM_PWM_PERIOD             9995
+#define MGM_PWM_PERIOD              9995
 #define MGM_PWM_MIN                 0
 #define MGM_PWM_SCALE               39
 #define MGM_GEAR_RATIO              1000
@@ -43,20 +43,20 @@
 #define MGM3_QEI_BASEADDR           XPAR_MOTORENCODER_4_S00_AXI_BASEADDR
 
 /****************** MICROMETAL 0 PID PARAMETERS *******************/
-#define MGM0_PID_KP           0.4f
-#define MGM0_PID_KI           0.2f
-#define MGM0_PID_KD           0.01f
+#define MGM0_PID_KP           80.0f
+#define MGM0_PID_KI           0.0f
+#define MGM0_PID_KD           0.0f
 #define MGM0_PID_TAU          0.02f
 #define MGM0_PID_LIM_MIN     -255.0f
 #define MGM0_PID_LIM_MAX      255.0f
 #define MGM0_PID_SAMPLE_TIME  0.01f // seconds
-#define MGM0_PID_LIM_MIN_INT -200.0f
-#define MGM0_PID_LIM_MAX_INT  200.0f
+#define MGM0_PID_LIM_MIN_INT -360.0f
+#define MGM0_PID_LIM_MAX_INT  360.0f
 
 /****************** MICROMETAL 1 PID PARAMETERS *******************/
-#define MGM1_PID_KP           0.4f
-#define MGM1_PID_KI           0.2f
-#define MGM1_PID_KD           0.25f
+#define MGM1_PID_KP           2.0f
+#define MGM1_PID_KI           2.0f
+#define MGM1_PID_KD           0.1f
 #define MGM1_PID_TAU          0.02f
 #define MGM1_PID_LIM_MIN     -255.0f
 #define MGM1_PID_LIM_MAX      255.0f
@@ -142,6 +142,12 @@ int microMetal_qeiInitialize(ugv_microMetalMotor *InstancePtr, ugv_qei *QeiInsta
 int microMetal_pidInitialize(ugv_microMetalMotor *InstancePtr, PIDController *PidInstancePtr, u8 id);
 
 /*********************** UTILITY FUNCTIONS **************************/
+/**
+ * @brief Function to update a ugv_microMetalMotor instance's rpm, direction, and position
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ */
+void microMetal_updateStats(ugv_microMetalMotor *InstancePtr);
+
 /**
  * @brief Function to update and set the PID output of a ugv_microMetalMotor instance.
  *

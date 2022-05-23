@@ -10,7 +10,6 @@ Receive commands via UART
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
 static XUartLite UartLiteInst0;
-static XUartLite UartLiteInst1;
 
 // UART VARS
 u8 SendBuffer [2][UART_BUFFER_SIZE];
@@ -53,7 +52,6 @@ int main()
     // Initialize UARTs
     printf("Initializing UART drivers...\r\n");
     uart_Initialize(&UartLiteInst0, UART_DEVICE_ID_0);
-    uart_Initialize(&UartLiteInst1, UART_DEVICE_ID_1);
     if(Status != XST_SUCCESS) {
         printf("UART setup failed!\r\n");
         return XST_FAILURE;
@@ -67,23 +65,12 @@ int main()
 	}
 	xil_printf("UART0 Interrupt Initialized!\r\n");
 
-    // Setup UART1 interrupts
-	Status = uart_setupIntrSystem(&IntcInstance, &UartLiteInst1, UART_IRPT_INTR_1);
-    if (Status != XST_SUCCESS) {
-        xil_printf("UART1 Interrupt Config Failed!\r\n");
-        return XST_FAILURE;
-    }
-    xil_printf("UART1 Interrupt Initialized!\r\n");
-
     // Set UART interrupt handlers
     XUartLite_SetSendHandler(&UartLiteInst0, UartLiteSendHandler0, &UartLiteInst0);
     XUartLite_SetRecvHandler(&UartLiteInst0, UartLiteRecvHandler0, &UartLiteInst0);
-    XUartLite_SetSendHandler(&UartLiteInst1, UartLiteSendHandler1, &UartLiteInst1);
-    XUartLite_SetRecvHandler(&UartLiteInst1, UartLiteRecvHandler1, &UartLiteInst1);
 
     // Enable UART interrupts
     XUartLite_EnableInterrupt(&UartLiteInst0);
-    XUartLite_EnableInterrupt(&UartLiteInst1);
 
     // Initialize flags and counters
     uart0RecvDone = FALSE;
