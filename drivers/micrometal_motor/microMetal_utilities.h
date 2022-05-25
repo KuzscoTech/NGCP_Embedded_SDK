@@ -53,6 +53,16 @@
 #define MGM0_PID_LIM_MIN_INT -360.0f
 #define MGM0_PID_LIM_MAX_INT  360.0f
 
+#define MGM0_SPD_PID_KP           80.0f
+#define MGM0_SPD_PID_KI           0.0f
+#define MGM0_SPD_PID_KD           0.0f
+#define MGM0_SPD_PID_TAU          0.02f
+#define MGM0_SPD_PID_LIM_MIN     -255.0f
+#define MGM0_SPD_PID_LIM_MAX      255.0f
+#define MGM0_SPD_PID_SAMPLE_TIME  0.01f // seconds
+#define MGM0_SPD_PID_LIM_MIN_INT -360.0f
+#define MGM0_SPD_PID_LIM_MAX_INT  360.0f
+
 /****************** MICROMETAL 1 PID PARAMETERS *******************/
 #define MGM1_PID_KP           2.0f
 #define MGM1_PID_KI           2.0f
@@ -98,6 +108,7 @@ typedef struct{
 	ugv_qei       *qei;
 	ugv_pwm       *pwm;
 	PIDController *pid;
+	PIDController *pid_inner;
 } ugv_microMetalMotor;
 
 /*********************** INIT FUNCTIONS **************************/
@@ -160,6 +171,20 @@ void microMetal_updateStats(ugv_microMetalMotor *InstancePtr);
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
 int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr);
+
+/**
+ * @brief Function to update and set cascaded PID output of a ugv_microMetalMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param setPos is a pointer to an int (0-359) representing desired absolute
+ *        position of the micrometal. CROSSOVER IS NOT ALLOWED! 0-360 are the ABSOLUTE
+ *        BOUNDS of the micrometal!
+ * @param setDir is a pointer to a bool representing the direction the motor should take
+ *        to get to the desired position.
+ *
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int microMetal_setCascadedPidOutput(ugv_microMetalMotor *InstancePtr);
 
 /**
  * @brief Function to manually set the duty cycle and direction of a ugv_microMetalMotor

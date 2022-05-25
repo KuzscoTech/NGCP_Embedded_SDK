@@ -132,18 +132,10 @@ int main()
         }
 
 		// set micrometal 0 motor
-        if(CFG_MICROMETAL_MANUAL) {
-        	microMetal_manualSetDutyDir(&microMotor0Inst, microMotor0Inst.setPos, microMotor0Inst.setDir);
-        	microMetal_manualSetDutyDir(&microMotor1Inst, microMotor1Inst.setPos, microMotor1Inst.setDir);
-        	microMetal_manualSetDutyDir(&microMotor2Inst, microMotor2Inst.setPos, microMotor2Inst.setDir);
-        	microMetal_manualSetDutyDir(&microMotor3Inst, microMotor3Inst.setPos, microMotor3Inst.setDir);
-        }
-        else {
-        	microMetal_setPidOutput(&microMotor0Inst);
-        	microMetal_setPidOutput(&microMotor1Inst);
-        	microMetal_setPidOutput(&microMotor2Inst);
-        	microMetal_setPidOutput(&microMotor3Inst);
-        }
+        microMetal_setPidOutput     (&microMotor0Inst);
+        microMetal_setPidOutput     (&microMotor1Inst);
+        microMetal_setPidOutput     (&microMotor2Inst);
+        microMetal_manualSetDutyDir (&microMotor3Inst, microMotor3Inst.setPos, microMotor3Inst.setDir);
 
         if(DBG_VERBOSE_DRIVEMOTOR) {
         	driveMotor_printStatus(&driveMotorInst);

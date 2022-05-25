@@ -32,8 +32,8 @@ typedef struct{
 	u16       tx_servo_pos;
 
     // MICROMETAL
-	u8        rx_microMetal_setDir   [4];
     u16       rx_microMetal_setpoint [4];
+    u8        rx_microMetal_dir      [4];
     u16       tx_microMetal_pos      [4];
 } uart0Data;
 
@@ -69,6 +69,12 @@ int uart_setupIntrSystem(XScuGic *IntcInstancePtr, XUartLite *UartLiteInstancePt
  */
 void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE]);
 
+/**
+ * @brief Function to parse a UART receive buffer for a data request command.
+ * @param RecvBuffer is the UART receive buffer to parse.
+ * @return XST_SUCCESS if a data request command is found; else XST_FAILURE.
+ */
+int uart_parseRequest(unsigned char RecvBuffer [UART_BUFFER_SIZE]);
 
 /**
  * @brief Function to parse a UART receive buffer for drive motor direction

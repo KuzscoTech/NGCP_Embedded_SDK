@@ -215,7 +215,6 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr)
 {
 	float tempPidOut;
 
-
 	// update current stats
 	microMetal_updateStats(InstancePtr);
 	InstancePtr->pid->setPoint    = (float) InstancePtr->setPos + 360;
@@ -230,6 +229,46 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr)
 		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_FORWARD);
 
 	tempPidOut = abs((int) InstancePtr->pid->out);
+	ugvPwm_setSpeed(InstancePtr->pwm, tempPidOut);
+
+	return XST_SUCCESS;
+}
+
+/**
+ * @brief Function to update and set cascaded PID output of a ugv_microMetalMotor instance.
+ *
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
+ * @param setPos is a pointer to an int (0-359) representing desired absolute
+ *        position of the micrometal. CROSSOVER IS NOT ALLOWED! 0-360 are the ABSOLUTE
+ *        BOUNDS of the micrometal!
+ * @param setDir is a pointer to a bool representing the direction the motor should take
+ *        to get to the desired position.
+ *
+ * @return XST_SUCCESS if successful, else XST_FAILURE.
+ */
+int microMetal_setCascadedPidOutput(ugv_microMetalMotor *InstancePtr)
+{
+	float tempPidOut;
+
+	// update stats
+	microMetal_updateStats(InstancePtr);
+
+	// update the positional PID
+	InstancePtr->pid->setPoint    = (float) InstancePtr->setPos + 360;
+	InstancePtr->pid->measurement = (float) InstancePtr->currentPos;
+	calculatePid(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
+
+	// update the speed PID
+	InstancePtr->pid_inner->setPoint = InstancePtr->pid->out;
+	InstancePtr->pid_inner->measurement = InstancePtr->currentRpm;
+	calculatePid(InstancePtr->pid_inner, InstancePtr->pid_inner->setPoint, InstancePtr->pid_inner->measurement);
+
+	if(InstancePtr->pid_inner->out < 0)
+		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_REVERSE);
+	else
+		ugvPwm_setDir(InstancePtr->pwm, MICROMETAL_FORWARD);
+
+	tempPidOut = abs((int)InstancePtr->pid_inner->out);
 	ugvPwm_setSpeed(InstancePtr->pwm, tempPidOut);
 
 	return XST_SUCCESS;
@@ -345,13 +384,8 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 	volatile u32  *setPt3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
 	volatile u32 *curPos3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_POS_OFFSET);
 
-	// get the mode
-	Xil_DCacheInvalidateRange((u32) mode0Ptr, 1);
-	tempMode = *mode0Ptr;
-	//TODO set mode
-	Xil_DCacheInvalidateRange((u32) setDir0Ptr, 2);
-	InstancePtr0->setDir = (_Bool) *setDir0Ptr;
-
+// mm0
+	// get setpoint
 	Xil_DCacheInvalidateRange((u32) setPt0Ptr, 2);
 	InstancePtr0->setPos = (u16) *setPt0Ptr;
 
@@ -360,47 +394,36 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 	Xil_DCacheFlushRange((u32) curPos0Ptr, 2); // 2 bytes
 
 // mm1
-	Xil_DCacheInvalidateRange((u32) mode1Ptr, 1);
-	tempMode = *mode1Ptr;
-	//TODO set mode
-
-	Xil_DCacheInvalidateRange((u32) setDir1Ptr, 2);
-	InstancePtr1->setDir = (_Bool) *setDir1Ptr;
-
+	// get setpoint
 	Xil_DCacheInvalidateRange((u32) setPt1Ptr, 2);
 	tempSetPoint = (u16) *setPt1Ptr;
 	InstancePtr1->setPos = *setPt1Ptr;
 
+	// load current pos
 	*curPos1Ptr = InstancePtr1->currentPos;
 	Xil_DCacheFlushRange((u32) curPos1Ptr, 2); // 2 bytes
 
 // mm2
-	Xil_DCacheInvalidateRange((u32) mode2Ptr, 1);
-	tempMode = *mode2Ptr;
-	//TODO set mode
-
-	Xil_DCacheInvalidateRange((u32) setDir2Ptr, 2);
-	InstancePtr2->setDir = (_Bool) *setDir2Ptr;
-
+	// get setpoint
 	Xil_DCacheInvalidateRange((u32) setPt2Ptr, 2);
 	tempSetPoint = (u16) *setPt2Ptr;
 	InstancePtr2->setPos = *setPt2Ptr;
 
+	// load current pos
 	*curPos2Ptr = InstancePtr2->currentPos;
 	Xil_DCacheFlushRange((u32) curPos2Ptr, 2); // 2 bytes
 
 // mm3
-	Xil_DCacheInvalidateRange((u32) mode3Ptr, 1);
-	tempMode = *mode3Ptr;
-	//TODO set mode
-
+	// get direction
 	Xil_DCacheInvalidateRange((u32) setDir3Ptr, 2);
 	InstancePtr3->setDir = (_Bool) *setDir3Ptr;
 
+	// get setpoint
 	Xil_DCacheInvalidateRange((u32) setPt3Ptr, 2);
 	tempSetPoint = (u16) *setPt3Ptr;
 	InstancePtr3->setPos = *setPt3Ptr;
 
+	// load current pos
 	*curPos1Ptr = InstancePtr3->currentPos;
 	Xil_DCacheFlushRange((u32) curPos3Ptr, 2); // 2 bytes
 }

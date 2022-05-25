@@ -170,15 +170,15 @@ void servoMotor_setPidOutput(ugv_servoMotor *InstancePtr, float setPoint)
 /**
  * @brief Function to manually set the position of a ugv_servoMotor instance.
  * @param InstancePtr is a pointer to a ugv_servoMotor instance.
- * @param pos is the desired angle from 0-180.
+ * @param pos is the desired angle from 60-170. 122 is neutral.
  */
 void servoMotor_setManualPos(ugv_servoMotor *InstancePtr, u32 pos)
 {
-    u32 temp;
-    temp = pos+75;
-    if(temp > 250) temp = 250;
-    ugvServo_SetDir(InstancePtr->pwm, temp);
-    InstancePtr->manualSetPos = (int) temp;
+	u32 temp;
+	temp = pos+75;
+	if(temp > 250) temp = 250;
+	ugvServo_SetDir(InstancePtr->pwm, temp);
+	InstancePtr->manualSetPos = (int) temp;
 }
 
 /**

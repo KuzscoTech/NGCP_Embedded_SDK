@@ -10,7 +10,7 @@ startCondition = [13 13 10];
 clear device;
 device = serialport(port, baudrate);
 configureTerminator(device, "CR");
-device.Timeout = 10000000000000;
+device.Timeout = 100;
 
 test = "COM6";
 if(test == port) 
@@ -31,7 +31,7 @@ while true
     %disp(strlength(data));
     if(strlength(data) == 6)
         disp("Capturing");
-        while (strlength(data) ~= 4)
+        while (data)
             data = readline(device);
             n = str2double(data);
             disp(data);

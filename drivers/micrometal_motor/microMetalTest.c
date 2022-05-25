@@ -1,37 +1,358 @@
 #include <stdio.h>
-#include "xil_printf.h"
-#include "microMetal_utilities.h"
+#include "arm1.h"
+#include "xuartps.h"
+#include "xtime_l.h"
 #include "sleep.h"
-#include "xparameters.h"
 
 
+// CONFIG
+#define MOTORID                0 // motor ID
+#define DBG_CASCADE            0
+#define DBG_MANUAL             1
+#define DBG_MATLAB             0
+#define DBG_RUNTIME_MS         500 // runtime in ms
+#define DBG_VERBOSE_MM         0
+
+#define DBG_MANUAL_DUTY        255
+#define DBG_MANUAL_DIR         1
+
+#define USERINPUT_BUFFERSIZE   20
+
+// DEVICE PARAMETERS
+#define UART_BASEADDR          XPAR_PS7_UART_1_BASEADDR
+
+// GLOBAL VARS
+static ugv_microMetalMotor microMotorInst;
+int runTime;
+
+// FUNCTION PROTOTYPES
+void printMenu();
+void getSetPoint(char recvData[USERINPUT_BUFFERSIZE]);
+float getPidParam(char recvData[USERINPUT_BUFFERSIZE]);
+
+int asciiToInt(char text) {
+	return text - '0';
+}
+
+// CUSTOM TYPES
+typedef struct {
+	float pos_Kp;
+	float pos_Ki;
+	float pos_Kd;
+	float spd_Kp;
+	float spd_Ki;
+	float spd_Kd;
+} SysParameters;
+
+
+//************************************************************************************/
 int main()
 {
+	int Status;
+	ugv_pwm             microMotorPwmInst;
+	ugv_qei    			microMotorQeiInst;
+	PIDController 		microMotorPosPidInst;
+	PIDController       microMotorSpdPidInst;
+
+	char  userInput [10];
+	int   userInputCount;
+	XTime tStart, tEnd;
+	float deltaT;
+	_Bool validInput = FALSE;
+	int userDuty;
+
+
+	#if DBG_MATLAB == 1
+    long stepCount;
+	#endif
+
+    printf("\r\n");
+    printf("---------------------------------------------------------------\r\n");
+    printf("Welcome to the NGCP Micrometal Gear Motor PID Tuning Utility !!\r\n");
+    printf("\r\n-> Currently tuning Micrometal Gear Motor %d\r\n", MOTORID);
+    printf("---------------------------------------------------------------\r\n");
+
+    // Initialize micrometal motor
+   	Status = microMetal_Initialize(&microMotorInst, &microMotorPwmInst, &microMotorQeiInst, &microMotorPosPidInst, MOTORID);
+    if(Status != XST_SUCCESS){
+    	printf("Micrometal Gear Motor setup failed!\r\n");
+   		return XST_FAILURE;
+    }
+
+    // Initialize cascaded inner PID if applicable
+	#if DBG_CASCADE
+    microMotorInst.pid_inner = &microMotorSpdPidInst;
+    microMotorInst.pid_inner->Kp        = MGM0_SPD_PID_KP;
+    microMotorInst.pid_inner->Ki        = MGM0_SPD_PID_KI;
+    microMotorInst.pid_inner->Kd        = MGM0_SPD_PID_KD;
+    microMotorInst.pid_inner->tau       = MGM0_SPD_PID_TAU;
+    microMotorInst.pid_inner->limMin    = MGM0_SPD_PID_LIM_MIN;
+    microMotorInst.pid_inner->limMax    = MGM0_SPD_PID_LIM_MAX;
+    microMotorInst.pid_inner->limMinInt = MGM0_SPD_PID_LIM_MIN_INT;
+    microMotorInst.pid_inner->limMaxInt = MGM0_SPD_PID_LIM_MAX_INT;
+    microMotorInst.pid_inner->T         = MGM0_SPD_PID_SAMPLE_TIME;
+	#endif
+
 
     while(1)
     {
 
-        cnt_actual = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 8);
+    	// USER INTERFACE
+    	validInput = 0;
+    	while(!validInput) {
 
-        printf("---------------------------------------------------------------\r\n");
-    	printf("MGM0 Current RPM      : %d\r\n", mgm0_rpm);
-        printf("MGM0 Current Position : %d\r\n", mgm0_pos);
-        printf("MGM0 Position Reg     : %x\r\n\n", cnt_actual);
+			printMenu();
 
-        /*
-    	cnt_actual = MOTORPWM_mReadReg(mgm0_pwmInst.RegBaseAddress, 12);
-        duty_percentage = (float) duty/255*100;
-    	printf("MGM0 Expected duty  : %d  ||  %3.3f%%\r\n", duty, duty_percentage);
-        duty_actual = ((cnt_actual-MGM0_PWM_MIN)/MGM0_PWM_SCALE);
-        duty_percentage = (float) duty_actual/255*100 ;
-    	printf("MGM0 Actual duty    : %d  ||  %3.3f%%\r\n\n", duty_actual, duty_percentage);
-		*/
-        //sleep(1);
+			// get mode select
+			while(!XUartPs_IsReceiveData(UART_BASEADDR)){
+			}
+			if (XUartPs_IsReceiveData(UART_BASEADDR)) {
+				userInput[0] = XUartPs_ReadReg(UART_BASEADDR, XUARTPS_FIFO_OFFSET);
+				xil_printf("%c", userInput[0]);
+			}
 
-        //if(mgm0_pos > 135 || mgm0_pos == 0 || mgm1_pos > 135 || mgm1_pos == 0) {
-        //	dir = !dir;
-        //}
+			// modes
+			printf("\r\n");
+			switch(userInput[0])
+			{
+				case '0':
+					#if(DBG_MANUAL == 1)
+					printf("Enter duty cycle 0-255:\r\n");
+					#else
+					printf("Enter Setpoint 0-360 degrees:\r\n");
+					#endif
+					getSetPoint(userInput);
+					validInput = 1;
+					break;
+
+				case '1':
+					#if(DBG_MANUAL == 1)
+					printf("Enter direction:\r\n");
+					#else
+					printf("Enter Position PID Kp:\r\n");
+					#endif
+					microMotorInst.pid->Kp = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+				case '2':
+					printf("Enter Position PID Ki:\r\n");
+					microMotorInst.pid->Ki = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+				case '3':
+					printf("Enter Position PID Kd:\r\n");
+					microMotorInst.pid->Kd = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+				case '7':
+					printf("Enter runtime in ms:\r\n");
+					runTime = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+
+				#if MOTORID==0
+				case '4':
+					printf("Enter Speed PID Kp:\r\n");
+					microMotorInst.pid_inner->Kp = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+				case '5':
+					printf("Enter Speed PID Ki:\r\n");
+					microMotorInst.pid_inner->Ki = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+				case '6':
+					printf("Enter Speed PID Kd:\r\n");
+					microMotorInst.pid_inner->Kd = getPidParam(userInput);
+					validInput = 0;
+					break;
+
+				#endif
+
+				default:
+					printf("Invalid input you stupid fucking idiot\r\n");
+					printf("Are you incapable of following basic instructions?\r\n");
+					printf("Or are you illiterate?\r\n");
+					printf("You must've been dropped on your head as a child.\r\n");
+					printf("Try again dumbass. \r\n");
+					validInput = 0;
+			}
+    	}
+    	sleep(2);
+
+    	// Run the motor for DBG_RUNTIME_MS milliseconds
+    	deltaT = 0;
+    	XTime_GetTime(&tStart);
+    	printf("START\r\n");
+    	while(deltaT < runTime) {
+
+    		// set duty
+			#if DBG_CASCADE == 1
+    		microMetal_setCascadedPidOutput(&microMotorInst);
+			#elif DBG_MANUAL == 1
+    		microMetal_manualSetDutyDir(&microMotorInst, microMotorInst.setPos, (_Bool)microMotorInst.pid->Kp);
+			#else
+    		microMetal_setPidOutput(&microMotorInst);
+			#endif
+
+    		microMetal_updateStats  (&microMotorInst);
+    		XTime_GetTime(&tEnd);
+    		deltaT = 1.0 * (tEnd - tStart) / (COUNTS_PER_SECOND/1000);
+
+    		if(DBG_MATLAB) {
+    			printf("%d\r\n", microMotorInst.currentPos-359);
+    		}
+    		else {
+    			microMetal_printStatus(&microMotorInst);
+    			printf("\r\n");
+    		}
+
+    		if(DBG_VERBOSE_MM) {
+    			printf("\r\nMicrometal %d:\r\n", MOTORID);
+    		    microMetal_printStatus(&microMotorInst);
+    		    microMetal_printDuty  (&microMotorInst);
+    		    microMetal_printPid   (&microMotorInst);
+    		}
+    	}
+    	printf("END!\r\n");
+    	userInputCount = 0;
+    	microMetal_manualSetDutyDir(&microMotorInst, 0, 0);
     }
 
     return 0;
+}
+
+
+void printMenu() {
+	printf("\r\nCurrent Parameters:\r\n");
+	printf("Runtime    : %d ms\r\n", runTime);
+    #if DBG_MANUAL
+	printf("Direction  : %0.3f\r\n", microMotorInst.pid->Kp);
+    #else
+    printf("Position Kp: %0.3f\r\n", microMotorInst.pid->Kp);
+    #endif
+	printf("Position Ki: %0.3f\r\n", microMotorInst.pid->Ki);
+	printf("Position Kd: %0.3f\r\n", microMotorInst.pid->Kd);
+
+	#if DBG_CASCADE
+	printf("\r\n");
+	printf("Speed    Kp: %0.3f\r\n", microMotorInst.pid_inner->Kp);
+	printf("Speed    Ki: %0.3f\r\n", microMotorInst.pid_inner->Ki);
+	printf("Speed    Kd: %0.3f\r\n", microMotorInst.pid_inner->Kd);
+	#endif
+
+	printf("\r\nOption Select:\r\n");
+	printf("0 - Set Setpoint\r\n");
+	printf("7 - Set Runtime\r\n");
+
+	printf("1 - Change Position Kp\r\n");
+	printf("2 - Change Position Ki\r\n");
+	printf("3 - Change Position Kd\r\n");
+
+	#if DBG_CASCADE
+	printf("4 - Change Speed Kp\r\n");
+	printf("5 - Change Speed Ki\r\n");
+	printf("6 - Change Speed Kd\r\n");
+	#endif
+	printf("\r\n");
+}
+
+void getSetPoint(char recvData[USERINPUT_BUFFERSIZE])
+{
+	char userInput[3];
+	int  userInputCount=0;
+	while(userInputCount < 3) {
+		while(!XUartPs_IsReceiveData(UART_BASEADDR)){
+		}
+		if (XUartPs_IsReceiveData(UART_BASEADDR))
+		{
+			userInput[userInputCount] = XUartPs_ReadReg(UART_BASEADDR, XUARTPS_FIFO_OFFSET);
+			xil_printf("%c", userInput[userInputCount]);
+			userInput[userInputCount] = asciiToInt(userInput[userInputCount]);
+			userInputCount++;
+		}
+	}
+	// Set user input
+	if(userInput[2] == 0xDD)
+		microMotorInst.setPos = userInput[0]*10 + userInput[1];
+	else
+		microMotorInst.setPos = userInput[0]*100 + userInput[1]*10 + userInput[2];
+
+	printf("\r\nSetting position: %d\r\n", microMotorInst.setPos);
+}
+
+float getPidParam(char recvData[USERINPUT_BUFFERSIZE])
+{
+	char decimalInput [10];
+	char fracInput   [10];
+	int decimalCount = 0;
+	int fracCount = 0;
+	int fracFlag = 0;
+	float setVal = 0.0;
+
+
+
+	while(1) {
+		while(!XUartPs_IsReceiveData(UART_BASEADDR)) {}
+		if(XUartPs_IsReceiveData(UART_BASEADDR))
+		{
+			decimalInput[decimalCount] = XUartPs_ReadReg(UART_BASEADDR, XUARTPS_FIFO_OFFSET);
+			xil_printf("%c", decimalInput[decimalCount]);
+
+			if(decimalInput[decimalCount] == 0x0D) {
+				fracFlag = 0;
+				break;
+			}
+			else if(decimalInput[decimalCount] != 0x2E) {
+				decimalInput[decimalCount] = asciiToInt(decimalInput[decimalCount]);
+				decimalCount++;
+			}
+			else {
+				fracFlag = 1;
+				break;
+			}
+		}
+	}
+
+	while(1) {
+		if(!fracFlag) break;
+
+		while(!XUartPs_IsReceiveData(UART_BASEADDR)) {}
+		if(XUartPs_IsReceiveData(UART_BASEADDR))
+		{
+			fracInput[fracCount] = XUartPs_ReadReg(UART_BASEADDR, XUARTPS_FIFO_OFFSET);
+			xil_printf("%c", fracInput[fracCount]);
+			if(fracInput[fracCount] != 0x0D) {
+				fracInput[fracCount] = asciiToInt(fracInput[fracCount]);
+				fracCount++;
+			}
+			else {
+				break;
+			}
+		}
+	}
+
+	int exp=0;
+	printf("\r\n");
+	for(int i=decimalCount-1; i>=0; i--) {
+		setVal = setVal + decimalInput[i] * pow(10, exp);
+		exp++;
+	}
+
+	exp = 1;
+	if(fracFlag) {
+		for(int i=0; i<fracCount; i++) {
+			setVal = setVal + (double) fracInput[i] * pow(10, -exp);
+			exp++;
+		}
+	}
+
+	printf("\r\nSetting to %0.3f\r\n", setVal);
+	return setVal;
 }

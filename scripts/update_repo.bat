@@ -8,7 +8,6 @@ xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm0\src\arm
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm0\src\ocm.h C:\Users\george\Documents\NGCP_Embedded_SDK\apps\ARM0 /Y
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm0\src\ocm.c C:\Users\george\Documents\NGCP_Embedded_SDK\apps\ARM0 /Y
 
-
 :: move system stuff
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm0\src\system.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\system /Y
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm0\src\system.h C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\system /Y
@@ -34,15 +33,14 @@ xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\ser
 :: move micrometal stuff
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetal_utilities.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetal_utilities.h C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
+xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetalTest.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
 
 :: move pid stuff
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\pid.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\pid /Y
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\pid.h C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\pid /Y
 
 :: move gps stuff
-:: move servo motor stuff
-xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\gps_utilities.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\gps /Y
-xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\gps_utilities.h C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\gps /Y
+
 
 
 

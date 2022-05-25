@@ -72,6 +72,21 @@ void uart_printBuffer(u8 buffer[UART_BUFFER_SIZE])
 }
 
 /**
+ * @brief Function to parse a UART receive buffer for a data request command.
+ * @param RecvBuffer is the UART receive buffer to parse.
+ * @return XST_SUCCESS if a data request command is found; else XST_FAILURE.
+ */
+int uart_parseRequest(unsigned char RecvBuffer [UART_BUFFER_SIZE])
+{
+	if((RecvBuffer[0]=='A') && (RecvBuffer[1]=='A')) {
+		return XST_SUCCESS;
+	}
+	else {
+		return XST_FAILURE;
+	}
+}
+
+/**
  * @brief Function to parse a UART receive buffer for drive motor commands and
  *        store into a uart0Data instance.
  *        
@@ -220,6 +235,8 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
  * @param RecvBuffer is an unsigned char array that serves as a UART receive buffer. 
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return int XST_SUCCESS if successful, else XST_FAILURE.
+ *
+ *  MG[mm0_low][mm0_high][mm1_low][mm1_high][mm2_low][mm2_high][mgm3_low][mgm3_high][mm3_dir]
  */
 int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr)
 {
@@ -228,12 +245,12 @@ int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
 
     // Look for "MG"
     for(int i=0; i<UART0_RECEIVE_SIZE; i++) {
-        if(RecvBuffer[i] == 0x4D & RecvBuffer[i+1] == 0x47) { //"MG"
+        if((RecvBuffer[i] == 0x4D) & (RecvBuffer[i+1] == 0x47)) { //"MG"
             dataValid = TRUE;
             mm0Index = i+2;
-            mm1Index = i+5;
-            mm2Index = i+8;
-            mm3Index = i+11;
+            mm1Index = i+4;
+            mm2Index = i+6;
+            mm3Index = i+8;
             break;
         }
     }
@@ -241,17 +258,11 @@ int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
         return XST_FAILURE;
     }
 
-    dataPtr->rx_microMetal_setDir  [0] = RecvBuffer[mm0Index];
-    dataPtr->rx_microMetal_setpoint[0] = (u16) (RecvBuffer[mm0Index+1] + (RecvBuffer[mm0Index+2]<<8));
-
-    dataPtr->rx_microMetal_setDir  [1] = RecvBuffer[mm1Index];
-    dataPtr->rx_microMetal_setpoint[1] = (u16) (RecvBuffer[mm1Index+1] + (RecvBuffer[mm1Index+2]<<8));
-
-    dataPtr->rx_microMetal_setDir  [2] = RecvBuffer[mm2Index];
-    dataPtr->rx_microMetal_setpoint[2] = (u16) (RecvBuffer[mm2Index+1] + (RecvBuffer[mm2Index+2]<<8));
-
-    dataPtr->rx_microMetal_setDir  [3] = RecvBuffer[mm3Index];
-    dataPtr->rx_microMetal_setpoint[3] = (u16) (RecvBuffer[mm3Index+1] + (RecvBuffer[mm3Index+2]<<8));
+    dataPtr->rx_microMetal_setpoint[0] = (u16) (RecvBuffer[mm0Index] + (RecvBuffer[mm0Index+1]<<8));
+    dataPtr->rx_microMetal_setpoint[1] = (u16) (RecvBuffer[mm1Index] + (RecvBuffer[mm1Index+1]<<8));
+    dataPtr->rx_microMetal_setpoint[2] = (u16) (RecvBuffer[mm2Index] + (RecvBuffer[mm2Index+1]<<8));
+    dataPtr->rx_microMetal_setpoint[3] = (u16) (RecvBuffer[mm3Index] + (RecvBuffer[mm3Index+1]<<8));
+    dataPtr->rx_microMetal_dir[3]      = (u8) RecvBuffer[mm3Index+2];
 
     return XST_SUCCESS;
 }
@@ -301,15 +312,12 @@ void uart_data0ToOcm(uart0Data *dataPtr)
     volatile u32 *servo_modePtr = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETMANUAL_OFFSET);
 	volatile u32 *servo_setPtr  = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETPOINT_OFFSET);
 
-	volatile u32 *mm0_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
-	volatile u32 *mm1_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
-	volatile u32 *mm2_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETDIR_OFFSET);
-	volatile u32 *mm3_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
-
     volatile u32 *mm0_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
     volatile u32 *mm1_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
     volatile u32 *mm2_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
     volatile u32 *mm3_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
+
+    volatile u32 *mm3_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
 
     // write drive motor mode
     *dm_modePtr = (u8) dataPtr->rx_dm_manualMode;
@@ -331,16 +339,6 @@ void uart_data0ToOcm(uart0Data *dataPtr)
 	*servo_setPtr = (u16) dataPtr->rx_servo_setpoint;
 	Xil_DCacheFlushRange((u32)servo_setPtr, 1);
 
-	// write micrometal setdirs
-	*mm0_setDirPtr = dataPtr->rx_microMetal_setDir[0];
-	Xil_DCacheFlushRange((u32)mm0_setDirPtr, 1);
-	*mm1_setDirPtr = dataPtr->rx_microMetal_setDir[1];
-    Xil_DCacheFlushRange((u32)mm1_setDirPtr, 1);
-    *mm2_setDirPtr = dataPtr->rx_microMetal_setDir[2];
-    Xil_DCacheFlushRange((u32)mm2_setDirPtr, 1);
-    *mm3_setDirPtr = dataPtr->rx_microMetal_setDir[3];
-    Xil_DCacheFlushRange((u32)mm3_setDirPtr, 1);
-
     // write micrometal setpoints
     *mm0_setPtr = (u16) dataPtr->rx_microMetal_setpoint[0];
     Xil_DCacheFlushRange((u32)mm0_setPtr, 2);
@@ -350,6 +348,10 @@ void uart_data0ToOcm(uart0Data *dataPtr)
     Xil_DCacheFlushRange((u32)mm2_setPtr, 2);
     *mm3_setPtr = (u16) dataPtr->rx_microMetal_setpoint[3];
     Xil_DCacheFlushRange((u32)mm3_setPtr, 2);
+
+    // write micrometal setdir
+    *mm3_setDirPtr = (u8) dataPtr->rx_microMetal_dir[3];
+    Xil_DCacheFlushRange((u32)mm3_setDirPtr, 1);
 }
 
 

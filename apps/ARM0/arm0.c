@@ -120,13 +120,21 @@ int main()
     			uart_printData0(&uart0DataInst);
     		}
     		uart0RecvDone = FALSE;
-    		uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
-            uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
-            uart_parseMicroMetal(RecvBuffer[0], &uart0DataInst);
-    		if(SM_Status == 0) {
-    			uart_data0ToOcm(&uart0DataInst);
+
+    		// check for a data request command
+    		Status = uart_parseRequest(RecvBuffer[0]);
+
+    		// if the command is not a data request, parse for motor stuff and update OCM
+    		if(Status != XST_SUCCESS) {
+    			uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
+    			uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
+    			uart_parseMicroMetal(RecvBuffer[0], &uart0DataInst);
+    			if(SM_Status == 0) {
+    				uart_data0ToOcm(&uart0DataInst);
+    			}
     		}
     	}
+
     	// Update UART0 send buffer if CPU0 has access to OCM
     	SM_Status = ocm_getMemFlag();
     	if(SM_Status == 0) {
