@@ -104,7 +104,7 @@ module QEI
             if(posPulseCount == 0) begin
                 position_error <= nxt_position_error;
                 position       <= nxt_position;
-                posPulseCount  <= (posPulseCountAdj) ? 34 : 33;
+                posPulseCount  <= (posPulseCountAdj) ? MGM_GEAR_RATIO+1 : MGM_GEAR_RATIO;
                 if(posPulseAdjCount == 2) begin
                     posPulseAdjCount <= 0;
                     posPulseCountAdj <= 1;

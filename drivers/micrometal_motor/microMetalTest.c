@@ -6,7 +6,7 @@
 
 
 // CONFIG
-#define MOTORID                0 // motor ID
+#define MOTORID                1 // motor ID
 #define DBG_CASCADE            0
 #define DBG_MANUAL             1
 #define DBG_MATLAB             0
@@ -59,7 +59,9 @@ int main()
 	XTime tStart, tEnd;
 	float deltaT;
 	_Bool validInput = FALSE;
-	int userDuty;
+	int   userDuty;
+    int   motorSelect = MOTORID;
+    int   initFlag = 1;
 
 
 	#if DBG_MATLAB == 1
@@ -101,7 +103,34 @@ int main()
     	validInput = 0;
     	while(!validInput) {
 
+    		if(!initFlag) {
+    			printf("---------------------------------------------------------------\r\n");
+    			printf("-> Currently tuning Micrometal Gear Motor %d\r\n", motorSelect);
+    			switch(motorSelect)
+    			{
+    			case 0:
+    				printf("Direction 0 - raise the arm\r\n");
+    				printf("Direction 1 - lower the arm\r\n");
+    				break;
+    			case 1:
+    				printf("Direction 0 - counterclockwise\r\n");
+    				printf("Direction 1 - clockwise\r\n");
+    				break;
+    			case 2:
+    				printf("Direction 0 - unknown\r\n");
+    				printf("Direction 1 - unknown\r\n");
+    				break;
+    			case 3:
+    				printf("Direction 0 - close the lid\r\n");
+    				printf("Direction 1 - open the lid\r\n");
+    				break;
+    			default:
+    				break;
+    			}
+    			printf("---------------------------------------------------------------\r\n");
+    		}
 			printMenu();
+			initFlag = 0;
 
 			// get mode select
 			while(!XUartPs_IsReceiveData(UART_BASEADDR)){
@@ -153,8 +182,31 @@ int main()
 					validInput = 0;
 					break;
 
+                case '8':
+                    printf("Enter motor ID:\r\n");
+                    while(!XUartPs_IsReceiveData(UART_BASEADDR)){
+                    }
+                    if (XUartPs_IsReceiveData(UART_BASEADDR)) {
+                    	userInput[0] = XUartPs_ReadReg(UART_BASEADDR, XUARTPS_FIFO_OFFSET);
+                    	xil_printf("%c", userInput[0]);
+                    }
+                    userInput[0] = asciiToInt(userInput[0]);
+                    if(userInput[0]>3 || userInput[0]<0) {
+                    	printf("Invalid motor selection! \r\n");
+                        break;
+                    }
+                    else {
+                        motorSelect = userInput[0];
+                        Status = microMetal_Initialize(&microMotorInst, &microMotorPwmInst, &microMotorQeiInst, &microMotorPosPidInst, motorSelect);
+                        if(Status != XST_SUCCESS){
+                        	printf("Micrometal Gear Motor setup failed!\r\n");
+                        	return XST_FAILURE;
+                        }
+                        break;
+                    }
 
-				#if MOTORID==0
+
+				#if DBG_CASCADE == 1
 				case '4':
 					printf("Enter Speed PID Kp:\r\n");
 					microMotorInst.pid_inner->Kp = getPidParam(userInput);
@@ -179,8 +231,9 @@ int main()
 					printf("Invalid input you stupid fucking idiot\r\n");
 					printf("Are you incapable of following basic instructions?\r\n");
 					printf("Or are you illiterate?\r\n");
-					printf("You must've been dropped on your head as a child.\r\n");
+					printf("Or were you dropped on your head as a child?\r\n");
 					printf("Try again dumbass. \r\n");
+					sleep(0.5);
 					validInput = 0;
 			}
     	}
@@ -223,6 +276,8 @@ int main()
     	printf("END!\r\n");
     	userInputCount = 0;
     	microMetal_manualSetDutyDir(&microMotorInst, 0, 0);
+
+
     }
 
     return 0;
@@ -236,9 +291,9 @@ void printMenu() {
 	printf("Direction  : %0.3f\r\n", microMotorInst.pid->Kp);
     #else
     printf("Position Kp: %0.3f\r\n", microMotorInst.pid->Kp);
-    #endif
-	printf("Position Ki: %0.3f\r\n", microMotorInst.pid->Ki);
+    printf("Position Ki: %0.3f\r\n", microMotorInst.pid->Ki);
 	printf("Position Kd: %0.3f\r\n", microMotorInst.pid->Kd);
+    #endif
 
 	#if DBG_CASCADE
 	printf("\r\n");
@@ -250,10 +305,15 @@ void printMenu() {
 	printf("\r\nOption Select:\r\n");
 	printf("0 - Set Setpoint\r\n");
 	printf("7 - Set Runtime\r\n");
+    printf("8 - Change selected motor\r\n");
 
+	#if DBG_MANUAL
+	printf("1 - Change Direction\r\n");
+	#else
 	printf("1 - Change Position Kp\r\n");
-	printf("2 - Change Position Ki\r\n");
+    printf("2 - Change Position Ki\r\n");
 	printf("3 - Change Position Kd\r\n");
+	#endif
 
 	#if DBG_CASCADE
 	printf("4 - Change Speed Kp\r\n");

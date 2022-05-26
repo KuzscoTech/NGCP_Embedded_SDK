@@ -312,11 +312,19 @@ void uart_data0ToOcm(uart0Data *dataPtr)
     volatile u32 *servo_modePtr = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETMANUAL_OFFSET);
 	volatile u32 *servo_setPtr  = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETPOINT_OFFSET);
 
+	volatile u32 *mm0_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
+	volatile u32 *mm1_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
+	volatile u32 *mm2_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
+	volatile u32 *mm3_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
+
     volatile u32 *mm0_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
     volatile u32 *mm1_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
     volatile u32 *mm2_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
     volatile u32 *mm3_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
 
+    volatile u32 *mm0_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
+    volatile u32 *mm1_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
+    volatile u32 *mm2_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETDIR_OFFSET);
     volatile u32 *mm3_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
 
     // write drive motor mode
@@ -339,6 +347,16 @@ void uart_data0ToOcm(uart0Data *dataPtr)
 	*servo_setPtr = (u16) dataPtr->rx_servo_setpoint;
 	Xil_DCacheFlushRange((u32)servo_setPtr, 1);
 
+	// write micrometal modes
+	*mm0_modePtr = (u8) dataPtr->rx_microMetal_mode[0];
+	Xil_DCacheFlushRange((u32)mm0_modePtr, 1);
+	*mm1_modePtr = (u8) dataPtr->rx_microMetal_mode[1];
+	Xil_DCacheFlushRange((u32)mm1_modePtr, 1);
+	*mm2_modePtr = (u8) dataPtr->rx_microMetal_mode[2];
+	Xil_DCacheFlushRange((u32)mm2_modePtr, 1);
+	*mm3_modePtr = (u8) dataPtr->rx_microMetal_mode[3];
+	Xil_DCacheFlushRange((u32)mm3_modePtr, 1);
+
     // write micrometal setpoints
     *mm0_setPtr = (u16) dataPtr->rx_microMetal_setpoint[0];
     Xil_DCacheFlushRange((u32)mm0_setPtr, 2);
@@ -350,6 +368,12 @@ void uart_data0ToOcm(uart0Data *dataPtr)
     Xil_DCacheFlushRange((u32)mm3_setPtr, 2);
 
     // write micrometal setdir
+    *mm0_setDirPtr = (u8) dataPtr->rx_microMetal_dir[0];
+    Xil_DCacheFlushRange((u32)mm0_setDirPtr, 1);
+    *mm1_setDirPtr = (u8) dataPtr->rx_microMetal_dir[1];
+    Xil_DCacheFlushRange((u32)mm1_setDirPtr, 1);
+    *mm2_setDirPtr = (u8) dataPtr->rx_microMetal_dir[2];
+    Xil_DCacheFlushRange((u32)mm2_setDirPtr, 1);
     *mm3_setDirPtr = (u8) dataPtr->rx_microMetal_dir[3];
     Xil_DCacheFlushRange((u32)mm3_setDirPtr, 1);
 }

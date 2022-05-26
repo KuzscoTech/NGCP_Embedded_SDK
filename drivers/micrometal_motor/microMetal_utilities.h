@@ -102,6 +102,7 @@ typedef struct{
 	_Bool         currentDir;
 	int           currentRpm;
 	//
+	_Bool         manualMode;
 	_Bool         setDir;
 	int           setPos;
 	//

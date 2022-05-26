@@ -32,6 +32,7 @@ typedef struct{
 	u16       tx_servo_pos;
 
     // MICROMETAL
+	u8        rx_microMetal_mode     [4];
     u16       rx_microMetal_setpoint [4];
     u8        rx_microMetal_dir      [4];
     u16       tx_microMetal_pos      [4];

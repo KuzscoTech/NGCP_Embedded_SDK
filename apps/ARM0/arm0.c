@@ -4,8 +4,12 @@ Receive commands via UART
 
 #include "arm0.h"
 #include "xtime_l.h"
+#include "xil_cache.h"
+#include "xil_io.h"
+#include "xil_mmu.h"
 
 #define DBG_VERBOSE 0
+#define FSBL_BOOT   1
 
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
@@ -29,6 +33,14 @@ int UART0_STATE;
 
 int main()
 {
+
+	static const uintptr_t CPU1_START_ADDR = 0xFFFFFFF0;
+	static const uint32_t  CPU1_BASE_ADDR  = 0x2000000;
+	Xil_Out32(CPU1_START_ADDR, CPU1_BASE_ADDR);
+	dmb();
+	__asm__("sev");
+
+
 	printf("\r\n\nARM0 Initialized!\r\n\n");
 	//
     int            Status;

@@ -1,14 +1,36 @@
 #include "arm1.h"
 #include "string.h"
+#include "xtime_l.h"
 
-#define CFG_MICROMETAL_MANUAL  0
+#define DBG_MSG_DELAY_MS       5000
 
+// Drivemotor Debug Options
 #define DBG_VERBOSE_DRIVEMOTOR 1
+#define DBG_DUTY_DRIVEMOTOR    0
+
+// Servo Debug Options
 #define DBG_VERBOSE_SERVOMOTOR 1
-#define DBG_VERBOSE_MM0        0
-#define DBG_VERBOSE_MM1        0
-#define DBG_VERBOSE_MM2        0
-#define DBG_VERBOSE_MM3        0
+
+// Micrometal 0 Debug Options
+#define DBG_VERBOSE_MM0        1
+#define DBG_DUTY_MM0           0
+#define DBG_PID_MM0            0
+
+// Micrometal 1 Debug Options
+#define DBG_VERBOSE_MM1        1
+#define DBG_DUTY_MM1           0
+#define DBG_PID_MM1            0
+
+// Micrometal 2 Debug Options
+#define DBG_VERBOSE_MM2        1
+#define DBG_DUTY_MM2           0
+#define DBG_PID_MM2            0
+
+// Micrometal 3 Debug Options
+#define DBG_VERBOSE_MM3        1
+#define DBG_DUTY_MM3           0
+#define DBG_PID_MM3            0
+
 
 int main()
 {
@@ -16,6 +38,11 @@ int main()
 
 	int            Status;
 	u8             SM_Status;
+
+	XTime startTime;
+	XTime stopTime;
+	float deltaTime;
+
 	//
 	ugv_driveMotor      driveMotorInst;
 	ugv_pwm             driveMotorPwmInst;
@@ -98,6 +125,8 @@ int main()
 
 	printf("ARM1 all motors initialized!\r\n\n");
 
+	XTime_GetTime(&startTime);
+
 	// Main Loop
 	while(1)
 	{
@@ -137,37 +166,48 @@ int main()
         microMetal_setPidOutput     (&microMotor2Inst);
         microMetal_manualSetDutyDir (&microMotor3Inst, microMotor3Inst.setPos, microMotor3Inst.setDir);
 
-        if(DBG_VERBOSE_DRIVEMOTOR) {
-        	driveMotor_printStatus(&driveMotorInst);
-        	driveMotor_printDuty(&driveMotorInst);
-        }
-        if(DBG_VERBOSE_SERVOMOTOR) {
-        	servoMotor_printStatus(&servoMotorInst);
-        }
-        if(DBG_VERBOSE_MM0) {
-        	printf("\r\nMicrometal 0:\r\n");
-            microMetal_printStatus(&microMotor0Inst);
-            microMetal_printDuty(&microMotor0Inst);
-            microMetal_printPid(&microMotor0Inst);
-        }
-        if(DBG_VERBOSE_MM1) {
-        	printf("\r\nMicrometal 1:\r\n");
-            microMetal_printStatus(&microMotor1Inst);
-            microMetal_printDuty(&microMotor1Inst);
-            microMetal_printPid(&microMotor1Inst);
-        }
-        if(DBG_VERBOSE_MM2) {
-        	printf("\r\nMicrometal 2:\r\n");
-        	microMetal_printStatus(&microMotor2Inst);
-        	microMetal_printDuty  (&microMotor2Inst);
-        	microMetal_printPid   (&microMotor2Inst);
-        }
-        if(DBG_VERBOSE_MM3) {
-        	printf("\r\nMicrometal 3:\r\n");
-        	microMetal_printStatus(&microMotor3Inst);
-        	microMetal_printDuty  (&microMotor3Inst);
-        	microMetal_printPid   (&microMotor3Inst);
-        }
+        XTime_GetTime(&stopTime);
+        deltaTime = 1.0 * (stopTime - startTime) / (COUNTS_PER_SECOND/1000);
 
+        if(deltaTime >= DBG_MSG_DELAY_MS)
+        {
+
+			if(DBG_VERBOSE_DRIVEMOTOR) driveMotor_printStatus(&driveMotorInst);
+			if(DBG_DUTY_DRIVEMOTOR) driveMotor_printDuty(&driveMotorInst);
+
+
+			if(DBG_VERBOSE_SERVOMOTOR) servoMotor_printStatus(&servoMotorInst);
+
+			if(DBG_VERBOSE_MM0) {
+				printf("\r\nMicrometal 0:\r\n");
+				microMetal_printStatus(&microMotor0Inst);
+			}
+			if(DBG_DUTY_MM0) microMetal_printDuty(&microMotor0Inst);
+		    if(DBG_PID_MM0)  microMetal_printPid (&microMotor0Inst);
+
+		    if(DBG_VERBOSE_MM1) {
+		    	printf("\r\nMicrometal 1:\r\n");
+		    	microMetal_printStatus(&microMotor1Inst);
+		    }
+		    if(DBG_DUTY_MM1) microMetal_printDuty(&microMotor1Inst);
+		    if(DBG_PID_MM1)  microMetal_printPid (&microMotor1Inst);
+
+		    if(DBG_VERBOSE_MM2) {
+		    	printf("\r\nMicrometal 2:\r\n");
+		    	microMetal_printStatus(&microMotor2Inst);
+		    }
+		    if(DBG_DUTY_MM2) microMetal_printDuty(&microMotor2Inst);
+		    if(DBG_PID_MM2)  microMetal_printPid (&microMotor2Inst);
+
+		    if(DBG_VERBOSE_MM3) {
+		    	printf("\r\nMicrometal 3:\r\n");
+		    	microMetal_printStatus(&microMotor3Inst);
+		    }
+		    if(DBG_DUTY_MM3) microMetal_printDuty(&microMotor3Inst);
+		    if(DBG_PID_MM3)  microMetal_printPid (&microMotor3Inst);
+
+			XTime_GetTime(&startTime);
+			deltaTime = 0;
+        }
 	}
 }

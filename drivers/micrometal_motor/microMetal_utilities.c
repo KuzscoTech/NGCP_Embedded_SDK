@@ -23,6 +23,10 @@ int microMetal_Initialize(ugv_microMetalMotor *InstancePtr, ugv_pwm *PwmInstance
 	Status = microMetal_pidInitialize(InstancePtr, PidInstancePtr, id);
 	if(Status != XST_SUCCESS) return XST_FAILURE;
 
+	InstancePtr->setDir     = FALSE;
+	InstancePtr->setPos     = 0;
+	InstancePtr->manualMode = TRUE;
+
 	return XST_SUCCESS;
 }
 
@@ -404,6 +408,14 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 	Xil_DCacheFlushRange((u32) curPos1Ptr, 2); // 2 bytes
 
 // mm2
+	// get mode
+	Xil_DCacheInvalidateRange((u32) mode2Ptr, 1);
+	InstancePtr2->manualMode = (_Bool) *mode2Ptr;
+
+	// get direction
+	Xil_DCacheInvalidateRange((u32) setDir2Ptr, 1);
+	InstancePtr2->setDir = (_Bool) *setDir2Ptr;
+
 	// get setpoint
 	Xil_DCacheInvalidateRange((u32) setPt2Ptr, 2);
 	tempSetPoint = (u16) *setPt2Ptr;
@@ -414,8 +426,12 @@ void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor
 	Xil_DCacheFlushRange((u32) curPos2Ptr, 2); // 2 bytes
 
 // mm3
+	// get mode
+	Xil_DCacheInvalidateRange((u32) mode3Ptr, 1);
+	InstancePtr3->manualMode = (_Bool) *mode3Ptr;
+
 	// get direction
-	Xil_DCacheInvalidateRange((u32) setDir3Ptr, 2);
+	Xil_DCacheInvalidateRange((u32) setDir3Ptr, 1);
 	InstancePtr3->setDir = (_Bool) *setDir3Ptr;
 
 	// get setpoint

@@ -112,14 +112,14 @@ set_property -dict { PACKAGE_PIN N16   IOSTANDARD LVCMOS33 } [get_ports { Vaux14
  
 
 ##Pmod Header JB (Zybo Z7-20 only)
-set_property -dict { PACKAGE_PIN V8    IOSTANDARD LVCMOS33     } [get_ports { mgm0_chA }]; #IO_L15P_T2_DQS_13 Sch=jb_p[1]		 
-set_property -dict { PACKAGE_PIN W8    IOSTANDARD LVCMOS33     } [get_ports { mgm1_chA }]; #IO_L15N_T2_DQS_13 Sch=jb_n[1]         
-set_property -dict { PACKAGE_PIN U7    IOSTANDARD LVCMOS33     } [get_ports { mgm2_chA }]; #IO_L11P_T1_SRCC_13 Sch=jb_p[2]        
-set_property -dict { PACKAGE_PIN V7    IOSTANDARD LVCMOS33     } [get_ports { mgm3_chA }]; #IO_L11N_T1_SRCC_13 Sch=jb_n[2]        
-set_property -dict { PACKAGE_PIN Y7    IOSTANDARD LVCMOS33     } [get_ports { mgm0_chB }]; #IO_L13P_T2_MRCC_13 Sch=jb_p[3]        
-set_property -dict { PACKAGE_PIN Y6    IOSTANDARD LVCMOS33     } [get_ports { mgm1_chB }]; #IO_L13N_T2_MRCC_13 Sch=jb_n[3]        
-set_property -dict { PACKAGE_PIN V6    IOSTANDARD LVCMOS33     } [get_ports { mgm2_chB }]; #IO_L22P_T3_13 Sch=jb_p[4]             
-set_property -dict { PACKAGE_PIN W6    IOSTANDARD LVCMOS33     } [get_ports { mgm3_chB }]; #IO_L22N_T3_13 Sch=jb_n[4]             
+set_property -dict { PACKAGE_PIN V8    IOSTANDARD LVCMOS33     } [get_ports { mgm3_chA }]; #IO_L15P_T2_DQS_13 Sch=jb_p[1]		 
+set_property -dict { PACKAGE_PIN W8    IOSTANDARD LVCMOS33     } [get_ports { mgm2_chA }]; #IO_L15N_T2_DQS_13 Sch=jb_n[1]         
+set_property -dict { PACKAGE_PIN U7    IOSTANDARD LVCMOS33     } [get_ports { mgm1_chA }]; #IO_L11P_T1_SRCC_13 Sch=jb_p[2]        
+set_property -dict { PACKAGE_PIN V7    IOSTANDARD LVCMOS33     } [get_ports { mgm0_chA }]; #IO_L11N_T1_SRCC_13 Sch=jb_n[2]        
+set_property -dict { PACKAGE_PIN Y7    IOSTANDARD LVCMOS33     } [get_ports { mgm3_chB }]; #IO_L13P_T2_MRCC_13 Sch=jb_p[3]        
+set_property -dict { PACKAGE_PIN Y6    IOSTANDARD LVCMOS33     } [get_ports { mgm2_chB }]; #IO_L13N_T2_MRCC_13 Sch=jb_n[3]        
+set_property -dict { PACKAGE_PIN V6    IOSTANDARD LVCMOS33     } [get_ports { mgm1_chB }]; #IO_L22P_T3_13 Sch=jb_p[4]             
+set_property -dict { PACKAGE_PIN W6    IOSTANDARD LVCMOS33     } [get_ports { mgm0_chB }]; #IO_L22N_T3_13 Sch=jb_n[4]             
                                                                                                                                  
                                                                                                                                  
 ##Pmod Header JC  
