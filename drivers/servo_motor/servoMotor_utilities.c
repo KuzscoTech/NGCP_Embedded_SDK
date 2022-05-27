@@ -15,7 +15,7 @@ int servoMotor_Initialize(ugv_servoMotor *InstancePtr, ugv_servo *PwmInstancePtr
 	int Status;
 
 	InstancePtr->uartManualMode = FALSE;
-	InstancePtr->uartSetPoint = 0;
+	InstancePtr->uartSetPoint = 122;
 
 	Status = servoMotor_pwmInitialize(InstancePtr, PwmInstancePtr);
 	if(Status != XST_SUCCESS) return XST_FAILURE;

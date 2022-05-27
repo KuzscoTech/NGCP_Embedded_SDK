@@ -86,7 +86,7 @@ void ocm_initialize()
 	// servo
 	*servo_modePtr = 0;
 	Xil_DCacheFlushRange((u32) servo_modePtr, 1);
-	*servo_setPtr  = 0;
+	*servo_setPtr  = 122;
 	Xil_DCacheFlushRange((u32) servo_setPtr, 2);
 	*servo_curPtr  = 0;
 	Xil_DCacheFlushRange((u32) servo_curPtr, 2);
@@ -95,7 +95,7 @@ void ocm_initialize()
 	Xil_DCacheFlushRange((u32) mode0Ptr, 1);
 	*setDir0Ptr = 0;
 	Xil_DCacheFlushRange((u32) setDir0Ptr, 1);
-	*setPt0Ptr  = 180;
+	*setPt0Ptr  = 0;
 	Xil_DCacheFlushRange((u32) setPt0Ptr, 2);
 	*curPos0Ptr = 0;
 	Xil_DCacheFlushRange((u32) curPos0Ptr, 2);

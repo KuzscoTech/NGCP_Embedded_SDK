@@ -1,9 +1,7 @@
 %% Parameters
-port       = "COM6";
+port       = "COM1";
 baudrate   = 115200;
 runs       = 20000;
-
-startCondition = [13 13 10];
 
 
 %% Port Config
@@ -11,13 +9,6 @@ clear device;
 device = serialport(port, baudrate);
 configureTerminator(device, "CR");
 device.Timeout = 10000000000000;
-
-test = "COM6";
-if(test == port) 
-    disp("TRUE");
-else
-    disp("FALSE");
-end
 
 while true
     %% Initialize x and y axis data
@@ -27,11 +18,11 @@ while true
     i=1;
     data = readline(device);
     %disp("read a line");
-    %disp(data);
-    %disp(strlength(data));
+    disp(data);
+    disp(strlength(data));
     if(strlength(data) == 6)
         disp("Capturing");
-        while (strlength(data) ~= 4)
+        while (strlength(data) >= 9)
             data = readline(device);
             n = str2double(data);
             disp(data);

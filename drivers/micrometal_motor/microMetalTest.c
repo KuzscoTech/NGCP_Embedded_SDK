@@ -10,7 +10,6 @@
 #define DBG_CASCADE            0
 #define DBG_MANUAL             1
 #define DBG_MATLAB             0
-#define DBG_RUNTIME_MS         500 // runtime in ms
 #define DBG_VERBOSE_MM         0
 
 #define DBG_MANUAL_DUTY        255
@@ -34,15 +33,6 @@ int asciiToInt(char text) {
 	return text - '0';
 }
 
-// CUSTOM TYPES
-typedef struct {
-	float pos_Kp;
-	float pos_Ki;
-	float pos_Kd;
-	float spd_Kp;
-	float spd_Ki;
-	float spd_Kd;
-} SysParameters;
 
 
 //************************************************************************************/
@@ -109,12 +99,12 @@ int main()
     			switch(motorSelect)
     			{
     			case 0:
-    				printf("Direction 0 - raise the arm\r\n");
-    				printf("Direction 1 - lower the arm\r\n");
-    				break;
-    			case 1:
     				printf("Direction 0 - counterclockwise\r\n");
     				printf("Direction 1 - clockwise\r\n");
+    				break;
+    			case 1:
+    				printf("Direction 0 - raise the arm\r\n");
+    				printf("Direction 1 - lower the arm\r\n");
     				break;
     			case 2:
     				printf("Direction 0 - unknown\r\n");
@@ -157,6 +147,7 @@ int main()
 				case '1':
 					#if(DBG_MANUAL == 1)
 					printf("Enter direction:\r\n");
+					microMotorInst.setDir = (_Bool) getPidParam(userInput);
 					#else
 					printf("Enter Position PID Kp:\r\n");
 					#endif
@@ -164,17 +155,21 @@ int main()
 					validInput = 0;
 					break;
 
+				#if(DBG_MANUAL != 1)
 				case '2':
 					printf("Enter Position PID Ki:\r\n");
 					microMotorInst.pid->Ki = getPidParam(userInput);
 					validInput = 0;
 					break;
+				#endif
 
+				#if(DBG_MANUAL != 1)
 				case '3':
 					printf("Enter Position PID Kd:\r\n");
 					microMotorInst.pid->Kd = getPidParam(userInput);
 					validInput = 0;
 					break;
+				#endif
 
 				case '7':
 					printf("Enter runtime in ms:\r\n");
@@ -249,7 +244,7 @@ int main()
 			#if DBG_CASCADE == 1
     		microMetal_setCascadedPidOutput(&microMotorInst);
 			#elif DBG_MANUAL == 1
-    		microMetal_manualSetDutyDir(&microMotorInst, microMotorInst.setPos, (_Bool)microMotorInst.pid->Kp);
+    		microMetal_manualSetDutyDir(&microMotorInst, microMotorInst.setPos, microMotorInst.setDir);
 			#else
     		microMetal_setPidOutput(&microMotorInst);
 			#endif
@@ -288,7 +283,7 @@ void printMenu() {
 	printf("\r\nCurrent Parameters:\r\n");
 	printf("Runtime    : %d ms\r\n", runTime);
     #if DBG_MANUAL
-	printf("Direction  : %0.3f\r\n", microMotorInst.pid->Kp);
+	printf("Direction  : %d\r\n", microMotorInst.setDir);
     #else
     printf("Position Kp: %0.3f\r\n", microMotorInst.pid->Kp);
     printf("Position Ki: %0.3f\r\n", microMotorInst.pid->Ki);

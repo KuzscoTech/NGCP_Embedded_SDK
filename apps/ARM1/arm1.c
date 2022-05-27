@@ -144,6 +144,7 @@ int main()
 		}
 
 		// set drive motor 
+		/*
         if(driveMotorInst.uartManualMode) {
             if(driveMotorInst.uartSetPoint < 0) 
                 driveMotor_manualSetDutyDir(&driveMotorInst, -driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
@@ -153,7 +154,13 @@ int main()
         else {
             driveMotor_setPidOutput(&driveMotorInst, driveMotorInst.uartSetPoint);
         }
+        */
+		if(driveMotorInst.uartSetPoint < 0)
+		    driveMotor_manualSetDutyDir(&driveMotorInst, -driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
+		else
+		    driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_FORWARD);
 
+		/*
         // set servo motor
         if(servoMotorInst.uartManualMode) {
             servoMotor_setManualPos(&servoMotorInst, servoMotorInst.uartSetPoint);
@@ -161,11 +168,16 @@ int main()
         else {
             servoMotor_setPidOutput(&servoMotorInst, servoMotorInst.uartSetPoint);
         }
+        */
+        servoMotor_setManualPos(&servoMotorInst, servoMotorInst.uartSetPoint);
 
 		// set micrometal 0 motor
-        microMetal_setPidOutput     (&microMotor0Inst);
-        microMetal_setPidOutput     (&microMotor1Inst);
-        microMetal_setPidOutput     (&microMotor2Inst);
+        //microMetal_setPidOutput     (&microMotor0Inst);
+        //microMetal_setPidOutput     (&microMotor1Inst);
+        //microMetal_setPidOutput     (&microMotor2Inst);
+        microMetal_manualSetDutyDir (&microMotor0Inst, microMotor0Inst.setPos, microMotor0Inst.setDir);
+        microMetal_manualSetDutyDir (&microMotor1Inst, microMotor1Inst.setPos, microMotor1Inst.setDir);
+        microMetal_manualSetDutyDir (&microMotor2Inst, microMotor2Inst.setPos, microMotor2Inst.setDir);
         microMetal_manualSetDutyDir (&microMotor3Inst, microMotor3Inst.setPos, microMotor3Inst.setDir);
 
         XTime_GetTime(&stopTime);
