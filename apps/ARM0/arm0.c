@@ -8,7 +8,7 @@ Receive commands via UART
 #include "xil_io.h"
 #include "xil_mmu.h"
 
-#define DBG_VERBOSE 0
+#define DBG_VERBOSE 1
 #define FSBL_BOOT   1
 
 /************************** GLOBAL VARIABLES ***********************/

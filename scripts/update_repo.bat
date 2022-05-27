@@ -34,7 +34,7 @@ xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\ser
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetal_utilities.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetal_utilities.h C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetalTest.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
-xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\microMetalSysId.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
+xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\microMetalTest\src\microMetalSysId.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\micrometal_motor /Y
 
 :: move pid stuff
 xcopy /s C:\Users\george\Documents\local_projects\dryrun\dryrun.sdk\arm1\src\pid.c C:\Users\george\Documents\NGCP_Embedded_SDK\drivers\pid /Y

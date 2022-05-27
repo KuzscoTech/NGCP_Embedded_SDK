@@ -10,15 +10,10 @@ device = serialport(port, baudrate);
 configureTerminator(device, "CR");
 device.Timeout = 10000000000000;
 
-test = "COM6";
-if(test == port) 
-    disp("TRUE");
-else
-    disp("FALSE");
-end
 
+%% Main Loop
 while true
-    %% Initialize x and y axis data
+    % Initialize x and y axis data
     xdata_rpm  = nan(runs, 1);
     ydata_rpm  = nan(runs, 1);
     xdata_duty = nan(runs, 1);
@@ -27,8 +22,9 @@ while true
     i=1;
 
     % look for start condition
+    disp("Waiting for start condition...");
     data = readline(device);
-    if(strlength(data) == 6)
+    if(strlength(data) == 5)
 
         disp("Capturing");
 
@@ -62,7 +58,8 @@ while true
     end
 end
 
-rpmData  = iddata(ydata_rpm,  xdata_rpm, 25, TimeUnit, milliseconds);
-dutyData = iddata(ydata_duty,xdata_duty, 25, TimeUnit, milliseconds);
+%% Generate id data
+rpmData  = iddata(ydata_rpm,  xdata_rpm,  25, TimeUnit, milliseconds);
+dutyData = iddata(ydata_duty, xdata_duty, 25, TimeUnit, milliseconds);
 
 clear device;

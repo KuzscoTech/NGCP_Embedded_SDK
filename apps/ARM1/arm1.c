@@ -4,6 +4,8 @@
 
 #define DBG_MSG_DELAY_MS       5000
 
+#define DBG_ENABLE             0
+
 // Drivemotor Debug Options
 #define DBG_VERBOSE_DRIVEMOTOR 1
 #define DBG_DUTY_DRIVEMOTOR    0
@@ -169,7 +171,7 @@ int main()
         XTime_GetTime(&stopTime);
         deltaTime = 1.0 * (stopTime - startTime) / (COUNTS_PER_SECOND/1000);
 
-        if(deltaTime >= DBG_MSG_DELAY_MS)
+        if(deltaTime >= DBG_MSG_DELAY_MS && DBG_ENABLE == 1)
         {
 
 			if(DBG_VERBOSE_DRIVEMOTOR) driveMotor_printStatus(&driveMotorInst);
