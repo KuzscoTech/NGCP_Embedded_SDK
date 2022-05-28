@@ -71,7 +71,7 @@ if DBG_POS_IDDATA
     posIdData  = iddata(posData(:,1), posData(:,2), 25, 'TimeUnit', 'milliseconds');
 end
 
-disp("Iddata generation complete you ungrateful bastard");
+disp("Iddata generation complete.");
 
 
 

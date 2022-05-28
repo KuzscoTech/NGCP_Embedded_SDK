@@ -6,7 +6,7 @@
 
 // UART BUFFER SIZE
 #define UART_BUFFER_SIZE      25
-#define UART0_RECEIVE_SIZE    24
+#define UART0_RECEIVE_SIZE    21
 
 /************************** INCLUDE FILES **************************/
 #include <stdio.h>
@@ -32,9 +32,9 @@ typedef struct{
 	u16       tx_servo_pos;
 
     // MICROMETAL
-	u8        rx_microMetal_mode     [4];
-    u16       rx_microMetal_setpoint [4];
-    u8        rx_microMetal_dir      [4];
+	u8        rx_microMetal_enable   [4]; // timer enables
+    u8        rx_microMetal_time     [4]; // timer values
+    u8        rx_microMetal_dir      [4]; // same as before
     u16       tx_microMetal_pos      [4];
 } uart0Data;
 
@@ -96,7 +96,7 @@ int uart_parseRequest(unsigned char RecvBuffer [UART_BUFFER_SIZE]);
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
+int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr, _Bool write);
 
 /**
  * @brief Function to parse a UART receive buffer for servo motor setpoint data
@@ -115,7 +115,7 @@ int uart_parseDriveMotor(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr);
+int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr, _Bool write);
 
 /**
  * @brief Function to parse UART0 data for micrometal setpoints.
@@ -124,7 +124,7 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return int XST_SUCCESS if successful, else XST_FAILURE.
  */
-int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr);
+int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr, _Bool write);
 
 /**
  * @brief Function to print the contents of a uart0Data instance.

@@ -11,8 +11,9 @@
 #include "motorEncoder.h"
 #include "motorPwm.h"
 #include "pid.h"
+#include "xtime_l.h"
 
-#ifdef OCM_DRIVEMOTOR_EN
+#ifdef OCM_DRIVEMOTOR_EN 1
 #include "ocm.h"
 #endif
 
@@ -102,9 +103,15 @@ typedef struct{
 	_Bool         currentDir;
 	int           currentRpm;
 	//
+	u8            manualDutyTrue;
+	u8            manualDutyFalse;
 	_Bool         manualMode;
 	_Bool         setDir;
-	int           setPos;
+	int           setDuration;
+	//
+	XTime         startTime;
+	_Bool         inProgress;
+	float         deltaT;
 	//
 	ugv_qei       *qei;
 	ugv_pwm       *pwm;
@@ -187,6 +194,8 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr);
  */
 int microMetal_setCascadedPidOutput(ugv_microMetalMotor *InstancePtr);
 
+
+
 /**
  * @brief Function to manually set the duty cycle and direction of a ugv_microMetalMotor
  *        instance. Also updates currentPos, currentRpm, and currentDir values.
@@ -197,6 +206,11 @@ int microMetal_setCascadedPidOutput(ugv_microMetalMotor *InstancePtr);
  */
 void microMetal_manualSetDutyDir(ugv_microMetalMotor *InstancePtr, u8 duty, _Bool dir);
 
+/**
+ * @brief Function to update the time elapsed of a ugv_microMetalMotor.
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor struct.
+ */
+void microMetal_updateRunDuration(ugv_microMetalMotor *InstancePtr);
 
 /************************** PRINT FUNCTIONS ******************************/
 /**

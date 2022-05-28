@@ -23,9 +23,9 @@ int microMetal_Initialize(ugv_microMetalMotor *InstancePtr, ugv_pwm *PwmInstance
 	Status = microMetal_pidInitialize(InstancePtr, PidInstancePtr, id);
 	if(Status != XST_SUCCESS) return XST_FAILURE;
 
-	InstancePtr->setDir     = FALSE;
-	InstancePtr->setPos     = 0;
-	InstancePtr->manualMode = TRUE;
+	InstancePtr->setDir      = FALSE;
+	InstancePtr->setDuration = 0;
+	InstancePtr->manualMode  = TRUE;
 
 	return XST_SUCCESS;
 }
@@ -221,7 +221,7 @@ int microMetal_setPidOutput(ugv_microMetalMotor *InstancePtr)
 
 	// update current stats
 	microMetal_updateStats(InstancePtr);
-	InstancePtr->pid->setPoint    = (float) InstancePtr->setPos + 360;
+	InstancePtr->pid->setPoint    = (float) InstancePtr->setDuration + 360;
 	InstancePtr->pid->measurement = (float) InstancePtr->currentPos;
 
 	calculatePid(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
@@ -258,7 +258,7 @@ int microMetal_setCascadedPidOutput(ugv_microMetalMotor *InstancePtr)
 	microMetal_updateStats(InstancePtr);
 
 	// update the positional PID
-	InstancePtr->pid->setPoint    = (float) InstancePtr->setPos + 360;
+	InstancePtr->pid->setPoint    = (float) InstancePtr->setDuration + 360;
 	InstancePtr->pid->measurement = (float) InstancePtr->currentPos;
 	calculatePid(InstancePtr->pid, InstancePtr->pid->setPoint, InstancePtr->pid->measurement);
 
@@ -301,6 +301,43 @@ void microMetal_manualSetDutyDir(ugv_microMetalMotor *InstancePtr, u8 duty, _Boo
 }
 
 /**
+ * @brief Function to update the time elapsed of a ugv_microMetalMotor.
+ * @param InstancePtr is a pointer to a ugv_microMetalMotor struct.
+ */
+void microMetal_updateRunDuration(ugv_microMetalMotor *InstancePtr)
+{
+	XTime tCurrent;
+
+	// get the initial time if a timer start is detected
+	// on timer start:
+	// -> set duty cycle
+	// -> set direction
+	if(InstancePtr->manualMode && !InstancePtr->inProgress) {
+		XTime_GetTime(&InstancePtr->startTime);
+		InstancePtr->inProgress = 1;
+		if(InstancePtr->setDir)
+			microMetal_manualSetDutyDir(InstancePtr, InstancePtr->manualDutyTrue, InstancePtr->setDir);
+		else
+			microMetal_manualSetDutyDir(InstancePtr, InstancePtr->manualDutyFalse, InstancePtr->setDir);
+		InstancePtr->manualMode = 0;
+	}
+
+	// get current time
+	XTime_GetTime(&tCurrent);
+	InstancePtr->deltaT = 1.0 * (tCurrent - InstancePtr->startTime) / (COUNTS_PER_SECOND/1000);
+
+	// if delta time > setDuration:
+	// -> reset inProgress
+	// -> reset duty cycle
+	if(InstancePtr->deltaT > (float)InstancePtr->setDuration) {
+		InstancePtr->inProgress = 0;
+		InstancePtr->manualMode = 0;
+		microMetal_manualSetDutyDir(InstancePtr, 0, InstancePtr->setDir);
+	}
+}
+
+
+/**
  * @brief Function to print mode and position of a ugv_microMetalMotor instance.
  * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
  */
@@ -319,7 +356,7 @@ void microMetal_printStatus(ugv_microMetalMotor *InstancePtr)
 		printf("Micrometal Set Dir         : REVERSE\r\n");
 
 	printf("Micrometal Current RPM     : %d\r\n", InstancePtr->currentRpm);
-	printf("Micrometal Setpoint        : %d\r\n", InstancePtr->setPos);
+	printf("Micrometal Setpoint        : %d\r\n", InstancePtr->setDuration);
 }
 
 /**
@@ -331,7 +368,7 @@ void microMetal_printStatus(ugv_microMetalMotor *InstancePtr)
 void microMetal_printDuty(ugv_microMetalMotor *InstancePtr)
 {
 	u32 cnt_actual;
-	xil_printf("UART speed sel : %d\r\n", InstancePtr->setPos);
+	xil_printf("UART Timer Duration : %d\r\n", InstancePtr->setDuration);
 	cnt_actual = MOTORPWM_mReadReg(InstancePtr->pwm->RegBaseAddress, 0);
 	cnt_actual = cnt_actual & 0xFF;
 	xil_printf("IP speed sel   : %d\r\n", cnt_actual);
@@ -356,92 +393,69 @@ void microMetal_printPid(ugv_microMetalMotor *InstancePtr)
 
 #ifdef OCM_DRIVEMOTOR_EN
 /**
- * @brief Function to load micrometal current RPM, dir, and pos to OCM. Also
- *        reads setpoint from OCM and sets it in the struct. Targets addresses
- *        specified in ocm.h
+ * @brief Function to get micrometal control values from OCM.
+ *
+ * 	      Four one-byte timer values.
+ * 				[mm0 time]
+ * 				[mm1 time]
+ * 				[mm2 time]
+ * 				[mm3 time]
+ *        One byte directional control:
+ *        		[4'b0] [mm0 dir] [mm1 dir] [mm2 dir] [mm3 dir]
+ *        One byte timer controls:
+ *        		- '1' indicates start the timer.
+ *        		- A timer cannot be restarted once it is in progress.
+ *        		[4'b0] [mm0 enable] [mm1 enable] [mm2 enable] [mm3 enable]
+ *
  * @param InstancePtr is a pointer to a ugv_microMetalMotor instance.
  */
 void ocm_updateMicroMetal(ugv_microMetalMotor *InstancePtr0, ugv_microMetalMotor *InstancePtr1,
 		                  ugv_microMetalMotor *InstancePtr2, ugv_microMetalMotor *InstancePtr3)
 {
-	_Bool tempMode;
-	u8    tempDir;
-	u16   tempSetPoint;
+	volatile u32 *mm0_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
+	volatile u32 *mm1_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
+	volatile u32 *mm2_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
+	volatile u32 *mm3_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
 
-	volatile u32   *mode0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
-	volatile u32  *setDir0Ptr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
-	volatile u32  *setPt0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
-	volatile u32 *curPos0Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM0_POS_OFFSET);
+	volatile u32 *mm0_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
+	volatile u32 *mm1_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
+	volatile u32 *mm2_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
+	volatile u32 *mm3_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
 
-	volatile u32   *mode1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
-	volatile u32  *setDir1Ptr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
-	volatile u32  *setPt1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
-	volatile u32 *curPos1Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM1_POS_OFFSET);
+	volatile u32 *mm0_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
+	volatile u32 *mm1_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
+	volatile u32 *mm2_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETDIR_OFFSET);
+	volatile u32 *mm3_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
 
-	volatile u32   *mode2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
-	volatile u32 *setDir2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETDIR_OFFSET);
-	volatile u32  *setPt2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
-	volatile u32 *curPos2Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM2_POS_OFFSET);
+	// get the time for each micrometal
+	Xil_DCacheInvalidateRange((u32) mm0_timePtr, 1);
+	InstancePtr0->setDuration = *mm0_timePtr;
+	Xil_DCacheInvalidateRange((u32) mm1_timePtr, 1);
+	InstancePtr1->setDuration = *mm1_timePtr;
+	Xil_DCacheInvalidateRange((u32) mm2_timePtr, 1);
+	InstancePtr2->setDuration = *mm2_timePtr;
+	Xil_DCacheInvalidateRange((u32) mm3_timePtr, 1);
+	InstancePtr3->setDuration = *mm3_timePtr;
 
-	volatile u32   *mode3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
-	volatile u32 *setDir3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETDIR_OFFSET);
-	volatile u32  *setPt3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
-	volatile u32 *curPos3Ptr  = (u32 *) (SM_MM_BASEADDR + SM_MM3_POS_OFFSET);
+	// get the enables for each micrometal
+	Xil_DCacheInvalidateRange((u32) mm0_enablePtr, 1);
+	InstancePtr0->manualMode = *mm0_enablePtr;
+	Xil_DCacheInvalidateRange((u32) mm1_enablePtr, 1);
+	InstancePtr1->manualMode = *mm1_enablePtr;
+	Xil_DCacheInvalidateRange((u32) mm2_enablePtr, 1);
+	InstancePtr2->manualMode = *mm2_enablePtr;
+	Xil_DCacheInvalidateRange((u32) mm3_enablePtr, 1);
+	InstancePtr3->manualMode = *mm3_enablePtr;
 
-// mm0
-	// get setpoint
-	Xil_DCacheInvalidateRange((u32) setPt0Ptr, 2);
-	InstancePtr0->setPos = (u16) *setPt0Ptr;
-
-	// load current pos
-	*curPos0Ptr = InstancePtr0->currentPos;
-	Xil_DCacheFlushRange((u32) curPos0Ptr, 2); // 2 bytes
-
-// mm1
-	// get setpoint
-	Xil_DCacheInvalidateRange((u32) setPt1Ptr, 2);
-	tempSetPoint = (u16) *setPt1Ptr;
-	InstancePtr1->setPos = *setPt1Ptr;
-
-	// load current pos
-	*curPos1Ptr = InstancePtr1->currentPos;
-	Xil_DCacheFlushRange((u32) curPos1Ptr, 2); // 2 bytes
-
-// mm2
-	// get mode
-	Xil_DCacheInvalidateRange((u32) mode2Ptr, 1);
-	InstancePtr2->manualMode = (_Bool) *mode2Ptr;
-
-	// get direction
-	Xil_DCacheInvalidateRange((u32) setDir2Ptr, 1);
-	InstancePtr2->setDir = (_Bool) *setDir2Ptr;
-
-	// get setpoint
-	Xil_DCacheInvalidateRange((u32) setPt2Ptr, 2);
-	tempSetPoint = (u16) *setPt2Ptr;
-	InstancePtr2->setPos = *setPt2Ptr;
-
-	// load current pos
-	*curPos2Ptr = InstancePtr2->currentPos;
-	Xil_DCacheFlushRange((u32) curPos2Ptr, 2); // 2 bytes
-
-// mm3
-	// get mode
-	Xil_DCacheInvalidateRange((u32) mode3Ptr, 1);
-	InstancePtr3->manualMode = (_Bool) *mode3Ptr;
-
-	// get direction
-	Xil_DCacheInvalidateRange((u32) setDir3Ptr, 1);
-	InstancePtr3->setDir = (_Bool) *setDir3Ptr;
-
-	// get setpoint
-	Xil_DCacheInvalidateRange((u32) setPt3Ptr, 2);
-	tempSetPoint = (u16) *setPt3Ptr;
-	InstancePtr3->setPos = *setPt3Ptr;
-
-	// load current pos
-	*curPos1Ptr = InstancePtr3->currentPos;
-	Xil_DCacheFlushRange((u32) curPos3Ptr, 2); // 2 bytes
+	// set the directions for each micrometal
+	Xil_DCacheInvalidateRange((u32) mm0_setDirPtr, 1);
+	InstancePtr0->setDir = *mm0_setDirPtr;
+	Xil_DCacheInvalidateRange((u32) mm1_setDirPtr, 1);
+	InstancePtr1->setDir = *mm1_setDirPtr;
+	Xil_DCacheInvalidateRange((u32) mm2_setDirPtr, 1);
+	InstancePtr2->setDir = *mm2_setDirPtr;
+	Xil_DCacheInvalidateRange((u32) mm3_setDirPtr, 1);
+	InstancePtr3->setDir = *mm3_setDirPtr;
 }
 #endif
 

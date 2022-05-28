@@ -4,12 +4,9 @@ Receive commands via UART
 
 #include "arm0.h"
 #include "xtime_l.h"
-#include "xil_cache.h"
-#include "xil_io.h"
-#include "xil_mmu.h"
 
 #define DBG_VERBOSE 1
-#define FSBL_BOOT   1
+#define TIMEOUT_MS  500.0
 
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
@@ -33,14 +30,6 @@ int UART0_STATE;
 
 int main()
 {
-
-	static const uintptr_t CPU1_START_ADDR = 0xFFFFFFF0;
-	static const uint32_t  CPU1_BASE_ADDR  = 0x2000000;
-	Xil_Out32(CPU1_START_ADDR, CPU1_BASE_ADDR);
-	dmb();
-	__asm__("sev");
-
-
 	printf("\r\n\nARM0 Initialized!\r\n\n");
 	//
     int            Status;
@@ -49,6 +38,7 @@ int main()
     XTime          uart0CurrentTime;
     float          delta;
     _Bool          uart0RecvDone;
+    _Bool          frameValid = 0;
 
     uart0Data      uart0DataInst;
 
@@ -102,11 +92,12 @@ int main()
     {
     	// Start UART0 Receive sequence
     	TotalRecvCount[0] = 0;
+    	for(int i=0; i<UART_BUFFER_SIZE; i++) {
+    		RecvBuffer[0][i] = 0;
+    	}
+
     	if(!uart0RecvDone)
     	{
-    		for(int i=0; i<UART_BUFFER_SIZE; i++) {
-    			RecvBuffer[0][i] = 0;
-    		}
     		XUartLite_Recv(&UartLiteInst0, RecvBuffer[0], UART0_RECEIVE_SIZE);
             uart0RecvDone = TRUE;
 
@@ -116,13 +107,14 @@ int main()
     		while(TotalRecvCount[0] != UART0_RECEIVE_SIZE) {
     			XTime_GetTime(&uart0CurrentTime);
     			delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
-    			if(delta > 200.0) {
+    			if(delta > TIMEOUT_MS) {
     				if(DBG_VERBOSE) printf("Timeout...\r\n\n");
     				uart0RecvDone = FALSE;
     				break;
     			}
     		}
     	}
+    	frameValid = 1;
 
         // Parse UART0 data
     	if(uart0RecvDone) {
@@ -132,21 +124,28 @@ int main()
     			uart_printData0(&uart0DataInst);
     		}
     		uart0RecvDone = FALSE;
-
-    		// check for a data request command
-    		Status = uart_parseRequest(RecvBuffer[0]);
-
-    		// if the command is not a data request, parse for motor stuff and update OCM
+    		Status = uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst, 0);
     		if(Status != XST_SUCCESS) {
-    			uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst);
-    			uart_parseServoMotor(RecvBuffer[0], &uart0DataInst);
-    			uart_parseMicroMetal(RecvBuffer[0], &uart0DataInst);
-    			if(SM_Status == 0) {
-    				uart_data0ToOcm(&uart0DataInst);
-    			}
+    			frameValid = 0;
     		}
-    	}
+            Status = uart_parseServoMotor(RecvBuffer[0], &uart0DataInst, 0);
+            if(Status != XST_SUCCESS) {
+                frameValid = 0;
+            }
+            Status = uart_parseMicroMetal(RecvBuffer[0], &uart0DataInst, 0);
+            if(Status != XST_SUCCESS) {
+                frameValid = 0;
+            }
+            if(frameValid) {
+            	uart_parseDriveMotor(RecvBuffer[0], &uart0DataInst, 1);
+            	uart_parseServoMotor(RecvBuffer[0], &uart0DataInst, 1);
+            	uart_parseMicroMetal(RecvBuffer[0], &uart0DataInst, 1);
+            	if(SM_Status == 0) {
+            		uart_data0ToOcm(&uart0DataInst);
+            	}
+            }
 
+    	}
     	// Update UART0 send buffer if CPU0 has access to OCM
     	SM_Status = ocm_getMemFlag();
     	if(SM_Status == 0) {
@@ -216,5 +215,3 @@ void UartLiteSendHandler1(void *CallBackRef, unsigned int EventData) {
 void UartLiteRecvHandler1(void *CallBackRef, unsigned int EventData) {
 	TotalRecvCount[1] = EventData;
 }
-
-

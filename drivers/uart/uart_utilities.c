@@ -102,7 +102,7 @@ int uart_parseRequest(unsigned char RecvBuffer [UART_BUFFER_SIZE])
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr)
+int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr, _Bool write)
 {
     int   manualModeIndex;
 	int   dmDirIndex;
@@ -174,9 +174,10 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 		return XST_SUCCESS;
 	}
 	else {
-		printf("Drive motor parse failed\r\n");
+		if(!dmValid) printf("Drive motor parse failed\r\n");
 		return XST_FAILURE;
 	}
+	return XST_SUCCESS;
 }
 
 
@@ -193,7 +194,7 @@ int uart_parseDriveMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return XST_SUCCESS if successful, else XST_FAILURE.
  */
-int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr)
+int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data *dataPtr, _Bool write)
 {
 	int   servoIndex;
 	_Bool servoValid = FALSE;
@@ -212,20 +213,24 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
 		printf("S not found\r\n\n");
 		return XST_FAILURE;
 	}
+	if(RecvBuffer[servoIndex+1] != 0x4D || RecvBuffer[servoIndex+1] != 0x4D)
+	{
+		return XST_FAILURE;
+	}
+
 
     // Check if command is set setpoint
-    if(RecvBuffer[servoIndex+1] == 0x4D) { // "M"
-        dataPtr->rx_servo_manualMode = 1;
-    }
-    else if(RecvBuffer[servoIndex+1] == 0x4D) { // "P"
-    	dataPtr->rx_servo_manualMode = 0;
-    }
-    else {
-    	return XST_FAILURE;
-    }
+	if(RecvBuffer[servoIndex+1] == 0x4D) { // "M"
+		dataPtr->rx_servo_manualMode = 1;
+	}
+	else if(RecvBuffer[servoIndex+1] == 0x4D) { // "P"
+		dataPtr->rx_servo_manualMode = 0;
+	}
+	else {
+		return XST_FAILURE;
+	}
+	dataPtr->rx_servo_setpoint = RecvBuffer[servoIndex+2];
 
-    // setpoint
-    dataPtr->rx_servo_setpoint = RecvBuffer[servoIndex+2];
     return XST_SUCCESS;
 }
 
@@ -236,21 +241,30 @@ int uart_parseServoMotor(unsigned char RecvBuffer [UART_BUFFER_SIZE], uart0Data 
  * @param dataPtr is a pointer to a uart0Data instance.
  * @return int XST_SUCCESS if successful, else XST_FAILURE.
  *
- *  MG[mm0_low][mm0_high][mm1_low][mm1_high][mm2_low][mm2_high][mgm3_low][mgm3_high][mm3_dir]
+ *  MG[time0][time1][time2][time3][direction][enables][dummy][dummy][dummy]
  */
-int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr)
+int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *dataPtr, _Bool write)
 {
     _Bool dataValid = FALSE;
-    int mm0Index, mm1Index, mm2Index, mm3Index;
+    int mmIndex [4];
+    int dirIndex, enableIndex;
+
+    u8 mgmMasks [4];
+	mgmMasks[0] = 0x1;
+	mgmMasks[1] = 0x2;
+	mgmMasks[2] = 0x4;
+	mgmMasks[3] = 0x8;
 
     // Look for "MG"
     for(int i=0; i<UART0_RECEIVE_SIZE; i++) {
         if((RecvBuffer[i] == 0x4D) & (RecvBuffer[i+1] == 0x47)) { //"MG"
             dataValid = TRUE;
-            mm0Index = i+2;
-            mm1Index = i+4;
-            mm2Index = i+6;
-            mm3Index = i+8;
+            mmIndex[0]  = i+2;
+            mmIndex[1]  = i+3;
+            mmIndex[2]  = i+4;
+            mmIndex[3]  = i+5;
+            dirIndex    = i+6;
+            enableIndex = i+7;
             break;
         }
     }
@@ -258,11 +272,12 @@ int uart_parseMicroMetal(unsigned char RecvBuffer[UART_BUFFER_SIZE], uart0Data *
         return XST_FAILURE;
     }
 
-    dataPtr->rx_microMetal_setpoint[0] = (u16) (RecvBuffer[mm0Index] + (RecvBuffer[mm0Index+1]<<8));
-    dataPtr->rx_microMetal_setpoint[1] = (u16) (RecvBuffer[mm1Index] + (RecvBuffer[mm1Index+1]<<8));
-    dataPtr->rx_microMetal_setpoint[2] = (u16) (RecvBuffer[mm2Index] + (RecvBuffer[mm2Index+1]<<8));
-    dataPtr->rx_microMetal_setpoint[3] = (u16) (RecvBuffer[mm3Index] + (RecvBuffer[mm3Index+1]<<8));
-    dataPtr->rx_microMetal_dir[3]      = (u8) RecvBuffer[mm3Index+2];
+    // get times
+    for(int i=0; i<4; i++) {
+    	dataPtr->rx_microMetal_time  [i] = RecvBuffer[mmIndex[i]];
+    	dataPtr->rx_microMetal_dir   [i] = (RecvBuffer[dirIndex]    & mgmMasks[i]) >> i;
+    	dataPtr->rx_microMetal_enable[i] = (RecvBuffer[enableIndex] & mgmMasks[i]) >> i;
+    }
 
     return XST_SUCCESS;
 }
@@ -285,16 +300,20 @@ void uart_printData0(uart0Data *dataPtr)
 	printf("received servo setpoint : %d\r\n",   dataPtr->rx_servo_setpoint);
 	printf("tx servo position       : %d\r\n\n", dataPtr->tx_servo_pos);
 
-    printf("received mgm0 setpoint  : %d\r\n",   dataPtr->rx_microMetal_setpoint[0]);
+    printf("received mgm0 setpoint  : %d\r\n",   dataPtr->rx_microMetal_time[0]);
+    printf("received mgm0 enable    : %d\r\n",   dataPtr->rx_microMetal_enable[0]);
     printf("tx mgm0 position        : %d\r\n\n", dataPtr->tx_microMetal_pos[0]);
 
-    printf("received mgm1 setpoint  : %d\r\n",   dataPtr->rx_microMetal_setpoint[1]);
+    printf("received mgm1 setpoint  : %d\r\n",   dataPtr->rx_microMetal_time[1]);
+    printf("received mgm1 enable    : %d\r\n",   dataPtr->rx_microMetal_enable[1]);
     printf("tx mgm1 position        : %d\r\n\n", dataPtr->tx_microMetal_pos[1]);
 
-    printf("received mgm2 setpoint  : %d\r\n",   dataPtr->rx_microMetal_setpoint[2]);
+    printf("received mgm2 setpoint  : %d\r\n",   dataPtr->rx_microMetal_time[2]);
+    printf("received mgm2 enable    : %d\r\n",   dataPtr->rx_microMetal_enable[2]);
     printf("tx mgm2 position        : %d\r\n\n", dataPtr->tx_microMetal_pos[2]);
 
-    printf("received mgm3 setpoint  : %d\r\n",   dataPtr->rx_microMetal_setpoint[3]);
+    printf("received mgm3 setpoint  : %d\r\n",   dataPtr->rx_microMetal_time[3]);
+    printf("received mgm3 enable    : %d\r\n",   dataPtr->rx_microMetal_enable[3]);
     printf("tx mgm3 position        : %d\r\n\n", dataPtr->tx_microMetal_pos[3]);
 }
 
@@ -312,15 +331,15 @@ void uart_data0ToOcm(uart0Data *dataPtr)
     volatile u32 *servo_modePtr = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETMANUAL_OFFSET);
 	volatile u32 *servo_setPtr  = (u32 *) (SM_SERVO_BASEADDR + SM_SERVO_SETPOINT_OFFSET);
 
-	volatile u32 *mm0_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
-	volatile u32 *mm1_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
-	volatile u32 *mm2_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
-	volatile u32 *mm3_modePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
+	volatile u32 *mm0_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
+	volatile u32 *mm1_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
+	volatile u32 *mm2_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
+	volatile u32 *mm3_timePtr   = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
 
-    volatile u32 *mm0_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETPOINT_OFFSET);
-    volatile u32 *mm1_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETPOINT_OFFSET);
-    volatile u32 *mm2_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETPOINT_OFFSET);
-    volatile u32 *mm3_setPtr    = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETPOINT_OFFSET);
+    volatile u32 *mm0_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETMANUAL_OFFSET);
+    volatile u32 *mm1_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETMANUAL_OFFSET);
+    volatile u32 *mm2_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM2_SETMANUAL_OFFSET);
+    volatile u32 *mm3_enablePtr = (u32 *) (SM_MM_BASEADDR + SM_MM3_SETMANUAL_OFFSET);
 
     volatile u32 *mm0_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM0_SETDIR_OFFSET);
     volatile u32 *mm1_setDirPtr = (u32 *) (SM_MM_BASEADDR + SM_MM1_SETDIR_OFFSET);
@@ -347,26 +366,6 @@ void uart_data0ToOcm(uart0Data *dataPtr)
 	*servo_setPtr = (u16) dataPtr->rx_servo_setpoint;
 	Xil_DCacheFlushRange((u32)servo_setPtr, 1);
 
-	// write micrometal modes
-	*mm0_modePtr = (u8) dataPtr->rx_microMetal_mode[0];
-	Xil_DCacheFlushRange((u32)mm0_modePtr, 1);
-	*mm1_modePtr = (u8) dataPtr->rx_microMetal_mode[1];
-	Xil_DCacheFlushRange((u32)mm1_modePtr, 1);
-	*mm2_modePtr = (u8) dataPtr->rx_microMetal_mode[2];
-	Xil_DCacheFlushRange((u32)mm2_modePtr, 1);
-	*mm3_modePtr = (u8) dataPtr->rx_microMetal_mode[3];
-	Xil_DCacheFlushRange((u32)mm3_modePtr, 1);
-
-    // write micrometal setpoints
-    *mm0_setPtr = (u16) dataPtr->rx_microMetal_setpoint[0];
-    Xil_DCacheFlushRange((u32)mm0_setPtr, 2);
-    *mm1_setPtr = (u16) dataPtr->rx_microMetal_setpoint[1];
-    Xil_DCacheFlushRange((u32)mm1_setPtr, 2);
-    *mm2_setPtr = (u16) dataPtr->rx_microMetal_setpoint[2];
-    Xil_DCacheFlushRange((u32)mm2_setPtr, 2);
-    *mm3_setPtr = (u16) dataPtr->rx_microMetal_setpoint[3];
-    Xil_DCacheFlushRange((u32)mm3_setPtr, 2);
-
     // write micrometal setdir
     *mm0_setDirPtr = (u8) dataPtr->rx_microMetal_dir[0];
     Xil_DCacheFlushRange((u32)mm0_setDirPtr, 1);
@@ -376,6 +375,27 @@ void uart_data0ToOcm(uart0Data *dataPtr)
     Xil_DCacheFlushRange((u32)mm2_setDirPtr, 1);
     *mm3_setDirPtr = (u8) dataPtr->rx_microMetal_dir[3];
     Xil_DCacheFlushRange((u32)mm3_setDirPtr, 1);
+
+    // write micrometal setpoints (timer values)
+    *mm0_timePtr = (u8) dataPtr->rx_microMetal_time[0];
+    Xil_DCacheFlushRange((u32)mm0_timePtr, 1);
+    *mm1_timePtr = (u8) dataPtr->rx_microMetal_time[1];
+    Xil_DCacheFlushRange((u32)mm1_timePtr, 1);
+    *mm2_timePtr = (u8) dataPtr->rx_microMetal_time[2];
+    Xil_DCacheFlushRange((u32)mm2_timePtr, 1);
+    *mm3_timePtr = (u8) dataPtr->rx_microMetal_time[3];
+    Xil_DCacheFlushRange((u32)mm3_timePtr, 1);
+
+    // write micrometal timer enables (manual mode)
+    *mm0_enablePtr = (u8) dataPtr->rx_microMetal_enable[0];
+    Xil_DCacheFlushRange((u32)mm0_enablePtr, 1);
+    *mm1_enablePtr = (u8) dataPtr->rx_microMetal_enable[1];
+    Xil_DCacheFlushRange((u32)mm1_enablePtr, 1);
+    *mm2_enablePtr = (u8) dataPtr->rx_microMetal_enable[2];
+    Xil_DCacheFlushRange((u32)mm2_enablePtr, 1);
+    *mm3_enablePtr = (u8) dataPtr->rx_microMetal_enable[3];
+    Xil_DCacheFlushRange((u32)mm3_enablePtr, 1);
+
 }
 
 

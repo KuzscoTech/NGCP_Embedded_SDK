@@ -99,12 +99,12 @@ int main()
     			switch(motorSelect)
     			{
     			case 0:
-    				printf("Direction 0 - counterclockwise\r\n");
-    				printf("Direction 1 - clockwise\r\n");
-    				break;
-    			case 1:
     				printf("Direction 0 - raise the arm\r\n");
     				printf("Direction 1 - lower the arm\r\n");
+    				break;
+    			case 1:
+    				printf("Direction 0 - counterclockwise\r\n");
+    				printf("Direction 1 - clockwise\r\n");
     				break;
     			case 2:
     				printf("Direction 0 - unknown\r\n");

@@ -2,16 +2,15 @@
 #include "string.h"
 #include "xtime_l.h"
 
-#define DBG_MSG_DELAY_MS       5000
-
+#define DBG_MSG_DELAY_MS       0
 #define DBG_ENABLE             0
 
 // Drivemotor Debug Options
-#define DBG_VERBOSE_DRIVEMOTOR 1
+#define DBG_VERBOSE_DRIVEMOTOR 0
 #define DBG_DUTY_DRIVEMOTOR    0
 
 // Servo Debug Options
-#define DBG_VERBOSE_SERVOMOTOR 1
+#define DBG_VERBOSE_SERVOMOTOR 0
 
 // Micrometal 0 Debug Options
 #define DBG_VERBOSE_MM0        1
@@ -101,6 +100,7 @@ int main()
 		return XST_FAILURE;
 	}
 
+
     // Initialize micrometal 1 motor
     printf("Initializing micro metal 1 driver...\r\n");
 	Status = microMetal_Initialize(&microMotor1Inst, &microMotor1PwmInst, &microMotor1QeiInst, &microMotor1PidInst, 1);
@@ -125,6 +125,16 @@ int main()
     	return XST_FAILURE;
     }
 
+    microMotor0Inst.manualDutyTrue  = 245;
+    microMotor1Inst.manualDutyTrue  = 255;
+    microMotor2Inst.manualDutyTrue  = 255;
+    microMotor3Inst.manualDutyTrue  = 255;
+    //
+    microMotor0Inst.manualDutyFalse = 115;
+    microMotor1Inst.manualDutyFalse = 255;
+    microMotor2Inst.manualDutyFalse = 255;
+    microMotor3Inst.manualDutyFalse = 255;
+
 	printf("ARM1 all motors initialized!\r\n\n");
 
 	XTime_GetTime(&startTime);
@@ -144,48 +154,27 @@ int main()
 		}
 
 		// set drive motor 
-		/*
-        if(driveMotorInst.uartManualMode) {
-            if(driveMotorInst.uartSetPoint < 0) 
-                driveMotor_manualSetDutyDir(&driveMotorInst, -driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
-            else
-                driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_FORWARD);
-        }
-        else {
-            driveMotor_setPidOutput(&driveMotorInst, driveMotorInst.uartSetPoint);
-        }
-        */
 		if(driveMotorInst.uartSetPoint < 0)
 		    driveMotor_manualSetDutyDir(&driveMotorInst, -driveMotorInst.uartSetPoint, DRIVEMOTOR_REVERSE);
 		else
 		    driveMotor_manualSetDutyDir(&driveMotorInst, driveMotorInst.uartSetPoint, DRIVEMOTOR_FORWARD);
 
-		/*
-        // set servo motor
-        if(servoMotorInst.uartManualMode) {
-            servoMotor_setManualPos(&servoMotorInst, servoMotorInst.uartSetPoint);
-        }
-        else {
-            servoMotor_setPidOutput(&servoMotorInst, servoMotorInst.uartSetPoint);
-        }
-        */
+		// set servo
         servoMotor_setManualPos(&servoMotorInst, servoMotorInst.uartSetPoint);
 
-		// set micrometal 0 motor
-        //microMetal_setPidOutput     (&microMotor0Inst);
-        //microMetal_setPidOutput     (&microMotor1Inst);
-        //microMetal_setPidOutput     (&microMotor2Inst);
-        microMetal_manualSetDutyDir (&microMotor0Inst, microMotor0Inst.setPos, microMotor0Inst.setDir);
-        microMetal_manualSetDutyDir (&microMotor1Inst, microMotor1Inst.setPos, microMotor1Inst.setDir);
-        microMetal_manualSetDutyDir (&microMotor2Inst, microMotor2Inst.setPos, microMotor2Inst.setDir);
-        microMetal_manualSetDutyDir (&microMotor3Inst, microMotor3Inst.setPos, microMotor3Inst.setDir);
+        // mgm0
+        microMetal_updateRunDuration(&microMotor0Inst);
+        microMetal_updateRunDuration(&microMotor1Inst);
+        microMetal_updateRunDuration(&microMotor2Inst);
+        microMetal_updateRunDuration(&microMotor3Inst);
 
+
+        // print statuses if applicable
         XTime_GetTime(&stopTime);
         deltaTime = 1.0 * (stopTime - startTime) / (COUNTS_PER_SECOND/1000);
-
         if(deltaTime >= DBG_MSG_DELAY_MS && DBG_ENABLE == 1)
         {
-
+        	printf("\r\n---------------------------------------------------------\r\n");
 			if(DBG_VERBOSE_DRIVEMOTOR) driveMotor_printStatus(&driveMotorInst);
 			if(DBG_DUTY_DRIVEMOTOR) driveMotor_printDuty(&driveMotorInst);
 
