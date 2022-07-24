@@ -4,9 +4,14 @@ Receive commands via UART
 
 #include "arm0.h"
 #include "xtime_l.h"
+#include "xil_mmu.h"
 
 #define DBG_VERBOSE 1
 #define TIMEOUT_MS  500.0
+
+// FSBL Defines
+#define APP_CPU1_ADDR 0x2000000
+#define CPU1STARTADR  0xFFFFFFF0
 
 /************************** GLOBAL VARIABLES ***********************/
 static INTC IntcInstance;
@@ -25,11 +30,22 @@ int   ERRORS   [2];
 
 _Bool          uart0RecvDone;
 
-// UART0 STATE MACHINE
 int UART0_STATE;
+
+void prepare2core_run_2()
+{
+	xil_printf("Waking UP CPU1\n");
+	//Disable cache on OCM
+	Xil_SetTlbAttributes(0xFFFF0000,0x14de2);           // S=b1 TEX=b100 AP=b11, Domain=b1111, C=b0, B=b0
+	Xil_Out32(CPU1STARTADR,APP_CPU1_ADDR);
+	dmb();
+	__asm__("sev");
+}
 
 int main()
 {
+	//prepare2core_run_2();
+
 	printf("\r\n\nARM0 Initialized!\r\n\n");
 	//
     int            Status;
@@ -105,6 +121,7 @@ int main()
     		XTime_GetTime(&uart0RecvStartTime);
     		delta = 0;
     		while(TotalRecvCount[0] != UART0_RECEIVE_SIZE) {
+
     			XTime_GetTime(&uart0CurrentTime);
     			delta = 1.0 * (uart0CurrentTime - uart0RecvStartTime) / (COUNTS_PER_SECOND/1000);
     			if(delta > TIMEOUT_MS) {
@@ -112,6 +129,7 @@ int main()
     				uart0RecvDone = FALSE;
     				break;
     			}
+
     		}
     	}
     	frameValid = 1;

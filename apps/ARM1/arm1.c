@@ -99,6 +99,7 @@ int main()
 		printf("Micro Motor 0 setup failed!\r\n");
 		return XST_FAILURE;
 	}
+    microMotor0Inst.motorId = 0;
 
 
     // Initialize micrometal 1 motor
@@ -108,6 +109,7 @@ int main()
 		printf("Micro Motor 1 setup failed!\r\n");
 		return XST_FAILURE;
 	}
+    microMotor1Inst.motorId = 1;
 
     // Initialize micrometal 2 motor
     printf("Initializing micro metal 2 driver...\r\n");
@@ -116,6 +118,7 @@ int main()
     	printf("Micro Motor 2 setup failed!\r\n");
     	return XST_FAILURE;
     }
+    microMotor2Inst.motorId = 2;
 
     // Initialize micrometal 3 motor
     printf("Initializing micro metal 3 driver...\r\n");
@@ -124,6 +127,7 @@ int main()
     	printf("Micro Motor 3 setup failed!\r\n");
     	return XST_FAILURE;
     }
+    microMotor3Inst.motorId = 3;
 
     microMotor0Inst.manualDutyTrue  = 245;
     microMotor1Inst.manualDutyTrue  = 255;

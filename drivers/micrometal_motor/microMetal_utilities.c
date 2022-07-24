@@ -320,6 +320,12 @@ void microMetal_updateRunDuration(ugv_microMetalMotor *InstancePtr)
 		else
 			microMetal_manualSetDutyDir(InstancePtr, InstancePtr->manualDutyFalse, InstancePtr->setDir);
 		InstancePtr->manualMode = 0;
+		if(InstancePtr->motorId == 2) {
+			InstancePtr->setDuration = InstancePtr->setDuration*10;
+		}
+		if(InstancePtr->motorId == 0) {
+			InstancePtr->mgm0Counter = 0;
+		}
 	}
 
 	// get current time

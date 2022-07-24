@@ -99,6 +99,8 @@
 
 /*********************** MICROMETAL STRUCT ************************/
 typedef struct{
+	int           motorId;
+	//
 	int           currentPos;
 	_Bool         currentDir;
 	int           currentRpm;
@@ -108,6 +110,7 @@ typedef struct{
 	_Bool         manualMode;
 	_Bool         setDir;
 	int           setDuration;
+	int           mgm0Counter;
 	//
 	XTime         startTime;
 	_Bool         inProgress;

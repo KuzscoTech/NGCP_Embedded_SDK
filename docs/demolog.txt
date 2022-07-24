@@ -1,0 +1,6095 @@
+ÇkjkjkjkjKækjKæknkjknWjWnWæWæWæWæWæWæWæWæWæWæWæWæWFoRSRRSBCBëRkBoÒóÊcRsB÷ÊgRwBóÊcRsB÷ÊgRwBÇkjkjkjkjKækjKæknkjknWjWnWæWæWæWæWæWæWæWæWæWæWæWæWFoRSRRSBCBëRkBoÒóÊcRsB÷ÊgRwBóÊcRsB÷ÊgRwBÇkjkjkjkjKækjKæknkjknWjWnWæWæWæWæWæWæWæWæWæWæWæWæWFoRSRRSBCBëRkBoÒóÊcRsB÷ÊgRwBóÊcRsB÷ÊgRwBTimeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] =    |   0
+Buffer [13] =    |   0
+Buffer [14] =    |   0
+Buffer [15] =    |   0
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = (   |   28
+Buffer [13] = (   |   28
+Buffer [14] = (   |   28
+Buffer [15] = (   |   28
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 0
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 0
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 0
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 0
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = P   |   50
+Buffer [13] = P   |   50
+Buffer [14] = P   |   50
+Buffer [15] = P   |   50
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 40
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 40
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 40
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 40
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 80
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 80
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 80
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 80
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =   |   8
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 1
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =      |   9
+Buffer [17] =   |   8
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 1
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =   |   8
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 1
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =   |   8
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 1
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] = Ü   |   DC
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 220
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] = Ü   |   DC
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = À   |   C0
+Buffer [1] = À   |   C0
+Buffer [2] = ?   |   8E
+Buffer [3] = ?   |   8E
+Buffer [4] = À   |   C0
+Buffer [5] = ?   |   8E
+Buffer [6] = Î   |   CE
+Buffer [7] = Î   |   CE
+Buffer [8] = Î   |   CE
+Buffer [9] = ?   |   8E
+Buffer [10] = ?   |   8E
+Buffer [11] = À   |   C0
+Buffer [12] = ð   |   F0
+Buffer [13] = ð   |   F0
+Buffer [14] = ð   |   F0
+Buffer [15] = ð   |   F0
+Buffer [16] = ?   |   8E
+Buffer [17] = À   |   C0
+Buffer [18] = À   |   C0
+Buffer [19] = ?   |   8E
+Buffer [20] = ?   |   8E
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 220
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+DM not found
+
+S not found
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+received dm setpoint    : 0
+tx dm dir               : 1
+tx dm rpm               : 0
+
+received servo mode     : 1
+received servo setpoint : 122
+tx servo position       : 0
+
+received mgm0 setpoint  : 100
+received mgm0 enable    : 0
+tx mgm0 position        : 0
+
+received mgm1 setpoint  : 100
+received mgm1 enable    : 0
+tx mgm1 position        : 0
+
+received mgm2 setpoint  : 100
+received mgm2 enable    : 0
+tx mgm2 position        : 0
+
+received mgm3 setpoint  : 100
+received mgm3 enable    : 0
+tx mgm3 position        : 0
+
+Timeout...
+
+Received data!
+Buffer [0] = D   |   44
+Buffer [1] = M   |   4D
+Buffer [2] = M   |   4D
+Buffer [3] = D   |   44
+Buffer [4] =    |   1
+Buffer [5] = R   |   52
+Buffer [6] =    |   0
+Buffer [7] = S   |   53
+Buffer [8] = M   |   4D
+Buffer [9] = z   |   7A
+Buffer [10] = M   |   4D
+Buffer [11] = G   |   47
+Buffer [12] = d   |   64
+Buffer [13] = d   |   64
+Buffer [14] = d   |   64
+Buffer [15] = d   |   64
+Buffer [16] =    |   1
+Buffer [17] =    |   0
+Buffer [18] =    |   0
+Buffer [19] =    |   0
+Buffer [20] =    |   0
+Buffer [21] =    |   0
+Buffer [22] =    |   0
+Buffer [23] =    |   0
+Buffer [24] =    |   0
+
+
+received dm mode        : 1
+received dm dir         : 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
